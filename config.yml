@@ -12,13 +12,13 @@ enableEmoji: true
 params:
   author: Alen Abraham
   description: "Software Engineer passionate about Cloud, DevOps and Security."
-  keywords: "blog,developer,personal"
+  keywords: [Alen, Abraham, Blog, Portfolio, Resume]
   info:
     - Software Engineer
     - DevOps | Cloud
   avatarURL: images/avatar.png
   dateFormat: "January 2, 2006"
-  since: 2019
+  since: 2022
   commit: "https://github.com/luizdepra/hugo-coder/tree/"
   rtl: false
   colorScheme: auto
@@ -27,6 +27,22 @@ params:
   customCSS: []
   customSCSS: []
   customJS: []
+
+  mainSections: ["posts"]
+
+  ShowReadingTime: true
+  ShowLastMod: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
 
   csp:
     childsrc:
@@ -66,11 +82,11 @@ params:
       url: "https://github.com/abrahamalen/"
     - name: Twitter
       icon: fa fa-2x fa-twitter
-      weight: 3
+      weight: 2
       url: "https://twitter.com/op__trojan/"
     - name: LinkedIn
       icon: fa fa-2x fa-linkedin
-      weight: 4
+      weight: 3
       url: "https://www.linkedin.com/in/alenabraham/"
     - name: Medium
       icon: fa fa-2x fa-medium
