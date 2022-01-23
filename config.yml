@@ -11,7 +11,7 @@ enableEmoji: true
 
 params:
   author: Alen Abraham
-  description: Alen's personal website
+  description: "Software Engineer passionate about Cloud, DevOps and Security."
   keywords: "blog,developer,personal"
   info:
     - Software Engineer
