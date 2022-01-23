@@ -1,6 +1,6 @@
 baseURL = "https://abrahamalen.github.io/alen-abraham.github.io/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "My New Personal Website"
 theme = "hugo-coder"
 languagecode = "en"
 defaultcontentlanguage = "en"
