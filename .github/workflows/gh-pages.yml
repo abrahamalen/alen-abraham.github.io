@@ -1,0 +1,38 @@
+name: Build and Publish Website
+
+on:
+  push:
+    branches:
+      - hugo # Set a branch to deploy
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "24 3 * * *" # Run everyday at 8:54 PM IST (3:24 PM UTC)
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-20.04
+    name: Build and Publish Website
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.85.0"
+          # extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/hugo' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
