@@ -97,7 +97,7 @@ languages:
         - name: About
           weight: 1
           url: about/
-        - name: Blog
+        - name: Posts
           weight: 2
           url: posts/
         - name: Projects
