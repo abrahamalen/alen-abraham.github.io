@@ -1,4 +1,4 @@
-## Blog/Personal Website
+# Blog/Personal Website
 
 A static blog/portfolio website built using Hugo. [[See Live](https://abrahamalen.github.io/alen-abraham.github.io/)]
 
