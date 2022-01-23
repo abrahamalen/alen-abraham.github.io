@@ -1,0 +1,108 @@
+baseURL: "https://abrahamalen.github.io/alen-abraham.github.io/"
+title: Alen Abraham
+theme: hugo-coder
+languageCode: en
+defaultContentLanguage: en
+paginate: 20
+pygmentsStyle: bw
+pygmentsCodeFences: true
+pygmentsCodeFencesGuessSyntax: true
+enableEmoji: true
+
+params:
+  author: Alen Abraham
+  description: Alen's personal website
+  keywords: "blog,developer,personal"
+  info:
+    - Software Engineer
+    - DevOps | Cloud
+  avatarURL: images/avatar.png
+  dateFormat: "January 2, 2006"
+  since: 2019
+  commit: "https://github.com/luizdepra/hugo-coder/tree/"
+  rtl: false
+  colorScheme: auto
+  hideColorSchemeToggle: false
+  maxSeeAlsoItems: 5
+  customCSS: []
+  customSCSS: []
+  customJS: []
+
+  csp:
+    childsrc:
+      - "'self'"
+    fontsrc:
+      - "'self'"
+      - "https://fonts.gstatic.com"
+      - "https://cdn.jsdelivr.net/"
+    formaction:
+      - "'self'"
+    framesrc:
+      - "'self'"
+    imgsrc:
+      - "'self'"
+    objectsrc:
+      - "'none'"
+    stylesrc:
+      - "'self'"
+      - "'unsafe-inline'"
+      - "https://fonts.googleapis.com/"
+      - "https://cdn.jsdelivr.net/"
+    scriptsrc:
+      - "'self'"
+      - "'unsafe-inline'"
+      - "https://www.google-analytics.com"
+      - "https://cdn.jsdelivr.net/"
+    prefetchsrc:
+      - "'self'"
+    connectsrc:
+      - "'self'"
+      - "https://www.google-analytics.com"
+
+  social:
+    - name: Github
+      icon: fa fa-2x fa-github
+      weight: 1
+      url: "https://github.com/abrahamalen/"
+    - name: Twitter
+      icon: fa fa-2x fa-twitter
+      weight: 3
+      url: "https://twitter.com/op__trojan/"
+    - name: LinkedIn
+      icon: fa fa-2x fa-linkedin
+      weight: 4
+      url: "https://www.linkedin.com/in/alenabraham/"
+    - name: Medium
+      icon: fa fa-2x fa-medium
+      weight: 5
+      url: "https://medium.com/@alen-abraham"
+    - name: RSS
+      icon: fa fa-2x fa-rss
+      weight: 6
+      url: "https://myhugosite.com/index.xml"
+      rel: alternate
+      type: application/rss+xml
+
+taxonomies:
+  category: categories
+  series: series
+  tag: tags
+  author: authors
+
+languages:
+  en:
+    languageName: ":uk:"
+    menu:
+      main:
+        - name: About
+          weight: 1
+          url: about/
+        - name: Blog
+          weight: 2
+          url: posts/
+        - name: Projects
+          weight: 3
+          url: projects/
+        - name: Contact me
+          weight: 5
+          url: contact/
