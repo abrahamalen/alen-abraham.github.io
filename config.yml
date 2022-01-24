@@ -44,6 +44,13 @@ params:
   showtoc: false
   tocopen: false
 
+  images:
+    [
+      "images/preview.png",
+      "Alen Abraham",
+      "https://abrahamalen.github.io/alen-abraham.github.io/",
+    ]
+
   csp:
     childsrc:
       - "'self'"
