@@ -131,9 +131,12 @@ languages:
         - name: Posts
           weight: 2
           url: posts/
-        - name: Projects
-          weight: 3
-          url: projects/
+        # - name: Projects
+        #  weight: 3
+        # url: projects/
         - name: Contact me
-          weight: 5
+          weight: 3
           url: contact/
+        - name: Subscribe
+          weight: 4
+          url: subscribe/
