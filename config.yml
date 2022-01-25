@@ -95,10 +95,18 @@ params:
       icon: fa fa-2x fa-linkedin
       weight: 3
       url: "https://www.linkedin.com/in/alenabraham/"
+    - name: "Behance"
+      icon: "fa fa-behance fa-2x"
+      weight: 4
+      url: "https://www.behance.net/alenabraham"
     - name: Medium
       icon: fa fa-2x fa-medium
       weight: 5
       url: "https://medium.com/@alen-abraham"
+    - name: Buy me a coffee
+      icon: "fa fa-buymeacoffee fa-2x"
+      weight: 6
+      url: "https://www.buymeacoffee.com/alenabraham"
     - name: RSS
       icon: fa fa-2x fa-rss
       weight: 6
