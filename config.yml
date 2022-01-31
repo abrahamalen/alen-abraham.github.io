@@ -28,6 +28,10 @@ params:
   customSCSS: []
   customJS: []
 
+  minify:
+    disableXML: true
+    minifyOutput: true
+
   mainSections: ["posts"]
 
   ShowReadingTime: true
