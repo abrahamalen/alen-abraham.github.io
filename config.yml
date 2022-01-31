@@ -3,19 +3,22 @@ title: Alen Abraham
 theme: hugo-coder
 languageCode: en
 defaultContentLanguage: en
-paginate: 20
+paginate: 200000
 pygmentsStyle: bw
 pygmentsCodeFences: true
 pygmentsCodeFencesGuessSyntax: true
 enableEmoji: true
 
+disqusShortname: alen
+
 params:
-  author: Alen Abraham
+  title: "Alen Abraham"
   description: "Software Engineer passionate about Cloud, DevOps and Security."
   keywords: [Alen, Abraham, Blog, Portfolio, Resume]
   info:
     - Software Engineer
     - DevOps | Cloud
+ # author: "Alen Abraham"
   avatarURL: images/avatar.png
   dateFormat: "January 2, 2006"
   since: 2022
@@ -50,9 +53,7 @@ params:
 
   images:
     [
-      "images/preview.png",
-      "Alen Abraham",
-      "https://abrahamalen.github.io/alen-abraham.github.io/",
+      "images/preview.png", "Alen Abraham", "https://abrahamalen.github.io/alen-abraham.github.io/",
     ]
 
   csp:
@@ -138,9 +139,9 @@ languages:
         # - name: Projects
         #  weight: 3
         # url: projects/
-        - name: Contact me
-          weight: 3
-          url: contact/
+        #- name: Contact me
+        #  weight: 3
+        #  url: contact/
         - name: Subscribe
           weight: 4
           url: subscribe/
