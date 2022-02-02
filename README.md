@@ -8,6 +8,7 @@ See [luizdepra/hugo-coder/wiki](https://github.com/luizdepra/hugo-coder/wiki) to
 
 ## New Features
 
+- Enabled the about page content.  
 - Enabled post section.
 - Added License.
 - Added Behance and Buy me a Coffee social icons.
