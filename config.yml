@@ -56,6 +56,8 @@ params:
       "images/preview.png", "Alen Abraham", "https://abrahamalen.github.io/alen-abraham.github.io/",
     ]
 
+  subscribeInfo:
+    Text: If you liked this post, check out my other [Featured Posts](/categories/featured) or learn more [About Me](/about).
   csp:
     childsrc:
       - "'self'"
