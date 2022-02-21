@@ -8,4 +8,4 @@ summary: "Testing post...!!!."
 
 This is my Test Post...!!!  
 Hey everyone!  
-Welcome to my blogposts...!!!
+Welcome to my blogposts!!!
