@@ -48,8 +48,8 @@ params:
   comments: false
   hidemeta: false
   hideSummary: false
-  showtoc: false
-  tocopen: false
+  # showtoc: false
+  # tocopen: false
 
   images:
     [
@@ -132,18 +132,21 @@ languages:
     languageName: ":uk:"
     menu:
       main:
-        - name: About
+        - name: Archives
           weight: 1
+          url: archives/
+        - name: About
+          weight: 2
           url: about/
         - name: Posts
-          weight: 2
+          weight: 3
           url: posts/
-        # - name: Projects
-        #  weight: 3
-        # url: projects/
+        - name: Categories
+          weight: 4
+          url: categories/
         #- name: Contact me
         #  weight: 3
         #  url: contact/
         - name: Subscribe
-          weight: 4
+          weight: 5
           url: subscribe/
