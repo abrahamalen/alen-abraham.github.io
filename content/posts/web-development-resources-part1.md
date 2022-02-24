@@ -5,21 +5,16 @@ weight: 160
 draft: false
 summary: "A collection of resources by Alen to make your web development process easier."
 tags: ["resources", "web-development"]
-categories: ["resources"]
+categories: ["resources", "web-development"]
 aliases: [/web-development]
-ShowToc: true
-TocOpen: true
-cover:
-    image: "static/images/web-development-resources-part1/cover-image.jpg"
-    alt: "Two computers with some random code."
-    relative: false
+featuredImage: "images/web-development-resources-part1/cover-image.jpg"
 ---
 
 ## Introduction
 
-#### Hello👋 to all Developers and Designers around the world..!  🌈
+#### Hello👋 all fellow Developers and Designers around the world..!  🌈
 
-*I am **Alen** and this is my debut in the blogging world, hope it comes helpful to you all.*
+*I am **Alen Abraham** and this is my debut in the blogging world, hope it comes helpful to you all.*
 
 I have curated a list of super cool resources, which will save valuable time and make life better for web developers and designers. The list will be published in different parts as you all know the dev and design resources are never-ending.
 
