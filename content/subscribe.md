@@ -9,4 +9,4 @@ When you subscribe to my blog, you will receive weekly newsletters and my latest
 
 _You will also have access to exclusive, "subscriber only" content._
 
-You can learn more [About Me](/about/) before you subscribe.
+You can learn more [About Me](/alen-abraham.github.io/about/) before you subscribe.
