@@ -53,7 +53,7 @@ params:
 
   images:
     [
-      "images/preview.png", "Alen Abraham", "https://abrahamalen.github.io/alen-abraham.github.io/",
+      "/alen-abraham.github.io/images/preview.png", "Alen Abraham", "https://abrahamalen.github.io/alen-abraham.github.io/",
     ]
 
   subscribeInfo:
