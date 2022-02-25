@@ -8,8 +8,8 @@ See [luizdepra/hugo-coder/wiki](https://github.com/luizdepra/hugo-coder/wiki) to
 
 ## New Features
 
+- Blogpost on UI/UX Design published.
 - Published second blogpost.
 - Published first blogpost.
 - Enabled the about page content.  
 - Enabled post section.
-- Added License.
