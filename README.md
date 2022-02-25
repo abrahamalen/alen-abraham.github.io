@@ -8,6 +8,7 @@ See [luizdepra/hugo-coder/wiki](https://github.com/luizdepra/hugo-coder/wiki) to
 
 ## New Features
 
+- Post on Linkedin published.
 - Blogpost on UI/UX Design published.
 - Published second blogpost.
 - Published first blogpost.
