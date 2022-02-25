@@ -5,4 +5,6 @@ layout: "About"
 description: "About"
 ---  
 
-I'm **Alen Abraham** (he/him), an aspiring Software Engineer from India 🇮🇳, with a strong interest in Open-Source. Currenttly exploring the tech-industry, learning, and experimenting new technologies. Looking forward to learn more around **DevOps**, **Cloud** and **Cloud-native** concepts. Interested in Web3 and related stuffs. Write tech blogs on various platforms. Building my tech stack. 💪
+I'm **Alen Abraham** (he/him), a Software Engineer from Kerala, India 🇮🇳; focused on **DevOps**, **Cloud** and **Cloud native** environments along with a strong interest towards Open-Source. I like to learn new technologies, and get hands-on experience with latest trends. I write tech and career related blogposts on my website and various other platforms.  
+
+I graduted as an Electronics and Communication Engineer from College of Engineering Chengannur(CEC) on July 2021. Switched to IT and Design field because of pandemic and now loving experimenting and working on everything in the industry.
