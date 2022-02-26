@@ -114,12 +114,12 @@ params:
       icon: "fa fa-buymeacoffee fa-2x"
       weight: 6
       url: "https://www.buymeacoffee.com/alenabraham"
-    - name: RSS
-      icon: fa fa-2x fa-rss
-      weight: 6
-      url: "https://myhugosite.com/index.xml"
-      rel: alternate
-      type: application/rss+xml
+    # - name: RSS
+    #   icon: fa fa-2x fa-rss
+    #   weight: 6
+    #   url: "https://myhugosite.com/index.xml"
+    #   rel: alternate
+    #   type: application/rss+xml
 
 taxonomies:
   category: categories
