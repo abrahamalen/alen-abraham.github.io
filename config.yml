@@ -24,7 +24,7 @@ params:
   since: 2022
   commit: "https://github.com/luizdepra/hugo-coder/tree/"
   rtl: false
-  colorScheme: auto
+  colorScheme: auto #dark, light
   hideColorSchemeToggle: false
   maxSeeAlsoItems: 5
   customCSS: []
