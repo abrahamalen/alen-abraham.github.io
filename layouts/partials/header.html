@@ -9,13 +9,22 @@
         <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
       </label>
       <ul class="navigation-list">
-        {{ with .Site.Menus.main}}
+        <!-- {{ with .Site.Menus.main}}
           {{ range sort . }}
             <li class="navigation-item">
               <a class="navigation-link" href="{{ index (apply (slice .URL) (.Params.urlFunc | default "relLangURL") ".") 0 }}">{{ .Name }}</a>
             </li>
           {{ end }}
+        {{ end }} -->
+        {{ with .Site.Menus.main}}
+        {{ range sort . }}
+        {{ $url := urls.Parse .URL }}
+        {{ $baseurl := urls.Parse $.Site.Params.Baseurl }}
+          <li class="navigation-item">
+            <a class="navigation-link" href="{{ .URL | relLangURL}}" {{ if ne $url.Host $baseurl.Host }}target="_blank" {{ end }}>{{ .Name }}</a>
+          </li>
         {{ end }}
+      {{ end }}
         {{ if .Site.IsMultiLingual }}
           {{ $node := . }}
           {{ .Scratch.Set "separator" true }}
