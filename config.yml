@@ -1,4 +1,5 @@
-baseURL: "https://abrahamalen.github.io/alen-abraham.github.io/"
+baseURL: "https://alenabraham.me/"
+#baseURL: "https://abrahamalen.github.io/alen-abraham.github.io/"
 title: Alen Abraham
 theme: hugo-coder
 languageCode: en
