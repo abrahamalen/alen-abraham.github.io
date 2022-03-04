@@ -7,7 +7,7 @@ summary: "A list of youtube channels to learn UI/UX Design."
 tags: ["resources", "ui/ux"]
 categories: ["resources", "ui/ux"]
 aliases: [/uiux-design]
-featuredImage: "/alen-abraham.github.io/images/youtube-for-uiux-design/cover-image.jpg"
+featuredImage: "/images/youtube-for-uiux-design/cover-image.jpg"
 ---  
 
 ## Hey everyone!

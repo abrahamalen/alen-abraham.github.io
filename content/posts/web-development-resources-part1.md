@@ -7,7 +7,7 @@ summary: "A collection of resources by Alen to make your web development process
 tags: ["resources", "web-development"]
 categories: ["resources", "web-development"]
 aliases: [/web-development]
-featuredImage: "/alen-abraham.github.io/images/web-development-resources-part1/cover-image.jpg"
+featuredImage: "/images/web-development-resources-part1/cover-image.jpg"
 ---
 
 ## Introduction

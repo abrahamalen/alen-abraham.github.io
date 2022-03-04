@@ -7,7 +7,7 @@ summary: "A small intro to Linkedin and how can everyone get started with Linked
 tags: ["career"]
 categories: ["career"]
 aliases: [/career]
-featuredImage: "/alen-abraham.github.io/images/getting-started-with-linkedin/cover-image.jpg"
+featuredImage: "/images/getting-started-with-linkedin/cover-image.jpg"
 ---  
 
 ## Introduction
