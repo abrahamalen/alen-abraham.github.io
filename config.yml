@@ -126,7 +126,6 @@ taxonomies:
   category: categories
   series: series
   tag: tags
-  author: authors
 
 languages:
   en:
