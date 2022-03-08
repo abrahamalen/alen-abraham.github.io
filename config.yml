@@ -132,9 +132,9 @@ languages:
     languageName: ":uk:"
     menu:
       main:
-        - name: Archives
-          weight: 1
-          url: archives/
+        # - name: Archives
+        #   weight: 1
+        #   url: archives/
         - name: About
           weight: 2
           url: about/
@@ -147,6 +147,6 @@ languages:
         #- name: Contact me
         #  weight: 3
         #  url: contact/
-        - name: Subscribe
-          weight: 5
-          url: subscribe/
+        # - name: Subscribe
+        #   weight: 5
+        #   url: subscribe/
