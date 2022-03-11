@@ -4,7 +4,7 @@ date: 2022-01-05T12:56:25+05:30
 weight: 160
 draft: false
 summary: "A list of youtube channels to learn UI/UX Design."
-tags: ["resources", "ui/ux"]
+#tags: ["resources", "ui/ux"]
 categories: ["resources", "ui/ux"]
 aliases: [/uiux-design]
 featuredImage: "/images/youtube-for-uiux-design/cover-image.jpg"
