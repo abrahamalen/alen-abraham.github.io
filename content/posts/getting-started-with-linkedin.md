@@ -4,7 +4,7 @@ date: 2021-10-24T12:56:25+05:30
 weight: 160
 draft: false
 summary: "A small intro to Linkedin and how can everyone get started with Linkedin."
-tags: ["career"]
+#tags: ["career"]
 categories: ["career"]
 aliases: [/career]
 featuredImage: "/images/getting-started-with-linkedin/cover-image.jpg"
