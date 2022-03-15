@@ -63,4 +63,5 @@ LinkedIn is a popular social network for career development, but you don't have 
 So don't be a passive user, just opening an account and leaving it there. Be a consistent user, maintain your profile and connections. Stay updated and fill out all the things which you are not able to present on your resume. Maintain LinkedIn as your digital resume because it's not that long that LinkedIn will be considered as your primary resume by recruiters.
 
 You can connect me on LinkedIn @  ***[alenabraham](https://www.linkedin.com/in/alenabraham)***.   
-**Happy to connect!**
+**Happy to connect!**  
+Repost on [Hashnode](https://alenabraham.hashnode.dev/linkedin-how-to-get-started) & [Dev](https://dev.to/alenabraham/how-important-is-your-linkedin-profile-3327) 
