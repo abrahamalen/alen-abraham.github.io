@@ -101,4 +101,4 @@ If you found this post helpful just buy me a coffee :)
 *Wish me luck 🌟*  
 *Happy Learning  💻*  
 
-Repost on [Hashnode](https://alenabraham.hashnode.dev/big-o-notation-explained-dsa-01) & [Dev](https://dev.to/alenabraham/big-o-notation-explained-dsa-01-4oag) 
+Repost on [Hashnode](https://alenabraham.hashnode.dev/web-development-resources-series-part-1) & [Dev](https://dev.to/alenabraham/web-development-resources-series-part-1-5foj) 
