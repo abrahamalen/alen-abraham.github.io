@@ -50,4 +50,6 @@ This is my first write up in **2022** and it is based on **UI/UX Design**. For t
 
 And that is an end to the long list of 15 awesome youtube channels from where you can learn UI/UX and other cool design stuffs. Do check it out give feedback :)  
 
-[Buy me a coffee](https://www.buymeacoffee.com/alenabraham)
+[Buy me a coffee](https://www.buymeacoffee.com/alenabraham)  
+
+Repost on [Hashnode](https://alenabraham.hashnode.dev/big-o-notation-explained-dsa-01) & [Dev](https://dev.to/alenabraham/big-o-notation-explained-dsa-01-4oag) 
