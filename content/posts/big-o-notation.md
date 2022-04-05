@@ -84,7 +84,21 @@ for i in range(len(numbers)):
             break
 ```
 
-***Also there is O(log n), O(2^n) time complexities.***  
+## A table of common Big - O functions.  
+
+ | Big O       | Name        |  
+ | :---------- | :---------- |  
+ | 1           | Constant    |  
+ | log(n)      | Logarithmic |  
+ | n           | Linear      |  
+ | nlog(n)     | Log linear  |  
+ | n^2         | Quadratic   |  
+ | n^3         | Cubic       |  
+ | 2^n         | Exponential |
+
+For more reference go through these -   
+- [Big-O Notation Explained](https://stackoverflow.com/questions/487258/what-is-a-plain-english-explanation-of-big-o-notation/487278#487278)  
+- [Big-O Examples Explained](https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly)
 
 Thank you for the read.  
 Repost on [Hashnode](https://alenabraham.hashnode.dev/big-o-notation-explained-dsa-01) & [Dev](https://dev.to/alenabraham/big-o-notation-explained-dsa-01-4oag) 
