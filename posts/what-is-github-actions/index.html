@@ -1,0 +1,154 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://cdn.jsdelivr.net/; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=description content="A description of github actions - another ci/cd tool.">
+<meta name=keywords content="[Alen Abraham Blog Portfolio Resume]">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://alenabraham.me/images/preview.png">
+<meta name=twitter:title content="What is Github Actions? How does it simplify CI/CD?">
+<meta name=twitter:description content="A description of github actions - another ci/cd tool.">
+<meta property="og:title" content="What is Github Actions? How does it simplify CI/CD?">
+<meta property="og:description" content="A description of github actions - another ci/cd tool.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alenabraham.me/posts/what-is-github-actions/"><meta property="og:image" content="https://alenabraham.me/images/preview.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-04-08T12:56:25+05:30">
+<meta property="article:modified_time" content="2022-04-08T12:56:25+05:30"><meta property="og:site_name" content="Alen Abraham">
+<title>
+What is Github Actions? How does it simplify CI/CD? · Alen Abraham
+</title>
+<link rel=canonical href=https://alenabraham.me/posts/what-is-github-actions/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.d9fddbffe6f27e69985dc5fe0471cdb0e57fbf4775714bc3d847accb08f4a1f6.css integrity="sha256-2f3b/+byfmmYXcX+BHHNsOV/v0d1cUvD2Eesywj0ofY=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.002ee2378e14c7a68f1f0a53d9694ed252090987c4e768023fac694a4fc5f793.css integrity="sha256-AC7iN44Ux6aPHwpT2WlO0lIJCYfE52gCP6xpSk/F95M=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32>
+<link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16>
+<link rel=apple-touch-icon href=/images/apple-touch-icon.png>
+<link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.92.0">
+</head>
+<body class="preload-transitions colorscheme-auto">
+<div class=float-container>
+<a id=dark-mode-toggle class=colorscheme-toggle>
+<i class="fa fa-adjust fa-fw" aria-hidden=true></i>
+</a>
+</div>
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Alen Abraham
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/about/>About</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>Posts</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/categories/>Categories</a>
+</li>
+</ul>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+</section>
+</nav>
+<div class=content>
+<section class="container post">
+<article>
+<header>
+<div class=post-title>
+<h1 class=title>
+<a class=title-link href=https://alenabraham.me/posts/what-is-github-actions/>
+What is Github Actions? How does it simplify CI/CD?
+</a>
+</h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2022-04-08T12:56:25+05:30>
+April 8, 2022
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+2-minute read
+</span>
+</div>
+<div class=categories>
+<i class="fa fa-folder" aria-hidden=true></i>
+<a href=/categories/devops/>devops</a></div>
+</div>
+</header>
+<div>
+<img src=/images/what-is-github-actions/cover-image.png alt="Featured image">
+<h2 id=github-actions>
+Github Actions
+<a class=heading-link href=#github-actions>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<p><strong>Github Actions</strong> is a Continuous Integration and Continuous Development(CI/CD) platform that allows you to automate your build, test, and deployment pipeline. You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.</p>
+<p>GitHub Actions goes beyond just DevOps and lets you run workflows when other events happen in your repository.<br>
+For example, you can run a workflow to automatically add the appropriate labels whenever someone creates a new issue in your repository.</p>
+<ul>
+<li>
+<p>GitHub Actions makes it easy to automate all your software workflows, with CI/CD.</p>
+<ul>
+<li>Build, test, and deploy your code right from GitHub.</li>
+<li>Make code reviews, branch management, and issue triaging work the way you want.</li>
+</ul>
+</li>
+<li>
+<p>Workflow is triggered by an event.</p>
+<ul>
+<li>Workflow contains jobs which can have multiple steps - Each step can be associated with an action or a script.</li>
+</ul>
+</li>
+<li>
+<p>Code - defined workflow -</p>
+<ul>
+<li>A workflow can contain actions created by the community, or you can create your own actions directly with your application&rsquo;s repository.</li>
+</ul>
+</li>
+<li>
+<p>Support for Python, Java, Node.js, Ruby, PHP, Go, Rust, .NET apps.</p>
+</li>
+<li>
+<p>Great starting point for smaller projects.</p>
+</li>
+<li>
+<p>Deploy to cloud.</p>
+</li>
+</ul>
+<p>I have added a github actions workflow in my personal website repository to automate random changes and commits and run the workflow to deploy the changes successfully. You can checkout the repository <a href=https://github.com/abrahamalen/alen-abraham.github.io>here</a>.</p>
+<p>Thank you for the read.<br>
+Repost on <a href=https://alenabraham.hashnode.dev/what-is-github-actions-how-does-it-simplify-cicd>Hashnode</a> & <a href=https://dev.to/alenabraham/what-is-github-actions-how-does-it-simplify-cicd-49m0>Dev</a></p>
+</div>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2022
+·
+Powered by <a href=https://alenabraham.me>Alen Abraham</a>
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.39a51230dce2ac866c049b52573e38bf60666af4bc63c1bdf203b9b2d95b1cd6.js integrity="sha256-OaUSMNzirIZsBJtSVz44v2BmavS8Y8G98gO5stlbHNY="></script>
+</body>
+</html>
