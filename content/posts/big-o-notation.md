@@ -7,7 +7,12 @@ summary: "A brief explanation on Big O notation in Data Structures and Algorithm
 #tags: ["dsa"]
 categories: ["dsa","tutorial"]
 aliases: [/dsa]
-featuredImage: "/images/big-o-notation/cover-image.png"
+featuredImage: "/images/big-o-notation/cover-image.png"  
+cover:
+  image: "/images/big-o-notation/cover-image.png"
+  alt: "Photo of big O notation"
+ # caption: "Photo by [Canva Studio](https://www.pexels.com/@canvastudio) from [Pexels](https://www.pexels.com/photo/photo-of-man-using-laptop-3194523/)"
+  relative: false
 ---  
 
 ## What is Big O notation?  
