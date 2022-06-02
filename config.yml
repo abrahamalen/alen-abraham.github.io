@@ -150,6 +150,9 @@ languages:
         # - name: Subscribe
         #   weight: 5
         #   url: subscribe/
+        # - name: Timeline
+        #   weight: 5
+        #   url: timeline/
 
 cover:
         hidden: true # hide everywhere but not in structured data
