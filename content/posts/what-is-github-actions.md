@@ -8,6 +8,7 @@ summary: "A description of github actions - another ci/cd tool."
 categories: ["devops"]
 aliases: [/devops]
 featuredImage: "/images/what-is-github-actions/cover-image.png"
+images: ["/images/what-is-github-actions/cover-image.png" ]
 ---  
 
 ## Github Actions 
