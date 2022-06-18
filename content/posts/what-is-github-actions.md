@@ -37,7 +37,11 @@ For example, you can run a workflow to automatically add the appropriate labels 
 
 - Deploy to cloud.
 
-I have added a github actions workflow in my personal website repository to automate random changes and commits and run the workflow to deploy the changes successfully. You can checkout the repository [here](https://github.com/abrahamalen/alen-abraham.github.io).
+I have added a github actions workflow in my personal website repository.  
+![Workflow](/images/what-is-github-actions/workflow.png "Github-actions workflow diagram")
+
+The above diagram shows the flow of the github-action which I have added to automate the code changes and commits, so that the workflow will automatically run as scheduled and deploy the changes successfully to production.  
+You can checkout the repository [here](https://github.com/abrahamalen/alen-abraham.github.io).
 
 Thank you for the read.  
 Repost on [Hashnode](https://alenabraham.hashnode.dev/what-is-github-actions-how-does-it-simplify-cicd) & [Dev](https://dev.to/alenabraham/what-is-github-actions-how-does-it-simplify-cicd-49m0)
