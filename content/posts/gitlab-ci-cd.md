@@ -8,7 +8,8 @@ summary: "An explanation on GitLab and how is it used for CI/CD?"
 categories: ["devops"]
 aliases: [/devops]
 featuredImage: "/images/gitlab-ci-cd/cover-image.jpg"
-thumbnail: "/images/GitLab-ci-cd/cover-image.jpg"
+image:
+  thumbnail: "/images/GitLab-ci-cd/cover-image.jpg"
 ---
 
 ## Getting Started: What is GitLab?
