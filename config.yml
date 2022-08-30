@@ -19,7 +19,7 @@ params:
   info:
     - Software Engineer
     - DevOps | SRE | Cloud
- # author: "Alen Abraham"
+  # author: "Alen Abraham"
   avatarURL: images/avatar.png
   dateFormat: "January 2, 2006"
   since: 2022
@@ -52,10 +52,11 @@ params:
   # showtoc: false
   # tocopen: false
 
-  images:
-    [
-      "/images/preview.png", "Alen Abraham", "https://alenabraham.me",
-    ]
+  # images:
+  #   [
+  #     "/images/preview.png", "Alen Abraham", "https://alenabraham.me",
+  #   ]
+  images: preview.png
 
   subscribeInfo:
     Text: If you liked this post, check out my other [Featured Posts](/categories/featured) or learn more [About Me](/about).
@@ -155,6 +156,6 @@ languages:
         #   url: timeline/
 
 cover:
-        hidden: true # hide everywhere but not in structured data
-        hiddenInList: true # hide on list pages and home
-        hiddenInSingle: false # hide on single page
+  hidden: true # hide everywhere but not in structured data
+  hiddenInList: true # hide on list pages and home
+  hiddenInSingle: false # hide on single page
