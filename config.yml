@@ -52,11 +52,8 @@ params:
   # showtoc: false
   # tocopen: false
 
-  # images:
-  #   [
-  #     "/images/preview.png", "Alen Abraham", "https://alenabraham.me",
-  #   ]
-  images: preview.png
+  images: ["/images/preview.png", "Alen Abraham", "https://alenabraham.me"]
+  #images: ["/images/preview.png"]
 
   subscribeInfo:
     Text: If you liked this post, check out my other [Featured Posts](/categories/featured) or learn more [About Me](/about).
