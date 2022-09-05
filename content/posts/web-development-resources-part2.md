@@ -8,16 +8,17 @@ summary: "A collection of resources by Alen to make your web development process
 categories: ["resources", "web-development"]
 aliases: [/web-development]
 featuredImage: "/images/web-development-resources-part2/cover-image.jpg"
+images: ["/images/web-development-resources-part2/cover-image.jpg"]
 # removed /alen-abraham.github.io from featuredImage, now hosted on custom domain.
 ---
 
 ## Introduction
 
-#### Hello👋 to all Developers and Designers around the world..!  🌈
+#### Hello👋 to all Developers and Designers around the world..! 🌈
 
-*My curated list of resources continues...!*
+_My curated list of resources continues...!_
 
-In this article I will share some more awesome tools which can help you make your work easier and productive. In the previous one I shared about 10 tools and today I will be sharing a set of tools, so why waiting...  *Scroll down and grasp them*
+In this article I will share some more awesome tools which can help you make your work easier and productive. In the previous one I shared about 10 tools and today I will be sharing a set of tools, so why waiting... _Scroll down and grasp them_
 
 ## ✊ Resources
 
@@ -37,7 +38,7 @@ In this article I will share some more awesome tools which can help you make you
 
 👉 [metatags](https://metatags.io/)
 
-- Meta Tags is a tool to debug and generate meta tag code for any website. 
+- Meta Tags is a tool to debug and generate meta tag code for any website.
 - Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!
 
 **14. ReadMe**
@@ -105,7 +106,7 @@ In this article I will share some more awesome tools which can help you make you
 
 👉 [Button-generator](https://markodenic.com/tools/buttons-generator/)
 
-- It contains 100+ button designs for you.  @[Marko Denic](@denic)
+- It contains 100+ button designs for you. @[Marko Denic](@denic)
 
 ## Conclusion
 
@@ -116,7 +117,7 @@ This resource series of resource sharing will be continued...Stay tuned for more
 If you found this post helpful just buy me a coffee :)  
 [Buy me a coffee](https://www.buymeacoffee.com/alenabraham)
 
-*Wish me luck 🌟*  
-*Happy Learning  💻*  
+_Wish me luck 🌟_  
+_Happy Learning 💻_
 
-Repost on [Hashnode](https://alenabraham.hashnode.dev/big-o-notation-explained-dsa-01) & [Dev](https://dev.to/alenabraham/big-o-notation-explained-dsa-01-4oag) 
+Repost on [Hashnode](https://alenabraham.hashnode.dev/big-o-notation-explained-dsa-01) & [Dev](https://dev.to/alenabraham/big-o-notation-explained-dsa-01-4oag)
