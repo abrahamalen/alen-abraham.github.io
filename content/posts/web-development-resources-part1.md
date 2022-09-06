@@ -8,13 +8,14 @@ summary: "A collection of resources by Alen to make your web development process
 categories: ["resources", "web-development"]
 aliases: [/web-development]
 featuredImage: "/images/web-development-resources-part1/cover-image.jpg"
+images: ["/images/web-development-resources-part1/cover-image.jpg"]
 ---
 
 ## Introduction
 
-#### Hello👋 all fellow Developers and Designers around the world..!  🌈
+#### Hello👋 all fellow Developers and Designers around the world..! 🌈
 
-*I am **Alen Abraham** and this is my debut in the blogging world, hope it comes helpful to you all.*
+_I am **Alen Abraham** and this is my debut in the blogging world, hope it comes helpful to you all._
 
 I have curated a list of super cool resources, which will save valuable time and make life better for web developers and designers. The list will be published in different parts as you all know the dev and design resources are never-ending.
 
@@ -24,20 +25,20 @@ I have curated a list of super cool resources, which will save valuable time and
 
 👉 [source.unsplash.com](https://source.unsplash.com/)
 
-- The most powerful photo engine in the world. 
-- The Unsplash API is a modern JSON API that surfaces all of the info you’ll need to build any experience for your users. 
+- The most powerful photo engine in the world.
+- The Unsplash API is a modern JSON API that surfaces all of the info you’ll need to build any experience for your users.
 
 **2. Embeddable Widget Apps for Notion**
 
 👉 [apption.co](https://apption.co/)
 
-- Add 3rd party apps embed or create a custom embed for your Notion Document. 
+- Add 3rd party apps embed or create a custom embed for your Notion Document.
 
 **3. Carbon**
 
 👉 [carbon.now.sh](https://carbon.now.sh/)
 
-- Create and share beautiful images of your source code. 
+- Create and share beautiful images of your source code.
 - Start typing or drop a file into the text area to get started.
 
 **4. Peppertype**
@@ -98,7 +99,7 @@ This resource series of resource sharing will be continued...Stay tuned for more
 If you found this post helpful just buy me a coffee :)  
 [Buy me a coffee](https://www.buymeacoffee.com/alenabraham)
 
-*Wish me luck 🌟*  
-*Happy Learning  💻*  
+_Wish me luck 🌟_  
+_Happy Learning 💻_
 
-Repost on [Hashnode](https://alenabraham.hashnode.dev/web-development-resources-series-part-1) & [Dev](https://dev.to/alenabraham/web-development-resources-series-part-1-5foj) 
+Repost on [Hashnode](https://alenabraham.hashnode.dev/web-development-resources-series-part-1) & [Dev](https://dev.to/alenabraham/web-development-resources-series-part-1-5foj)
