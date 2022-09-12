@@ -51,8 +51,7 @@ Points to be noted while setting up your profile -
 7. Engage with content.
 8. Get endorsements.
 9. Request recommendations.
-
-_And an added point is that a personalised URL will be good._
+10. Maintaining a personalised URL will be good
 
 ## How to use LinkedIn as a college student.
 
@@ -67,6 +66,8 @@ LinkedIn is a popular social network for career development, but you don't have 
 ## Conclusion
 
 So don't be a passive user, just opening an account and leaving it there. Be a consistent user, maintain your profile and connections. Stay updated and fill out all the things which you are not able to present on your resume. Maintain LinkedIn as your digital resume because it's not that long that LinkedIn will be considered as your primary resume by recruiters.
+
+Refer this [youtube video](https://youtu.be/D48ER-3dlFI) for more clarification.
 
 You can connect me on LinkedIn @ **_[alenabraham](https://www.linkedin.com/in/alenabraham)_**.  
 **Happy to connect!**  
