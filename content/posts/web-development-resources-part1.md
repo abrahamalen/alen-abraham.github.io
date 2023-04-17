@@ -5,7 +5,7 @@ weight: 160
 draft: false
 summary: "A collection of resources by Alen to make your web development process easier."
 #tags: ["resources", "web-development"]
-categories: ["resources", "web-development"]
+categories: ["Resources"]
 aliases: [/web-development]
 featuredImage: "/images/web-development-resources-part1/cover-image.jpg"
 images: ["/images/web-development-resources-part1/cover-image.jpg"]
