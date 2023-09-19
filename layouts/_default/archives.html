@@ -3,7 +3,7 @@
 <header class="page-header">
   <h1>
     {{ .Title }}
-    <hr />
+    <!-- <hr /> -->
     {{- if (.Param "ShowRssButtonInSectionTermList") }} {{- $rss :=
     (.OutputFormats.Get "rss") }} {{- if (eq .Kind `page`) }} {{- $rss =
     (.Parent.OutputFormats.Get "rss") }} {{- end }} {{- with $rss }}

@@ -19,9 +19,12 @@ params:
   defaultTheme: dark # dark, light, auto
   disableThemeToggle: true
 
+  mainSections: ["posts"]
+  dailySections: ["daily"]
+
   # home infos
   homeInfoParams:
-    Title: "Title not yet set"
+    Title: "Searching for a title which suits my goals"
     Content:
     #   Intro: I'm Alen, and welcome to my random thoughts.
     #   About: about
@@ -53,7 +56,7 @@ params:
     ShowBreadCrumbs: true
     ShowCodeCopyButtons: true
     ShowWordCount: false
-    ShowRssButtonInSectionTermList: true
+    ShowRssButtonInSectionTermList: false
     UseHugoToc: false
     disableSpecial1stPost: false
     disableScrollToTop: false
