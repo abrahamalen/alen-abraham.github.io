@@ -24,17 +24,29 @@ Nestled in the heart of the South Pacific Ocean, Fiji is renowned for its lush l
 
 However, my journey to Fiji was not just about leisure; it was a business trip with two members representing our company, **[Qure.ai](https://www.qure.ai/)**, on this mission. I, as a Site Reliability Engineer (SRE), took on the responsibility of representing the engineering team and overseeing the deployment process. Alongside me, [Mr. Anmol Karthik Prabhu](https://www.linkedin.com/in/anmol-karthik-prabhu-clssgb%E2%84%A2-msc-bme-660627113/) from the Client Success team played a crucial role in coordinating with the UNDP team.
 
+<<<<<<< HEAD
 At Qure.ai, we specialize in providing innovative healthcare solutions, and this time, our focus was on an on-premises deployment. This deployment approach ensures that our product operates seamlessly without the need for an internet connection, making it accessible to even the most remote locations across the globe.
 
 Our deployment strategy involved setting up Docker containers on a compact, yet powerful NUC (Next Unit of Computing) device with Ubuntu flashed on it. We call this NUC as **qbox** where 'q' - denotes the name qure.ai. This offline setup allows our clients to utilize our product without relying on the internet, making healthcare accessible in places where connectivity is scarce. The technical challenges that arose during this deployment tested our skills and creativity, pushing us to find innovative solutions to ensure a smooth installation process.
+=======
+At Qure.ai, we specialize in providing innovative healthcare solutions, and this time, our focus was on an on-premises deployment. This unique deployment approach ensures that our product operates seamlessly without the need for an internet connection, making it accessible to even the most remote locations.
+
+Our deployment strategy involved setting up Docker containers on a compact, yet powerful NUC (Next Unit of Computing) device running Ubuntu. We call this NUC as **qbox** where 'q' - denotes the name qure.ai. This offline setup allows our clients to utilize our product without relying on the internet, making healthcare accessible in places where connectivity is scarce. The technical challenges that arose during this deployment tested our skills and creativity, pushing us to find innovative solutions to ensure a smooth installation process.
+>>>>>>> origin/hugo
 
 Collaborating with us on this ambitious endeavor was the **United Nations Development Programme (UNDP)**, a global organization dedicated to addressing critical issues and fostering sustainable development worldwide. Their partnership was instrumental in hosting this deployment in Fiji, where access to advanced healthcare solutions is crucial.
 
 ### The Deployment
 
+<<<<<<< HEAD
 Deployment in Fiji was scheduled for five days, and our journey began on July 28th when we flew from Mumbai to Fiji, finally arriving on the 30th. On Monday, August 31st, we commenced our deployments and conducted training sessions for X-ray technicians from various Pacific Islands. The diversity of attendees added a unique dimension to our mission, fostering cross-cultural exchanges and cooperation.
 
 On the night of Sunday, August 30th, I found myself in my hotel room with four q-boxes. I was able to complete the deployment setup on all the 4 boxes without much issues using the script we had prepared. The next day, we were joined by the UNDP team, and we began workshops.
+=======
+Our deployment in Fiji was scheduled for five days, and our journey began on July 28th when we flew from Mumbai to Fiji, finally arriving on the 30th. On Monday, August 31st, we commenced our deployments and conducted training sessions for X-ray technicians from various Pacific Islands. The diversity of attendees added a unique dimension to our mission, fostering cross-cultural exchanges and cooperation.
+
+On the night of Sunday, August 30th, I found myself in my hotel room with four crucial boxes. Successfully completing the deployment setup on the boxes using bash script script marked a significant milestone in our mission.
+>>>>>>> origin/hugo
 
 {{< figure src="/images/posts/on-prem-deployment-hits-different/image-8.jpg#center" title="Setting up the qboxes with dockers" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-8.jpg" target="_blank" class="align-center" >}}
 
