@@ -54,7 +54,7 @@ Some photo dumps from the deployment
 
 {{< figure src="/images/posts/on-prem-deployment-hits-different/image-7.jpg#center" title="Workshop" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-7.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-3.jpg#center" title="Just show off lol" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-3.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-3.jpg#center" title="Training" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-3.jpg" target="_blank" class="align-center" >}}
 
 {{< figure src="/images/posts/on-prem-deployment-hits-different/image-6.jpg#center" title="Photobombing Sessions" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-6.jpg" target="_blank" class="align-center" >}}
 
