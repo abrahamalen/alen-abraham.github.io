@@ -1,6 +1,6 @@
 # Blog/Portfolio Website
 
-### Website heme migration in completed.
+### Website theme migration in completed.
 
 [![Build and Publish Website](https://github.com/abrahamalen/alen-abraham.github.io/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/abrahamalen/alen-abraham.github.io/actions/workflows/gh-pages.yml)
 
