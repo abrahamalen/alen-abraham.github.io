@@ -2,7 +2,7 @@
 
 ### Website heme migration in completed.
 
-![Build Success](https://github.com/abrahamalen/alen-abraham.github.io/blob/hugo/.github/workflows/gh-pages.yml/badge.svg)
+[![Build and Publish Website](https://github.com/abrahamalen/alen-abraham.github.io/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/abrahamalen/alen-abraham.github.io/actions/workflows/gh-pages.yml)
 
 Have successfully migrated my website from hugo-coder to Papermod theme.
 Feels like there is more customization options for Papermod.Existing website migration is completed, now new features, contents and some bug  will be added.
