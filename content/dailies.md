@@ -2,6 +2,6 @@
 title: "Random nonsense"
 layout: "dailies"
 url: "/dailies/"
-description: "Yet to be figured out."
+description: "Planning to write some random nonsense"
 summary: "dailies"
 ---
