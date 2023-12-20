@@ -1,6 +1,6 @@
 ---
 title: "What is Github Actions? How does it simplify CI/CD?"
-date: 2022-04-08T12:56:25+05:30
+date: 2022-04-08T11:40:35+05:30
 weight: 160
 draft: false
 summary: "A description of github actions - another ci/cd tool."
