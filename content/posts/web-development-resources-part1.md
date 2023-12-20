@@ -15,7 +15,7 @@ cover:
 
 ## Introduction
 
-#### Hello👋 all fellow Developers and Designers around the world..! 🌈
+#### Hello👋 all fellow Developers and Designers around the world..!
 
 _I am **Alen Abraham** and this is my debut in the blogging world, hope it comes helpful to you all._
 
