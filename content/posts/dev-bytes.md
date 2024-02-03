@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "Stay Up-to-Date with DevBytes: Your Ultimate Source for Tech News"
 date: 2023-04-24T12:56:25+05:30
 weight: 160
@@ -33,4 +33,4 @@ In conclusion, if you're looking for a reliable and comprehensive source of tech
 
 **Link to download the app - [DevBytes](https://play.google.com/store/apps/details?id=com.candelalabs.DevBytes)**
 
-There is also a chrome extension for DevBytes - [DevBytes Chrome Extension](https://chrome.google.com/webstore/detail/devbytes-tech-and-ai-news/hplbpdkajdhlggncdpdmnkjldopmoomg/related)
+There is also a chrome extension for DevBytes - [DevBytes Chrome Extension](https://chrome.google.com/webstore/detail/devbytes-tech-and-ai-news/hplbpdkajdhlggncdpdmnkjldopmoomg/related) -->
