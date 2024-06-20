@@ -1,8 +1,8 @@
 ---
-title: "About Me"
+title: "About"
 url: "/about/"
 layout: "about"
-description: "About Alen Abraham"
+description: "About Alen Abraham and his blog"
 ---
 
 I'm **Alen Abraham** (he/him), a Software Engineer from Kerala, India 🇮🇳. I focus on **DevOps**, **Cloud** and **Cloud native** environments along with a strong interest towards Open-Source. I like to learn new stuffs, especially topics related to site reliability, devops, security and almost all kinds of tech stuffs. I write tech and career related blogposts here on my website and on various other platforms like [Dev.to](https://dev.to/alenabraham) and [Hashnode](https://alenabraham.hashnode.dev/) etc.

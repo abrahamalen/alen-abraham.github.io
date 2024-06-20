@@ -86,3 +86,9 @@ menu:
       name: About
       url: /about/
       weight: 40
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
