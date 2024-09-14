@@ -109,6 +109,12 @@ In this article I will share some more awesome tools which can help you make you
 
 - It contains 100+ button designs for you. @[Marko Denic](@denic)
 
+**25. Mock API**
+
+👉 [jsoning.com](https://jsoning.com/api/)
+
+- Open-source Mock API: Create custom APIs from JSON for prototyping.
+
 ## Conclusion
 
 I hope you enjoyed my article about web development and design resources. There are many great resources available to help you learn about web development and design. These resources can help to give you the skills you need to design your own website or work on a web design/development project. Plus, web development and design are always evolving, so it's always a good idea to stay up-to-date with the latest trends. I hope you'll continue to follow my blog for more great content!
