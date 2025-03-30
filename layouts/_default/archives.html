@@ -48,17 +48,7 @@
 {{- end }} {{- end }}
 
 <!-- Load search scripts -->
-<script src="{{ "js/fuse.basic.min.js" | relURL }}"></script>
-<script>
-  // Check if Fuse is loaded correctly
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof Fuse === 'undefined') {
-      console.error('Fuse.js is not loaded!');
-    } else {
-      console.log('Fuse.js is loaded successfully');
-    }
-  });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 <script src="{{ "js/fastsearch.js" | relURL }}"></script>
 
 {{- end }}{{/* end main */}}

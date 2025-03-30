@@ -1,117 +1,165 @@
-// Search functionality
-var fuse; // holds our search engine
-var list = document.getElementById('searchResults'); // targets the <ul>
-var first = list.firstChild; // first child of search list
-var last = list.lastChild; // last child of search list
-var maininput = document.getElementById('searchInput'); // input box for search
-var resultsAvailable = false; // Did we get any search results?
-
-// Load search index
-window.addEventListener('DOMContentLoaded', function() {
-    loadSearch();
-});
-
-// ==========================================
-// execute search as each character is typed
-//
-document.getElementById("searchInput").onkeyup = function(e) {
-    // Only perform search if the Enter key wasn't pressed (to prevent double-triggers)
-    if (e.key !== 'Enter') {
-        executeSearch(this.value);
+// Simple search functionality using Fuse.js
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM content loaded, initializing search...');
+    
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (!searchInput || !searchResults) {
+        console.error('Search elements not found!');
+        return;
     }
-}
-
-// ==========================================
-// fetch some json without jquery
-//
-function fetchJSONFile(path, callback) {
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState === 4) {
-            if (httpRequest.status === 200) {
-                var data = JSON.parse(httpRequest.responseText);
-                if (callback) callback(data);
+    
+    // Check if Fuse.js is loaded, if not load it
+    if (typeof Fuse === 'undefined') {
+        console.warn('Fuse.js library not loaded! Attempting to load it dynamically...');
+        
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@6.6.2';
+        
+        script.onload = function() {
+            console.log('Fuse.js loaded dynamically');
+            initializeSearch();
+        };
+        
+        script.onerror = function() {
+            console.error('Failed to load Fuse.js dynamically');
+            searchResults.innerHTML = '<li class="error-message">Error: Fuse.js library could not be loaded</li>';
+        };
+        
+        document.head.appendChild(script);
+    } else {
+        console.log('Fuse.js already loaded');
+        initializeSearch();
+    }
+    
+    function initializeSearch() {
+        console.log('Initializing search...');
+        
+        // Try multiple paths to find index.json
+        const possiblePaths = [
+            '/index.json',
+            '../index.json',
+            '../../index.json',
+            '/alen-abraham.github.io/index.json',
+            window.location.origin + '/index.json',
+            location.protocol + '//' + location.host + '/index.json'
+        ];
+        
+        loadSearchIndex();
+        
+        function loadSearchIndex() {
+            let loaded = false;
+            let pathIndex = 0;
+            
+            tryNextPath();
+            
+            function tryNextPath() {
+                if (pathIndex >= possiblePaths.length) {
+                    console.error('Failed to load search index from all paths');
+                    searchResults.innerHTML = '<li class="error-message">Error: Search index could not be loaded</li>';
+                    return;
+                }
+                
+                const path = possiblePaths[pathIndex];
+                console.log(`Trying to load search index from ${path}...`);
+                
+                fetch(path)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(`Search index loaded successfully from ${path}`);
+                        console.log('Index items:', data.length);
+                        initFuse(data);
+                        loaded = true;
+                    })
+                    .catch(error => {
+                        console.warn(`Failed to load from ${path}:`, error);
+                        pathIndex++;
+                        tryNextPath();
+                    });
             }
         }
-    };
-    httpRequest.open('GET', path);
-    httpRequest.send(); 
-}
+        
+        function initFuse(data) {
+            // Initialize Fuse with the data
+            const fuse = new Fuse(data, {
+                keys: ['title', 'content', 'tags', 'categories', 'summary'],
+                includeScore: true,
+                shouldSort: true,
+                threshold: 0.4
+            });
+            
+            console.log('Fuse.js initialized successfully');
+            
+            // Add event listener for search input
+            searchInput.addEventListener('input', function() {
+                executeSearch(this.value, fuse, data);
+            });
+            
+            // Execute search if there's an initial query
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialQuery = urlParams.get('q');
+            
+            if (initialQuery) {
+                searchInput.value = initialQuery;
+                executeSearch(initialQuery, fuse, data);
+            }
+            
+            // Focus search input on page load
+            searchInput.focus();
+        }
+        
+        // Function to execute search
+        function executeSearch(query, fuse, data) {
+            console.log('Executing search for:', query);
+            
+            if (!query || query.trim() === '') {
+                searchResults.innerHTML = '';
+                return;
+            }
+            
+            if (!fuse) {
+                console.error('Fuse.js not initialized');
+                searchResults.innerHTML = '<li class="error-message">Search functionality not initialized</li>';
+                return;
+            }
+            
+            const results = fuse.search(query);
+            console.log('Search results:', results.length);
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<li class="no-results">No results found</li>';
+                return;
+            }
+            
+            searchResults.innerHTML = '';
+            
+            // Display up to 10 results - only titles, no summaries
+            results.slice(0, 10).forEach(result => {
+                const item = result.item;
+                const li = document.createElement('li');
+                
+                let content = `<a href="${item.permalink}">`;
+                content += `<span class="title">${item.title}</span>`;
+                content += '</a>';
+                
+                li.innerHTML = content;
+                searchResults.appendChild(li);
+            });
+        }
+    }
 
-// ==========================================
-// load our search index
-//
-function loadSearch() { 
-    fetchJSONFile('/index.json', function(data){
-        var options = {
-            shouldSort: true,
-            location: 0,
-            distance: 100,
-            threshold: 0.4,
-            minMatchCharLength: 2,
-            keys: [
-                'title',
-                'permalink',
-                'summary',
-                'content'
-            ]
-        };
-        fuse = new Fuse(data, options); // build the index from the json file
+    // Handle keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        // ESC key
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        }
     });
-}
-
-// ==========================================
-// using the index we loaded, run a search query
-//
-function executeSearch(term) {
-    let results = fuse.search(term); // the actual query being run using fuse.js
-    let searchitems = ''; // our results bucket
-
-    if (results.length === 0) { // no results based on what was typed into the input box
-        resultsAvailable = false;
-        searchitems = '';
-    } else { // build our html 
-        // Show only first 5 results
-        results.slice(0,5).forEach(function(result) {
-            const item = result.item;
-            searchitems = searchitems + `<li>
-                <a href="${item.permalink}" tabindex="0">
-                    <span class="title">${item.title}</span><br>
-                    <span class="search-summary">${item.summary || item.content.substring(0, 200)}...</span>
-                </a>
-            </li>`;
-        });
-        resultsAvailable = true;
-    }
-
-    document.getElementById("searchResults").innerHTML = searchitems;
-    if (results.length > 0) {
-        first = list.firstChild;
-        last = list.lastChild;
-    }
-}
-
-// ==========================================
-// Keyboard Navigation
-//
-document.addEventListener('keydown', function(event) {
-    // DOWN (40) arrow
-    if (event.keyCode == 40) {
-        if (resultsAvailable) {
-            event.preventDefault(); // stop window from scrolling
-            if (document.activeElement == maininput) { first.firstElementChild.focus(); } // if the currently focused element is the main input --> focus the first <li>
-            else if (document.activeElement.parentElement == last) { last.firstElementChild.focus(); } // if we're at the bottom, stay there
-            else { document.activeElement.parentElement.nextSibling.firstElementChild.focus(); } // otherwise select the next search result
-        }
-    }
-
-    // UP (38) arrow
-    if (event.keyCode == 38) {
-        if (resultsAvailable) {
-            event.preventDefault(); // stop window from scrolling
-            if (document.activeElement == maininput) { maininput.focus(); } // If we're in the input box, do nothing
-            else if (document.activeElement.parentElement == first) { maininput.focus(); } // If we're at the first item, go to input box
-            else { document.activeElement.parentElement.previousSibling.firstElementChild.focus(); } // Otherwise, select the search result above the current active one
-        }
-    }
 });
