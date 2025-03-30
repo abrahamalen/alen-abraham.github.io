@@ -1,33 +1,23 @@
-{{- define "main" }}
+{{ define "main" }}
 
 <header class="page-header">
-  <h1>
-    {{- (printf "%s&nbsp;" .Title ) | htmlUnescape -}}
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="28"
-      height="28"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <circle cx="11" cy="11" r="8"></circle>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
-  </h1>
-  {{- if not (.Param "hideMeta") }}
-  <div class="post-meta">{{- partial "translation_list.html" . -}}</div>
+  <h1>{{ .Title }}</h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description }}
+  </div>
   {{- end }}
 </header>
 
 <div id="searchbox">
-  <input id="searchInput" autofocus placeholder="{{ .Params.placeholder |
-  default (printf "%s ↵" .Title) }}" aria-label="search" type="search"
-  autocomplete="off">
+  <input id="searchInput" autofocus placeholder="Search" aria-label="search" type="search" autocomplete="off">
   <ul id="searchResults" aria-label="search results"></ul>
 </div>
 
-{{- end }}{{/* end main */}}
+<!-- Load Fuse.js directly, not deferred -->
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+<!-- Load our search script after Fuse.js -->
+<script src="{{ "js/fastsearch.js" | absURL }}"></script>
+
+{{ end }} 
