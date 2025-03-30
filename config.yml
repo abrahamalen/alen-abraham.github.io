@@ -2,7 +2,10 @@ baseURL: "https://alenabraham.me/"
 languageCode: en-us
 title: Alen Abraham
 theme: PaperMod
-paginate: 200000
+
+# Pagination settings
+pagination:
+  pagerSize: 200000
 
 taxonomies:
   category: categories
