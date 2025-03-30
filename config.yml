@@ -22,6 +22,21 @@ params:
   mainSections: ["posts"]
   dailySections: ["daily"]
 
+  # Search Configuration
+  fuseOpts:
+    isCaseSensitive: false
+    includeScore: true
+    includeMatches: true
+    shouldSort: true
+    minMatchCharLength: 2
+    keys: ["title", "permalink", "summary", "content", "categories", "section"]
+    location: 0
+    threshold: 0.4
+    distance: 100
+    ignoreLocation: true
+    findAllMatches: true
+    limit: 10
+
   # home infos
   homeInfoParams:
     Title: "Scale, Stabilize and Secure Systems"
@@ -70,25 +85,32 @@ params:
 
 menu:
   main:
-    - identifier: archives
-      name: Archives
+    - name: Archives
       url: /archives/
-      weight: 10
-    - identifier: categories
-      name: Categories
+      weight: 5
+    - name: Categories
       url: /categories/
-      weight: 20
-    - identifier: dailies
-      name: Daily Logs
+      weight: 10
+    - name: Daily Logs
       url: /dailies/
-      weight: 30
-    - identifier: about
-      name: About
+      weight: 15
+    - name: About
       url: /about/
-      weight: 40
+      weight: 20
 
 outputs:
   home:
     - HTML
     - RSS
-    - JSON # is necessary
+    - JSON
+  page:
+    - HTML
+  section:
+    - HTML
+    - RSS
+  taxonomy:
+    - HTML
+    - RSS
+  term:
+    - HTML
+    - RSS
