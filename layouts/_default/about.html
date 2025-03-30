@@ -11,16 +11,7 @@
   </header>
 
   <div class="post-meta">
-    {{ $day := now.Day }}
-    {{ $ordinal := "th" }}
-    {{ if eq (mod $day 10) 1 }}
-      {{ if ne (mod $day 100) 11 }}{{ $ordinal = "st" }}{{ end }}
-    {{ else if eq (mod $day 10) 2 }}
-      {{ if ne (mod $day 100) 12 }}{{ $ordinal = "nd" }}{{ end }}
-    {{ else if eq (mod $day 10) 3 }}
-      {{ if ne (mod $day 100) 13 }}{{ $ordinal = "rd" }}{{ end }}
-    {{ end }}
-    <span>Last updated at {{ now.Format "3:04 PM" }}, {{ $day }}{{ $ordinal }} {{ now.Format "January 2006" }} (IST)</span>
+    <span>Last updated at {{ now.Format "3:04 PM, 2nd January 2006" }} (IST)</span>
   </div>
 
   <div class="post-content">
