@@ -1,0 +1,11 @@
+{{- /* Head custom content area start */ -}}
+{{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
+{{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
+
+<!-- Load custom search CSS -->
+<link rel="stylesheet" href="{{ "css/extended/search.css" | absURL }}">
+
+{{- if (eq .Layout "search") -}}
+<script defer src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+{{- end }}
+{{- /* Head custom content area end */ -}} 
