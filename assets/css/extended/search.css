@@ -1,0 +1,112 @@
+#searchbox {
+    margin: 1rem 0;
+    position: relative;
+    max-width: 100%;
+}
+
+/* Clear button style in search input */
+#searchInput::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1em;
+    width: 1em;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+    cursor: pointer;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #1b1c1d;
+    color: white;
+    font-size: 0.9rem;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 40px;
+    box-sizing: border-box;
+}
+
+#searchInput:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#searchResults {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+}
+
+#searchResults li {
+    background-color: #1b1c1d;
+    padding: 0.1rem 1.2rem;
+    margin-bottom: 0.4rem;
+    border-radius: 8px;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+#searchResults li:hover {
+    background-color: #252627;
+    transform: translateY(-2px);
+}
+
+#searchResults a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 100%;
+    padding-left: 1rem;
+}
+
+#searchResults .title {
+    font-size: 0.9rem;
+    font-weight: normal;
+    display: block;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#searchResults .title::after {
+    content: " »";
+    color: #999;
+}
+
+.error-message, .no-results {
+    color: #999;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    background-color: #1b1c1d;
+    border-radius: 8px;
+    height: 40px;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Make results fullwidth on mobile */
+@media (max-width: 768px) {
+    #searchbox {
+        margin: 0.8rem 0;
+    }
+    
+    #searchInput, #searchResults li, .error-message, .no-results {
+        height: 36px;
+    }
+    
+    #searchResults .title {
+        font-size: 0.85rem;
+    }
+} 
