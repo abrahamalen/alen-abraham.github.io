@@ -19,4 +19,131 @@ Custom styles to override theme defaults
 
 .archive-month-header {
     font-size: 24px; /* Even smaller for month headers */
+}
+
+/* Archives categories navigation */
+.archives-categories {
+    display: flex;
+    margin: 0 0 15px;
+}
+
+.archives-categories span a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.archives-categories span a:hover {
+    color: var(--secondary);
+}
+
+.archives-categories span a i {
+    margin-right: 10px;
+}
+
+/* Home page styles */
+.home-info .entry-content {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+/* Adjust heading spacing */
+.home-info .entry-header {
+    margin-bottom: 16px; 
+}
+
+/* Social section styling */
+.social-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.also-seen-on {
+    font-size: 16px;
+    margin-right: 10px;
+    color: var(--secondary);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.home-social-icons {
+    display: inline-flex;
+    align-items: center;
+}
+
+.home-social-icons .social-icons {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.home-social-icons .social-icons a {
+    margin-right: 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.home-social-icons .social-icons svg {
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+}
+
+.intro-text {
+    font-size: 16px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.work-description {
+    font-size: 16px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.cta-links {
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Links styling */
+.cta-links a, .work-description a[href="/now/"] {
+    text-decoration: none;
+    color: var(--primary);
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+    font-weight: normal;
+}
+
+.cta-links a:hover, .work-description a[href="/now/"]:hover {
+    color: var(--secondary);
+    border-bottom-color: var(--secondary);
+}
+
+/* Remove underlines from normal links */
+.intro-text a, .work-description a:not([href="/now/"]) {
+    text-decoration: none;
+    border-bottom: none;
+    padding-bottom: 0;
+    font-weight: normal;
+}
+
+.intro-text a:hover, .work-description a:not([href="/now/"]):hover {
+    color: var(--secondary);
+}
+
+/* Exception for social media icons */
+.home-info .social-icons a {
+    border-bottom: none;
+    padding-bottom: 0;
 } 

@@ -1,0 +1,10 @@
+{{ $date := .Page.Lastmod }}
+{{ $gitDate := .Page.GitInfo.AuthorDate }}
+
+{{ if $gitDate }}
+  {{ $gitDate.Format "January 2, 2006 at 3:04 PM" }}
+{{ else if $date }}
+  {{ $date.Format "January 2, 2006 at 3:04 PM" }}
+{{ else }}
+  {{ now.Format "January 2, 2006 at 3:04 PM" }}
+{{ end }} 

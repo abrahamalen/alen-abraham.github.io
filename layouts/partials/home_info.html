@@ -3,10 +3,23 @@
   <header class="entry-header">
     <h1>{{ .Title | markdownify }}</h1>
   </header>
-  <div class="entry-content">{{ .Content | markdownify }}</div>
-  <footer class="entry-footer">
-    {{ partial "social_icons.html" (dict "align"
-    site.Params.homeInfoParams.AlignSocialIconsTo) }}
-  </footer>
+  
+  <div class="entry-content">
+    <!-- Social Media Section - now inline -->
+    <div class="social-section">
+      <span class="also-seen-on">Also seen on:</span>
+      <div class="home-social-icons">
+        {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+      </div>
+    </div>
+
+    <!-- Personal Introduction -->
+    <p class="intro-text">I'm Alen, a DevOps/SRE engineer focused on building reliable infrastructure.</p>
+    <p class="work-description">I specialize in creating stable and resilient systems, with a strong interest in privacy and security. My goal is to architect solutions that are robust, scalable, and secure. Check out <a href="/now/">what I'm doing now</a>.</p>
+    <!-- Call to Action Links -->
+    <p class="cta-links">
+      If you're here for the first time, check out my <a href="/categories/">posts</a> or learn more <a href="/about/">about me</a>. Don't forget to explore my <a href="/archives/">archives</a> for all content.
+    </p>
+  </div>
 </article>
 {{- end -}}

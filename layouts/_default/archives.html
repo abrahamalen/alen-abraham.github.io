@@ -4,6 +4,10 @@
   <h1>{{ .Title }}</h1>
 </header>
 
+<div class="archives-categories">
+  <span><a href="/dailies/"><i class="fas fa-calendar-alt"></i> Dailies</a></span>
+</div>
+
 <div id="searchbox">
   <input id="searchInput" autofocus placeholder="{{ .Params.placeholder | default "Search ↵" }}" 
          aria-label="search" type="search" autocomplete="off">
