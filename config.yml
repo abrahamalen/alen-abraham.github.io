@@ -2,6 +2,7 @@ baseURL: "https://alenabraham.me/"
 languageCode: en-us
 title: Alen Abraham
 theme: PaperMod
+enableGitInfo: true
 
 # Pagination settings
 pagination:
@@ -94,9 +95,6 @@ menu:
     - name: Categories
       url: /categories/
       weight: 10
-    - name: Daily Logs
-      url: /dailies/
-      weight: 15
     - name: About
       url: /about/
       weight: 20
