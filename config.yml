@@ -22,6 +22,12 @@ params:
   defaultTheme: dark # dark, light, auto
   disableThemeToggle: true
 
+  # Analytics configuration
+  analytics:
+    plausible:
+      enable: true
+      domain: "alenabraham.me"
+      
   mainSections: ["posts"]
   dailySections: ["daily"]
 
