@@ -1,0 +1,22 @@
+/*
+Custom styles to override theme defaults
+*/
+
+/* Reduce page title size */
+.page-header h1 {
+    font-size: 32px; /* Reduced from 40px */
+}
+
+/* Reduce post title size */
+.post-title {
+    font-size: 32px !important; /* Reduced and using !important to override any inline styles */
+}
+
+/* Ensure consistency in archive pages */
+.archive-year-header {
+    font-size: 28px; /* Slightly smaller than main titles */
+}
+
+.archive-month-header {
+    font-size: 24px; /* Even smaller for month headers */
+} 
