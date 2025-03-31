@@ -8,4 +8,13 @@
 {{- if (eq .Layout "search") -}}
 <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 {{- end }}
+
+{{- /* Plausible Analytics */ -}}
+{{- if not .Params.excludeAnalytics -}}
+  {{- if (site.Params.analytics.plausible.enable) -}}
+  <!-- Plausible Analytics - Privacy-friendly analytics -->
+  <script defer data-domain="{{ site.Params.analytics.plausible.domain }}" src="https://plausible.io/js/script.js"></script>
+  {{- end -}}
+{{- end -}}
+
 {{- /* Head custom content area end */ -}} 
