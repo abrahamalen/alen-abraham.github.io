@@ -10,9 +10,11 @@
     {{- end }}
   </header>
 
-<div class="post-meta">
-    <span>Last updated at {{ now.Format "3:04 PM, 2nd January 2006" }} (IST)</span>
-</div>
+
+  <div class="post-meta">
+    <span>Last updated at {{ now.UTC.Format "3:04 PM, January 2, 2006" }} (UTC)</span>
+  </div>
+
 
   <div class="post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
