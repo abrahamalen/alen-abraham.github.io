@@ -1,0 +1,57 @@
+{{- define "main" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description }}
+  </div>
+  {{- end }}
+</header>
+
+<div class="post-content">
+  {{ .Content }}
+</div>
+
+<div class="search-container">
+  <input id="searchInput" autofocus placeholder="Search ↵" aria-label="search" type="search" autocomplete="off">
+  <ul id="searchResults" aria-label="search results"></ul>
+</div>
+
+{{- $pages := where site.RegularPages "Section" "daily" }}
+{{- $totalPosts := len $pages }}
+
+<div class="dailies-list">
+  {{- range $pages.GroupByDate "2006" }}
+  {{- if ne .Key "0001" }}
+  <div class="year-group">
+    <h2 class="year-header">{{ .Key }} <sup class="post-count">{{ len .Pages }}</sup></h2>
+    
+    {{- range .Pages.GroupByDate "January" }}
+    <div class="month-group">
+      <h3 class="month-header">{{ .Key }} <sup class="post-count">{{ len .Pages }}</sup></h3>
+      
+      <div class="entries">
+        {{- range .Pages }}
+        <div class="daily-entry">
+          <h4 class="entry-title">
+            <a href="{{ .Permalink }}">#{{ add $totalPosts -1 }} {{ .Title }}</a>
+          </h4>
+          <div class="entry-meta">
+            {{ .Date.Format "January 2, 2006" }} · {{ .ReadingTime }} min
+          </div>
+        </div>
+        {{- $totalPosts = sub $totalPosts 1 }}
+        {{- end }}
+      </div>
+    </div>
+    {{- end }}
+  </div>
+  {{- end }}
+  {{- end }}
+</div>
+
+<!-- Load search script -->
+<script src="{{ "js/fastsearch.js" | relURL }}"></script>
+
+{{- end }} 
