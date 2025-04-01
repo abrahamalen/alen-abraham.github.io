@@ -21,7 +21,7 @@ params:
   # author: "Alen Abraham"
   DateFormat: "January 2, 2006"
   defaultTheme: dark # dark, light, auto
-  disableThemeToggle: true
+  disableThemeToggle: false
 
   # Analytics configuration
   analytics:
