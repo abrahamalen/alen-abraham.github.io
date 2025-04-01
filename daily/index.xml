@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dailies on Alen Abraham</title><link>https://alenabraham.me/daily/</link><description>Recent content in Dailies on Alen Abraham</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 01 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://alenabraham.me/daily/index.xml" rel="self" type="application/rss+xml"/><item><title>Creating My Digital Scrapbook</title><link>https://alenabraham.me/daily/2025-04-01/</link><pubDate>Tue, 01 Apr 2025 00:00:00 +0000</pubDate><guid>https://alenabraham.me/daily/2025-04-01/</guid><description>&lt;p>Today I added a proper Digital Scrapbook section to my website. This is a place where I can post shorter, more casual thoughts and updates compared to my regular blog posts.&lt;/p>
+&lt;p>The implementation included:&lt;/p>
+&lt;ol>
+&lt;li>Creating a dedicated layout template for the scrapbook page&lt;/li>
+&lt;li>Styling it with CSS to match the rest of my site&amp;rsquo;s aesthetic&lt;/li>
+&lt;li>Adding a simple search functionality&lt;/li>
+&lt;li>Setting up the proper directory structure for daily entries&lt;/li>
+&lt;/ol>
+&lt;p>I&amp;rsquo;m planning to use this space to document quick learnings, interesting links I find, and progress on various projects. It feels good to have a low-pressure space to jot down thoughts without the formality of a full blog post.&lt;/p></description></item><item><title>Website Improvements - March 31, 2025</title><link>https://alenabraham.me/daily/2025-03-31/</link><pubDate>Mon, 31 Mar 2025 00:00:00 +0000</pubDate><guid>https://alenabraham.me/daily/2025-03-31/</guid><description>&lt;h2 id="todays-website-improvements">Today&amp;rsquo;s Website Improvements&lt;/h2>
+&lt;p>Made several significant improvements to the website today:&lt;/p>
+&lt;h3 id="archives-page">Archives Page&lt;/h3>
+&lt;ul>
+&lt;li>Added a &amp;ldquo;Dailies&amp;rdquo; section to the Archives page with a clean calendar icon&lt;/li>
+&lt;li>Styled the link to align perfectly with the page design&lt;/li>
+&lt;li>Removed &amp;ldquo;Daily Logs&amp;rdquo; from the main menu for cleaner navigation&lt;/li>
+&lt;/ul>
+&lt;h3 id="home-page-redesign">Home Page Redesign&lt;/h3>
+&lt;ul>
+&lt;li>Completely revamped the home page layout&lt;/li>
+&lt;li>Added &amp;ldquo;Also seen on:&amp;rdquo; section with aligned social media icons&lt;/li>
+&lt;li>Improved spacing and typography across the page&lt;/li>
+&lt;li>Made the layout more consistent with proper line heights&lt;/li>
+&lt;li>Kept only important navigation links underlined for better visual hierarchy&lt;/li>
+&lt;/ul>
+&lt;h3 id="added-now-page">Added &amp;ldquo;Now&amp;rdquo; Page&lt;/h3>
+&lt;ul>
+&lt;li>Created a new &amp;ldquo;Now&amp;rdquo; page to showcase current activities&lt;/li>
+&lt;li>Implemented auto-updating timestamp using Git information&lt;/li>
+&lt;li>Added professional focus, learning, reading, and projects sections&lt;/li>
+&lt;li>Created a custom shortcode for timestamp display&lt;/li>
+&lt;/ul>
+&lt;p>Overall, today&amp;rsquo;s changes focused on better organization, improved navigation, and a cleaner, more consistent design across the site.&lt;/p></description></item></channel></rss>
