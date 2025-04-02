@@ -12,6 +12,33 @@
 <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 {{- end }}
 
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('dark') ? 'dark' : 'default',
+      flowchart: { useMaxWidth: true },
+      securityLevel: 'loose'
+    });
+  });
+</script>
+
+<!-- Add custom styles for Mermaid -->
+<style>
+  .mermaid {
+    margin: 1.5rem auto;
+    overflow-x: auto;
+    text-align: center;
+    max-width: 100%;
+  }
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+
 {{- /* Plausible Analytics */ -}}
 {{- if not .Params.excludeAnalytics -}}
   {{- if (site.Params.analytics.plausible.enable) -}}
