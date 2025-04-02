@@ -1,0 +1,136 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Using Mermaid Diagrams in Technical Documentation | Alen Abraham
+</title><meta name=keywords content="mermaid,diagrams,documentation"><meta name=description content="Diagrams are essential for explaining complex systems and processes in technical documentation. Mermaid makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.
+In this post, I&rsquo;ll show several examples of diagrams you can create using Mermaid.
+Flowchart Example
+Let&rsquo;s start with a basic flowchart showing a deployment process:
+
+  
+flowchart TD
+    A[Code Changes] --> B{Code Review}
+    B -->|Approved| C[Build & Test]
+    B --&gt;|Rejected| A
+    C --> D{Tests Pass?}
+    D -->|Yes| E[Deploy to Staging]
+    D -->|No| A
+    E --> F{Staging Validation}
+    F -->|Pass| G[Deploy to Production]
+    F -->|Fail| A
+    G --> H[Monitor]
+
+ 
+The code to create this flowchart is surprisingly simple:"><meta name=author content><link rel=canonical href=https://alenabraham.me/posts/introduction-to-mermaid/><link crossorigin=anonymous href=/assets/css/stylesheet.ca4c6ae859aa7a1f08cece2dbd52ca7756752304df689ca18998146f0254c48f.css integrity rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://alenabraham.me/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://alenabraham.me/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://alenabraham.me/favicon-32x32.png><link rel=apple-touch-icon href=https://alenabraham.me/apple-touch-icon.png><link rel=mask-icon href=https://alenabraham.me/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://alenabraham.me/posts/introduction-to-mermaid/><noscript><style>#theme-toggle,.top-link{display:none}</style></noscript><link rel=stylesheet href=https://alenabraham.me/css/extended/search.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css><script src=https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js></script><script>document.addEventListener("DOMContentLoaded",function(){mermaid.initialize({startOnLoad:!0,theme:document.body.classList.contains("dark")?"dark":"default",flowchart:{useMaxWidth:!0},securityLevel:"loose"})})</script><style>.mermaid{margin:1.5rem auto;overflow-x:auto;text-align:center;max-width:100%}.mermaid svg{max-width:100%;height:auto}</style><script defer data-domain=alenabraham.me src=https://plausible.io/js/script.js></script><meta property="og:title" content="Using Mermaid Diagrams in Technical Documentation"><meta property="og:description" content="Diagrams are essential for explaining complex systems and processes in technical documentation. Mermaid makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.
+In this post, I&rsquo;ll show several examples of diagrams you can create using Mermaid.
+Flowchart Example
+Let&rsquo;s start with a basic flowchart showing a deployment process:
+
+  
+flowchart TD
+    A[Code Changes] --> B{Code Review}
+    B -->|Approved| C[Build & Test]
+    B --&gt;|Rejected| A
+    C --> D{Tests Pass?}
+    D -->|Yes| E[Deploy to Staging]
+    D -->|No| A
+    E --> F{Staging Validation}
+    F -->|Pass| G[Deploy to Production]
+    F -->|Fail| A
+    G --> H[Monitor]
+
+ 
+The code to create this flowchart is surprisingly simple:"><meta property="og:type" content="article"><meta property="og:url" content="https://alenabraham.me/posts/introduction-to-mermaid/"><meta property="og:image" content="https://alenabraham.me/images/posts/introduction-to-mermaid/cover-image.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-04-02T00:00:00+00:00"><meta property="article:modified_time" content="2025-04-02T16:53:12+05:30"><meta property="og:site_name" content="Alen Abraham"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://alenabraham.me/images/posts/introduction-to-mermaid/cover-image.jpg"><meta name=twitter:title content="Using Mermaid Diagrams in Technical Documentation"><meta name=twitter:description content="Diagrams are essential for explaining complex systems and processes in technical documentation. Mermaid makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.
+In this post, I&rsquo;ll show several examples of diagrams you can create using Mermaid.
+Flowchart Example
+Let&rsquo;s start with a basic flowchart showing a deployment process:
+
+  
+flowchart TD
+    A[Code Changes] --> B{Code Review}
+    B -->|Approved| C[Build & Test]
+    B --&gt;|Rejected| A
+    C --> D{Tests Pass?}
+    D -->|Yes| E[Deploy to Staging]
+    D -->|No| A
+    E --> F{Staging Validation}
+    F -->|Pass| G[Deploy to Production]
+    F -->|Fail| A
+    G --> H[Monitor]
+
+ 
+The code to create this flowchart is surprisingly simple:"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://alenabraham.me/posts/"},{"@type":"ListItem","position":2,"name":"Using Mermaid Diagrams in Technical Documentation","item":"https://alenabraham.me/posts/introduction-to-mermaid/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Using Mermaid Diagrams in Technical Documentation","name":"Using Mermaid Diagrams in Technical Documentation","description":"Diagrams are essential for explaining complex systems and processes in technical documentation. Mermaid makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.\nIn this post, I\u0026rsquo;ll show several examples of diagrams you can create using Mermaid.\nFlowchart Example Let\u0026rsquo;s start with a basic flowchart showing a deployment process:\nflowchart TD A[Code Changes] --\u003e B{Code Review} B --\u003e|Approved| C[Build \u0026 Test] B --\u003e|Rejected| A C --\u003e D{Tests Pass?} D --\u003e|Yes| E[Deploy to Staging] D --\u003e|No| A E --\u003e F{Staging Validation} F --\u003e|Pass| G[Deploy to Production] F --\u003e|Fail| A G --\u003e H[Monitor] The code to create this flowchart is surprisingly simple:\n","keywords":["mermaid","diagrams","documentation"],"articleBody":"Diagrams are essential for explaining complex systems and processes in technical documentation. Mermaid makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.\nIn this post, I’ll show several examples of diagrams you can create using Mermaid.\nFlowchart Example Let’s start with a basic flowchart showing a deployment process:\nflowchart TD A[Code Changes] --\u003e B{Code Review} B --\u003e|Approved| C[Build \u0026 Test] B --\u003e|Rejected| A C --\u003e D{Tests Pass?} D --\u003e|Yes| E[Deploy to Staging] D --\u003e|No| A E --\u003e F{Staging Validation} F --\u003e|Pass| G[Deploy to Production] F --\u003e|Fail| A G --\u003e H[Monitor] The code to create this flowchart is surprisingly simple:\nflowchart TD A[Code Changes] --\u003e B{Code Review} B --\u003e|Approved| C[Build \u0026 Test] B --\u003e|Rejected| A C --\u003e D{Tests Pass?} D --\u003e|Yes| E[Deploy to Staging] D --\u003e|No| A E --\u003e F{Staging Validation} F --\u003e|Pass| G[Deploy to Production] F --\u003e|Fail| A G --\u003e H[Monitor] Sequence Diagram Example Sequence diagrams are perfect for showing interactions between components:\nsequenceDiagram participant User participant API participant DB participant Cache User-\u003e\u003eAPI: Request data API-\u003e\u003eCache: Check if data exists alt Data in cache Cache-\u003e\u003eAPI: Return cached data API-\u003e\u003eUser: Return data else Data not in cache Cache-\u003e\u003eAPI: Cache miss API-\u003e\u003eDB: Query database DB-\u003e\u003eAPI: Return data API-\u003e\u003eCache: Store in cache API-\u003e\u003eUser: Return data end Class Diagram Example Class diagrams help visualize the structure of a system:\nclassDiagram class Server { +String hostname +String ip +int port +start() +stop() } class Application { +String name +String version +deploy() +undeploy() } class Database { +String type +String version +backup() +restore() } Application \"1..*\" -- \"1\" Server : runs on Application \"1\" -- \"0..*\" Database : uses Gantt Chart Example Gantt charts are useful for project planning:\ngantt title DevOps Project Timeline dateFormat YYYY-MM-DD section Planning Project kickoff :a1, 2025-04-05, 3d Infrastructure design:a2, after a1, 5d section Development Set up CI pipeline :b1, after a2, 4d Create base templates:b2, after b1, 3d section Deployment Deploy to staging :c1, after b2, 2d Testing :c2, after c1, 5d Deploy to production :c3, after c2, 2d section Monitoring Set up monitoring :d1, after c3, 3d Training :d2, after d1, 4d Tips for Using Mermaid Keep it simple: Focus on clarity rather than creating overly complex diagrams Use consistent styling: Follow the same conventions across all your diagrams Add meaningful labels: Make sure relationships and actions are clearly labeled Test your diagrams: Some complex syntax might not render correctly in all cases Conclusion Mermaid diagrams are a powerful way to enhance your technical documentation with visual representations that are:\nVersion controlled with your content Easy to update and maintain By integrating diagrams directly in your markdown content, you can create more comprehensive and understandable documentation for your projects.\n","wordCount":"449","inLanguage":"en","image":"https://alenabraham.me/images/posts/introduction-to-mermaid/cover-image.jpg","datePublished":"2025-04-02T00:00:00Z","dateModified":"2025-04-02T16:53:12+05:30","mainEntityOfPage":{"@type":"WebPage","@id":"https://alenabraham.me/posts/introduction-to-mermaid/"},"publisher":{"@type":"Organization","name":"Alen Abraham","logo":{"@type":"ImageObject","url":"https://alenabraham.me/favicon.ico"}}}</script><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest></head><body class=dark id=top><script>localStorage.getItem("pref-theme")==="light"&&document.body.classList.remove("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://alenabraham.me/ accesskey=h title="Alen Abraham (Alt + H)">Alen Abraham</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch></ul></div></div><ul id=menu><li><a href=https://alenabraham.me/archives/ title=Archives><span>Archives</span></a></li><li><a href=https://alenabraham.me/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://alenabraham.me/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">Using Mermaid Diagrams in Technical Documentation</h1><div class=post-meta><span title='2025-04-02 00:00:00 +0000 UTC'>April 2, 2025</span></div></header><figure class=entry-cover><img loading=eager src=https://alenabraham.me/images/posts/introduction-to-mermaid/cover-image.jpg alt="Mermaid Diagrams for Technical Documentation"><p>Learn how to create diagrams with code</p></figure><div class=post-content><p>Diagrams are essential for explaining complex systems and processes in technical documentation. <strong>Mermaid</strong> makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.</p><p>In this post, I&rsquo;ll show several examples of diagrams you can create using Mermaid.</p><h2 id=flowchart-example>Flowchart Example<a hidden class=anchor aria-hidden=true href=#flowchart-example>#</a></h2><p>Let&rsquo;s start with a basic flowchart showing a deployment process:</p><div class=mermaid>flowchart TD
+A[Code Changes] --> B{Code Review}
+B -->|Approved| C[Build & Test]
+    B -->|Rejected| A
+    C --> D{Tests Pass?}
+D -->|Yes| E[Deploy to Staging]
+D -->|No| A
+E --> F{Staging Validation}
+F -->|Pass| G[Deploy to Production]
+F -->|Fail| A
+G --> H[Monitor]</div><p>The code to create this flowchart is surprisingly simple:</p><pre tabindex=0><code>flowchart TD
+    A[Code Changes] --&gt; B{Code Review}
+    B --&gt;|Approved| C[Build &amp; Test]
+    B --&gt;|Rejected| A
+    C --&gt; D{Tests Pass?}
+    D --&gt;|Yes| E[Deploy to Staging]
+    D --&gt;|No| A
+    E --&gt; F{Staging Validation}
+    F --&gt;|Pass| G[Deploy to Production]
+    F --&gt;|Fail| A
+    G --&gt; H[Monitor]
+</code></pre><h2 id=sequence-diagram-example>Sequence Diagram Example<a hidden class=anchor aria-hidden=true href=#sequence-diagram-example>#</a></h2><p>Sequence diagrams are perfect for showing interactions between components:</p><div class=mermaid>sequenceDiagram
+participant User
+participant API
+participant DB
+participant Cache
+User->>API: Request data
+API->>Cache: Check if data exists
+alt Data in cache
+Cache->>API: Return cached data
+API->>User: Return data
+else Data not in cache
+Cache->>API: Cache miss
+API->>DB: Query database
+DB->>API: Return data
+API->>Cache: Store in cache
+API->>User: Return data
+end</div><h2 id=class-diagram-example>Class Diagram Example<a hidden class=anchor aria-hidden=true href=#class-diagram-example>#</a></h2><p>Class diagrams help visualize the structure of a system:</p><div class=mermaid>classDiagram
+class Server {
++String hostname
++String ip
++int port
++start()
++stop()
+}
+class Application {
++String name
++String version
++deploy()
++undeploy()
+}
+class Database {
++String type
++String version
++backup()
++restore()
+}
+Application "1..*" -- "1" Server : runs on
+Application "1" -- "0..*" Database : uses</div><h2 id=gantt-chart-example>Gantt Chart Example<a hidden class=anchor aria-hidden=true href=#gantt-chart-example>#</a></h2><p>Gantt charts are useful for project planning:</p><div class=mermaid>gantt
+title DevOps Project Timeline
+dateFormat YYYY-MM-DD
+section Planning
+Project kickoff :a1, 2025-04-05, 3d
+Infrastructure design:a2, after a1, 5d
+section Development
+Set up CI pipeline :b1, after a2, 4d
+Create base templates:b2, after b1, 3d
+section Deployment
+Deploy to staging :c1, after b2, 2d
+Testing :c2, after c1, 5d
+Deploy to production :c3, after c2, 2d
+section Monitoring
+Set up monitoring :d1, after c3, 3d
+Training :d2, after d1, 4d</div><h2 id=tips-for-using-mermaid>Tips for Using Mermaid<a hidden class=anchor aria-hidden=true href=#tips-for-using-mermaid>#</a></h2><ol><li><strong>Keep it simple</strong>: Focus on clarity rather than creating overly complex diagrams</li><li><strong>Use consistent styling</strong>: Follow the same conventions across all your diagrams</li><li><strong>Add meaningful labels</strong>: Make sure relationships and actions are clearly labeled</li><li><strong>Test your diagrams</strong>: Some complex syntax might not render correctly in all cases</li></ol><h2 id=conclusion>Conclusion<a hidden class=anchor aria-hidden=true href=#conclusion>#</a></h2><p>Mermaid diagrams are a powerful way to enhance your technical documentation with visual representations that are:</p><ul><li>Version controlled with your content</li><li>Easy to update and maintain</li></ul><p>By integrating diagrams directly in your markdown content, you can create more comprehensive and understandable documentation for your projects.</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://alenabraham.me/tags/mermaid/>Mermaid</a></li><li><a href=https://alenabraham.me/tags/diagrams/>Diagrams</a></li><li><a href=https://alenabraham.me/tags/documentation/>Documentation</a></li></ul></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://alenabraham.me/>Alen Abraham</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
