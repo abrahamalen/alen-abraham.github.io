@@ -2,6 +2,7 @@ baseURL: "https://alenabraham.me/"
 languageCode: en-us
 title: Alen Abraham
 theme: PaperMod
+enableGitInfo: true
 
 # Pagination settings
 pagination:
@@ -20,8 +21,14 @@ params:
   # author: "Alen Abraham"
   DateFormat: "January 2, 2006"
   defaultTheme: dark # dark, light, auto
-  disableThemeToggle: true
+  disableThemeToggle: false
 
+  # Analytics configuration
+  analytics:
+    plausible:
+      enable: true
+      domain: "alenabraham.me"
+      
   mainSections: ["posts"]
   dailySections: ["daily"]
 
@@ -94,9 +101,6 @@ menu:
     - name: Categories
       url: /categories/
       weight: 10
-    - name: Daily Logs
-      url: /dailies/
-      weight: 15
     - name: About
       url: /about/
       weight: 20

@@ -10,11 +10,17 @@
     {{- end }}
   </header>
 
-
   <div class="post-meta">
-    <span>Last updated at {{ now.UTC.Format "3:04 PM, January 2, 2006" }} (UTC)</span>
+    <span>{{ .Date.Format "January 2, 2006" }}</span>
+    {{- if .Params.tags }}
+    <div class="post-tags">
+      {{- range $index, $tag := .Params.tags }}
+      {{- $tagURL := printf "/tags/%s/" (urlize $tag) }}
+      <a href="{{ $tagURL }}">#{{ $tag }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
   </div>
-
 
   <div class="post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
@@ -36,4 +42,4 @@
   {{- end }}
 </article>
 
-{{- end }}{{/* end main */}}
+{{- end }}{{/* end main */}} 
