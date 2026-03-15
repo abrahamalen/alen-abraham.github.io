@@ -3,15 +3,15 @@ name: Build and Publish Website
 on:
   push:
     branches:
-      - hugo # Set a branch to deploy
+      - hugo
   pull_request:
+    branches:
+      - hugo
   workflow_dispatch:
-  schedule:
-    - cron: "24 3 * * *" # Run everyday at 8:54 PM IST (3:24 PM UTC)
 
 jobs:
   build-and-publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Build and Publish Website
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
