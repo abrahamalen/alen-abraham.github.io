@@ -14,7 +14,7 @@ I'm currently focused on building resilient infrastructure and improving system 
 
 ### Professional
 
-- Working full time as a Site Reliability Engineer at Qure.ai
+- Working full time as a Senior Site Reliability Engineer at Qure.ai
 <!-- - Enhancing monitoring and alerting systems
 - Studying for advanced security certifications
 - Building automation pipelines for infrastructure-as-code -->
