@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mermaid on Alen Abraham</title><link>https://alenabraham.me/tags/mermaid/</link><description>Recent content in Mermaid on Alen Abraham</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://alenabraham.me/tags/mermaid/index.xml" rel="self" type="application/rss+xml"/><item><title>Using Mermaid Diagrams in Technical Documentation</title><link>https://alenabraham.me/posts/introduction-to-mermaid/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0000</pubDate><guid>https://alenabraham.me/posts/introduction-to-mermaid/</guid><description>&lt;p>Diagrams are essential for explaining complex systems and processes in technical documentation. &lt;strong>Mermaid&lt;/strong> makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.&lt;/p>
-&lt;p>In this post, I&amp;rsquo;ll show several examples of diagrams you can create using Mermaid.&lt;/p>
-&lt;h2 id="flowchart-example">Flowchart Example&lt;/h2>
-&lt;p>Let&amp;rsquo;s start with a basic flowchart showing a deployment process:&lt;/p>
-&lt;div class="mermaid">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mermaid on Alen Abraham</title><link>https://alenabraham.me/tags/mermaid/</link><description>Recent content in Mermaid on Alen Abraham</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://alenabraham.me/tags/mermaid/index.xml" rel="self" type="application/rss+xml"/><item><title>Using Mermaid Diagrams in Technical Documentation</title><link>https://alenabraham.me/posts/introduction-to-mermaid/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0000</pubDate><guid>https://alenabraham.me/posts/introduction-to-mermaid/</guid><description>&lt;p&gt;Diagrams are essential for explaining complex systems and processes in technical documentation. &lt;strong&gt;Mermaid&lt;/strong&gt; makes it easy to create and maintain diagrams using a simple markdown-like syntax, directly in your content files.&lt;/p&gt;
+&lt;p&gt;In this post, I&amp;rsquo;ll show several examples of diagrams you can create using Mermaid.&lt;/p&gt;
+&lt;h2 id="flowchart-example"&gt;Flowchart Example&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s start with a basic flowchart showing a deployment process:&lt;/p&gt;
+&lt;div class="mermaid"&gt;
 flowchart TD
-A[Code Changes] --> B{Code Review}
-B -->|Approved| C[Build &amp; Test]
-B -->|Rejected| A
-C --> D{Tests Pass?}
-D -->|Yes| E[Deploy to Staging]
-D -->|No| A
-E --> F{Staging Validation}
-F -->|Pass| G[Deploy to Production]
-F -->|Fail| A
-G --> H[Monitor]
-&lt;/div>
-&lt;p>The code to create this flowchart is surprisingly simple:&lt;/p></description></item></channel></rss>
+A[Code Changes] --&gt; B{Code Review}
+B --&gt;|Approved| C[Build &amp; Test]
+B --&gt;|Rejected| A
+C --&gt; D{Tests Pass?}
+D --&gt;|Yes| E[Deploy to Staging]
+D --&gt;|No| A
+E --&gt; F{Staging Validation}
+F --&gt;|Pass| G[Deploy to Production]
+F --&gt;|Fail| A
+G --&gt; H[Monitor]
+&lt;/div&gt;
+&lt;p&gt;The code to create this flowchart is surprisingly simple:&lt;/p&gt;</description></item></channel></rss>
