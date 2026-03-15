@@ -4,6 +4,11 @@ title: Alen Abraham
 theme: PaperMod
 enableGitInfo: true
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
 # Pagination settings
 pagination:
   pagerSize: 200000
