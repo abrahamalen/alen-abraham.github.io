@@ -10,7 +10,7 @@ date: 2023-01-01
 
 I'm **Alen Abraham** (he/him), a Software Engineer from Kerala, India 🇮🇳. I focus on **DevOps**, **Cloud** and **Cloud native** environments along with a strong interest towards Open-Source. I like to learn new stuffs, especially topics related to site reliability, devops, security and almost all kinds of tech stuffs. I write tech and career related blogposts here on my website and on various other platforms like [Dev.to](https://dev.to/alenabraham) and [Hashnode](https://alenabraham.hashnode.dev/) etc.
 
-I completed my Bachelor's degree in Electronics and Communication Engineering(ECE) from [College of Engineering Chengannur(CEC)](https://ceconline.edu/) on July 2021. Currently, I am working full-time as a **Site Reliability Engineer** at [Qure.ai](https://www.qure.ai/).
+I completed my Bachelor's degree in Electronics and Communication Engineering(ECE) from [College of Engineering Chengannur(CEC)](https://ceconline.edu/) on July 2021. Currently, I am working full-time as a **Senior DevOps Engineer** at [Qure.ai](https://www.qure.ai/).
 
 ## About this blog
 
@@ -20,10 +20,10 @@ This is my blog, one of my most procrastinated projects. I wish you could learn 
 
 I love exploring new places and immersing myself in different cultures. Travel isn't just a hobby for me; it's a way to broaden my perspective and find inspiration. I enjoy both planned itineraries and spontaneous adventures.
 
-My work includes a lot of travel, so I had the opportunity to travel all around the world. Till now I have visited 4 countries - Fiji Islands, Kenya, Peru and El Salvador.
+My work includes a lot of travel, so I had the opportunity to travel all around the world. Till now I have visited 5 countries - Fiji Islands, Kenya, Peru, El Salvador and UAE.
 The list is growing.
 
-Countries visited till now - 🇫🇯 Fiji, 🇰🇪 Kenya, 🇵🇪 Peru, 🇸🇻 El Salvador
+Countries visited till now - 🇫🇯 Fiji, 🇰🇪 Kenya, 🇵🇪 Peru, 🇸🇻 El Salvador, 🇦🇪 UAE
 
 ## Contact
 
