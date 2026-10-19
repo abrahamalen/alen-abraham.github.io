@@ -1,6 +1,6 @@
 # Site revamp: replacing Hugo + PaperMod
 
-Status: design and prototype merged (#2). The own build is in `site/` (see README). Removing the Hugo files is the next PR. Date: 2026-10-19.
+Status: done. The design and prototype went in with #2 and the build with #3, and Hugo/PaperMod are now removed from the repo. The build lives in `site/` (see README). Date: 2026-10-19.
 
 I like how the site looks today. What I don't like is that I don't own any of it. The look comes from a PaperMod submodule I've had to fork piece by piece, and the build depends on Hugo behaviour I can't see. So the plan is to **rewrite the build and templates and keep the same look**. It's not a redesign.
 
@@ -99,10 +99,7 @@ tests/test_urls.py     # URL-parity check against a frozen list of today's URLs
 
 `prototype/` builds the home page, every post, `/resume/` and `/now/` from the real `content/` with my own templates:
 
-```
-uv run --no-project --with-requirements prototype/requirements.txt python prototype/build.py
-python3 -m http.server 8412 -d prototype/dist      # ?theme=light forces light mode (prototype only)
-```
+_The prototype has since become `site/`, so `make build` / `make serve` replaces these steps (see README)._
 
 The only visible differences from the current site are in the nav (adding **Now** and **Resume**) and the footer (dropping "Powered by Hugo & PaperMod"). Below the visible look: Mermaid only loads on the diagram post, highlight.js only on pages that have code, and favicons are emitted once.
 
