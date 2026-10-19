@@ -2,7 +2,7 @@
 title: "Resume"
 layout: "single"
 url: "/resume/"
-description: "Alen Abraham — SRE & DevOps Engineer"
+description: "Alen Abraham — DevOps Engineer 3"
 summary: "Professional resume of Alen Abraham"
 ---
 
@@ -26,7 +26,7 @@ Making systems reliable, deployments boring, and incidents rare.
       <div class="exp-role">
         <div class="exp-role-dot"></div>
         <div class="exp-role-content">
-          <div class="exp-role-title">Senior DevOps Engineer</div>
+          <div class="exp-role-title">DevOps Engineer 3</div>
           <div class="exp-role-date">Apr 2026 – Present</div>
           <ul class="exp-role-desc">
             <li>Reduced Datadog costs from $50K to $30K/month ($240K annual savings) by implementing Flex Logs and optimizing log ingestion pipelines</li>

@@ -1,5 +1,5 @@
 {% set is_page = page.kind == "page" %}
-{% set title = page.title ~ " | " ~ site.title if page.title else site.title %}
+{% set title = page.meta.title_tag if is_page and page.meta.title_tag else (page.title ~ " | " ~ site.title if page.title else site.title) %}
 {% set desc = page.meta.description if is_page and page.meta.description else (page.summary if is_page else site.description) %}
 {% set url = abs(page.url) %}
 {% set image = abs(page.image) if page.image else "" %}
@@ -15,6 +15,9 @@
 <link rel="stylesheet" href="/css/site.css">
 {# One favicon set per page; /eyrie/ will point `favicons` at its own folder. #}
 <link rel="icon" href="{{ fav }}favicon.ico">
+{% if is_page and page.meta.favicon_svg %}
+<link rel="icon" type="image/svg+xml" href="{{ fav }}favicon.svg">
+{% endif %}
 <link rel="icon" type="image/png" sizes="16x16" href="{{ fav }}favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ fav }}favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="{{ fav }}apple-touch-icon.png">
@@ -59,7 +62,7 @@
 {% if page.date %}<meta property="article:published_time" content="{{ page.date | iso }}">{% endif %}
 {% if page.lastmod %}<meta property="article:modified_time" content="{{ page.lastmod | iso }}">{% endif %}
 {% endif %}
-<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:site_name" content="{{ page.meta.site_name if is_page and page.meta.site_name else site.title }}">
 <meta name="twitter:card" content="{{ 'summary_large_image' if image else 'summary' }}">
 {% if image %}
 <meta name="twitter:image" content="{{ image }}">
