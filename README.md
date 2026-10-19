@@ -14,6 +14,7 @@ Needs [uv](https://docs.astral.sh/uv/). Dependencies are pinned in `site/require
 make build   # content/ + site/templates -> public/
 make serve   # build, then serve on http://localhost:1313 (PORT=xxxx to change)
 make check   # build, then fail if any URL in site/urls.txt is missing
+make test    # config toggle tests (site/tests/)
 ```
 
 To force a theme while previewing, add `?theme=light` or `?theme=dark` to any URL.

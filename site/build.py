@@ -245,8 +245,8 @@ def newest_first(pages: list[dict]) -> list[dict]:
 
 # ---------- site ----------
 
-def build() -> None:
-    cfg = yaml.safe_load((SITE_DIR / "site.yaml").read_text())
+def build(config: Path = SITE_DIR / "site.yaml", out: Path = OUT) -> None:
+    cfg = yaml.safe_load(config.read_text())
     dates = git_dates()
 
     pages = []
@@ -276,15 +276,15 @@ def build() -> None:
     env.filters["rfc822"] = lambda d: d.strftime("%a, %d %b %Y %H:%M:%S %z") if d else ""
     env.filters["iso"] = lambda d: d.isoformat() if d else ""
 
-    if OUT.exists():
-        shutil.rmtree(OUT)
-    shutil.copytree(ROOT / "static", OUT)
-    (OUT / "css").mkdir(exist_ok=True)
-    (OUT / "css" / "site.css").write_text(
+    if out.exists():
+        shutil.rmtree(out)
+    shutil.copytree(ROOT / "static", out)
+    (out / "css").mkdir(exist_ok=True)
+    (out / "css" / "site.css").write_text(
         "\n".join((SITE_DIR / "css" / f).read_text() for f in CSS_BUNDLE)
     )
-    (OUT / "js").mkdir(exist_ok=True)
-    shutil.copy(SITE_DIR / "js" / "highlight.js", OUT / "js" / "highlight.min.js")
+    (out / "js").mkdir(exist_ok=True)
+    shutil.copy(SITE_DIR / "js" / "highlight.js", out / "js" / "highlight.min.js")
 
     outputs: dict[str, str] = {}
     sitemap: list[tuple[str, datetime | None]] = []
@@ -362,12 +362,12 @@ def build() -> None:
     outputs["/sitemap.xml"] = env.get_template("sitemap.xml").render(urls=sitemap)
 
     for url, body in outputs.items():
-        dest = OUT / url.lstrip("/")
+        dest = out / url.lstrip("/")
         if url.endswith("/"):
             dest = dest / "index.html"
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(body)
-    print(f"built {len(outputs)} files ({len(pages)} pages) -> {OUT.relative_to(ROOT)}/")
+    print(f"built {len(outputs)} files ({len(pages)} pages) -> {out}/")
 
 
 if __name__ == "__main__":

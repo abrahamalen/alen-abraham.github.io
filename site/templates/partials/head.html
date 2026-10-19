@@ -28,7 +28,7 @@
 <link rel="alternate" type="application/rss+xml" href="{{ url }}index.xml">
 {% endif %}
 <noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
-{% if page.layout == "archives" %}
+{% if page.layout == "archives" and (site.archives_links or []) | selectattr("icon") | list %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endif %}
 {% if page.has_code %}
@@ -47,7 +47,7 @@
   });
 </script>
 {% endif %}
-{% if not (is_page and page.meta.excludeAnalytics) %}
+{% if site.plausible_domain and not (is_page and page.meta.excludeAnalytics) %}
 <script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>
 {% endif %}
 <meta property="og:title" content="{{ page.title or site.title }}">
@@ -70,7 +70,7 @@
 <meta name="twitter:title" content="{{ page.title or site.title }}">
 <meta name="twitter:description" content="{{ desc }}">
 {% if page.kind == "home" %}
-<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "Organization", "name": site.title, "url": abs("/"), "description": site.description, "thumbnailUrl": abs("/favicon.ico"), "sameAs": site.socials} | tojson }}</script>
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "Organization", "name": site.title, "url": abs("/"), "description": site.description, "thumbnailUrl": abs("/favicon.ico"), "sameAs": (site.socials or []) | map(attribute="url") | list} | tojson }}</script>
 {% elif is_page and page.section %}
 <script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "BlogPosting", "headline": page.title, "name": page.title, "description": desc, "keywords": page.meta.tags or [], "wordCount": page.word_count | string, "inLanguage": "en", "image": image or None, "datePublished": page.date | iso, "dateModified": (page.lastmod or page.date) | iso, "mainEntityOfPage": {"@type": "WebPage", "@id": url}, "publisher": {"@type": "Organization", "name": site.title, "logo": {"@type": "ImageObject", "url": abs("/favicon.ico")}}} | tojson }}</script>
 {% endif %}
