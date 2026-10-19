@@ -25,5 +25,3 @@ To force a theme while previewing, add `?theme=light` or `?theme=dark` to any UR
 - `site/css/`: CSS sources, bundled in a fixed order into `/css/site.css`
 - `site/urls.txt`: every URL the Hugo build published, checked by `make check`
 - `static/`: images, favicons and `CNAME`, copied as-is
-
-The Hugo files (`config.yml`, `themes/PaperMod`, `layouts/`, `assets/`) are still here until the switch lands. Removing them is the next PR.

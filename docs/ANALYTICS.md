@@ -11,7 +11,7 @@ This website uses [Plausible Analytics](https://plausible.io) for privacy-friend
 
 ## Implementation
 
-The Plausible script is added to the site via the `layouts/partials/extend_head.html` file:
+The Plausible script is added to every page's `<head>` by `site/templates/partials/head.html`. The domain comes from `plausible_domain` in `site/site.yaml`:
 
 ```html
 <!-- Plausible Analytics - Privacy-friendly analytics -->
@@ -36,15 +36,7 @@ plausible('Download', {props: {method: 'Direct'}});
 
 ## Exclusions
 
-Analytics tracking is applied to all pages by default. If you need to exclude certain pages or sections, you can use Hugo's conditional templates:
-
-```html
-{{- if not .Params.excludeAnalytics -}}
-<script defer data-domain="alenabraham.me" src="https://plausible.io/js/script.js"></script>
-{{- end -}}
-```
-
-Then in your content front matter, you can add:
+Analytics tracking is applied to all pages by default. The head template already skips the script for any page whose front matter sets `excludeAnalytics`:
 
 ```yaml
 ---
