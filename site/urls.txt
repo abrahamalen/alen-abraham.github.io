@@ -115,3 +115,5 @@
 /tags/web-development/index.html
 /tags/web-development/index.xml
 /tags/web-development/page/1/index.html
+# Added after the freeze:
+/eyrie/index.html

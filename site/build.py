@@ -40,6 +40,7 @@ CSS_BUNDLE = [
     "common/scroll-bar.css",
     "core/zmedia.css",
     "extended/custom.css",
+    "extended/eyrie.css",
     "extended/mermaid.css",
     "extended/timeline.css",
 ]
@@ -307,11 +308,11 @@ def build() -> None:
 
     # Home
     emit("/", "home.html", lastmod=latest(main_pages), page={"kind": "home", "url": "/"}, posts=main_pages)
-    feed("/", "", [p for p in pages if p["layout"] != "archives"])
+    feed("/", "", [p for p in pages if p["layout"] != "archives" and not p["meta"].get("excludeFromFeeds")])
     paged_alias("/")
 
     # Regular pages
-    layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html"}
+    layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html", "eyrie": "eyrie.html"}
     for p in pages:
         template = layouts.get(p["layout"]) or ("daily.html" if p["section"] == "daily" else "single.html")
         ctx = {"page": p}

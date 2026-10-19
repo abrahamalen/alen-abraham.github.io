@@ -1,0 +1,15 @@
+/* /eyrie/ coming-soon page. The badge is the one place Eyrie's teal is used. */
+.eyrie-soon .post-description {
+  max-width: 560px;
+}
+
+.eyrie-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: hsl(192 82% 30%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}

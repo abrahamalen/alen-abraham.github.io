@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="post-single eyrie-soon">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-description">{{ page.meta.description }}</div>
+  </header>
+  <div class="post-content">
+    <p><span class="eyrie-badge">Coming soon</span></p>
+    <p><a href="/">&larr; Back to home</a></p>
+  </div>
+</article>
+{% endblock %}
