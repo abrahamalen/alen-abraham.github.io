@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="first-entry home-info">
+  <header class="entry-header">
+    <h1>Scale, Stabilize and Secure Systems</h1>
+  </header>
+  <div class="entry-content">
+    <div class="social-section">
+      <span class="also-seen-on">Also seen on:</span>
+      <div class="home-social-icons">
+        {% include "partials/social_icons.html" %}
+      </div>
+    </div>
+    <p class="intro-text">I'm Alen, a DevOps/SRE engineer focused on building reliable infrastructure.</p>
+    <p class="work-description">I specialize in creating stable and resilient systems, with a strong interest in privacy and security. My goal is to architect solutions that are robust, scalable, and secure. Check out <a href="/now/">what I'm doing now</a>.</p>
+    <p class="cta-links">If you're here for the first time, check out my <a href="/categories/">posts</a> or learn more <a href="/about/">about me</a>. Don't forget to explore my <a href="/archives/">archives</a> for all content.</p>
+    <br>
+    <p class="cta-links" style="font-size:.9em;opacity:.8">Oh, and if you're a recruiter stalking my website — hey, no judgement. Here's my <a href="/resume/">resume</a>, save yourself some clicks. ☕</p>
+  </div>
+</article>
+{% for p in posts %}
+<article class="post-entry">
+  <header class="entry-header"><h2 class="entry-hint-parent">{{ p.title }}</h2></header>
+  <div class="entry-content"><p>{{ p.summary }}</p></div>
+  <footer class="entry-footer"><span>{{ p.date_str }}</span></footer>
+  <a class="entry-link" aria-label="post link to {{ p.title }}" href="{{ p.url }}"></a>
+</article>
+{% endfor %}
+{% endblock %}
