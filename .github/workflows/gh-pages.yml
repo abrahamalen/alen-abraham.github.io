@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - hugo
+      - revamp
   workflow_dispatch:
 
 jobs:
@@ -16,20 +17,18 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
-          submodules: true # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+          fetch-depth: 0 # full history: lastmod dates come from git
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          # hugo-version: "0.85.0"
-          hugo-version: "latest"
-          # extended: true
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Build
-        run: hugo --minify
+        run: make build
+
+      - name: URL parity check
+        run: make check
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

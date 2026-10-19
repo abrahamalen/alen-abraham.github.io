@@ -1,6 +1,6 @@
 # Site revamp: replacing Hugo + PaperMod
 
-Status: **Design + prototype** (PR 1 of 2; the migration itself is the next PR). Date: 2026-10-19.
+Status: design and prototype merged (#2). The own build is in `site/` (see README). Removing the Hugo files is the next PR. Date: 2026-10-19.
 
 I like how the site looks today. What I don't like is that I don't own any of it. The look comes from a PaperMod submodule I've had to fork piece by piece, and the build depends on Hugo behaviour I can't see. So the plan is to **rewrite the build and templates and keep the same look**. It's not a redesign.
 

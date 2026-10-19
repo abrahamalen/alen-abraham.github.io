@@ -1,0 +1,31 @@
+title: Alen Abraham
+description: Alen Abraham's personal website
+base_url: https://alenabraham.me
+language: en-us
+keywords: [Alen, Abraham, Blog, Portfolio, Resume]
+plausible_domain: alenabraham.me
+# Favicon prefix; a page can override it with `favicons: /eyrie/` in front matter.
+favicons: /
+
+main_section: posts
+section_titles:
+  posts: Posts
+  daily: Dailies
+taxonomies:
+  tags: Tags
+  categories: Categories
+  series: Series
+
+menu:
+  - {name: Archives, url: /archives/}
+  - {name: Categories, url: /categories/}
+  - {name: Now, url: /now/}
+  - {name: Resume, url: /resume/}
+  - {name: About, url: /about/}
+
+socials:
+  - https://github.com/abrahamalen/
+  - https://twitter.com/op__trojan/
+  - https://www.linkedin.com/in/alenabraham/
+  - https://www.behance.net/alenabraham
+  - https://medium.com/@alen-abraham
