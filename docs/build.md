@@ -4,6 +4,8 @@ Date: 2026-10-20. This supersedes the "approaches" part of [revamp-design.md](re
 
 I'm going to blog here regularly now, and alenabraham.me/eyrie will be Eyrie's product homepage. Before committing to that I weighed Hugo and Astro against the build I already have, and I'm keeping my own.
 
+Diagrams and cross-posting are designed separately in [publishing.md](publishing.md).
+
 ## 1. Decision
 
 - **My own Python build** (`site/`). No static-site framework.
