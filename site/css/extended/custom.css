@@ -1,0 +1,231 @@
+/*
+Custom styles to override theme defaults
+*/
+
+/* Reduce page title size */
+.page-header h1 {
+    font-size: 32px; /* Reduced from 40px */
+}
+
+/* Reduce post title size */
+.post-title {
+    font-size: 32px !important; /* Reduced and using !important to override any inline styles */
+}
+
+/* Ensure consistency in archive pages */
+.archive-year-header {
+    font-size: 28px; /* Slightly smaller than main titles */
+}
+
+.archive-month-header {
+    font-size: 24px; /* Even smaller for month headers */
+}
+
+/* Archives categories navigation */
+.archives-categories {
+    display: flex;
+    margin: 0 0 15px;
+}
+
+.archives-categories span a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.archives-categories span a:hover {
+    color: var(--secondary);
+}
+
+.archives-categories span a i {
+    margin-right: 10px;
+}
+
+/* Home page styles */
+.home-info .entry-content {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+/* Adjust heading spacing */
+.home-info .entry-header {
+    margin-bottom: 16px; 
+}
+
+/* Social section styling */
+.social-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.also-seen-on {
+    font-size: 16px;
+    margin-right: 10px;
+    color: var(--secondary);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.home-social-icons {
+    display: inline-flex;
+    align-items: center;
+}
+
+.home-social-icons .social-icons {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.home-social-icons .social-icons a {
+    margin-right: 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.home-social-icons .social-icons svg {
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+}
+
+.intro-text {
+    font-size: 16px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.work-description {
+    font-size: 16px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.cta-links {
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Links styling */
+.cta-links a, .work-description a[href="/now/"] {
+    text-decoration: none;
+    color: var(--primary);
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+    font-weight: normal;
+}
+
+.cta-links a:hover, .work-description a[href="/now/"]:hover {
+    color: var(--secondary);
+    border-bottom-color: var(--secondary);
+}
+
+/* Remove underlines from normal links */
+.intro-text a, .work-description a:not([href="/now/"]) {
+    text-decoration: none;
+    border-bottom: none;
+    padding-bottom: 0;
+    font-weight: normal;
+}
+
+.intro-text a:hover, .work-description a:not([href="/now/"]):hover {
+    color: var(--secondary);
+}
+
+/* Exception for social media icons */
+.home-info .social-icons a {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* About page heading styles */
+.post-single h2 {
+    font-size: 24px; /* Reduced heading size */
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Dailies page styles */
+.dailies-list {
+    margin-top: 30px;
+}
+
+.year-header {
+    font-size: 36px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.month-header {
+    font-size: 26px;
+    margin: 30px 0 15px;
+    font-weight: bold;
+}
+
+.post-count {
+    font-size: 60%;
+    opacity: 0.7;
+    top: -0.5em;
+    margin-left: 5px;
+}
+
+.daily-entry {
+    margin-bottom: 24px;
+    padding-left: 5px;
+}
+
+.entry-title {
+    font-size: 22px;
+    margin: 0 0 5px 0;
+    font-weight: normal;
+}
+
+.entry-title a {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.entry-title a:hover {
+    text-decoration: underline;
+}
+
+.entry-meta {
+    font-size: 15px;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.search-container {
+    margin: 30px 0;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--entry);
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.post-content ol {
+    margin-left: 25px;
+}
+
+.post-content ol li {
+    margin-bottom: 10px;
+    padding-left: 5px;
+} 

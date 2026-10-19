@@ -1,0 +1,14 @@
+jinja2==3.1.4
+    # via -r site/requirements.in
+linkify-it-py==2.0.3
+    # via -r site/requirements.in
+markdown-it-py==3.0.0
+    # via -r site/requirements.in
+markupsafe==3.0.4
+    # via jinja2
+mdurl==0.1.2
+    # via markdown-it-py
+pyyaml==6.0.2
+    # via -r site/requirements.in
+uc-micro-py==2.0.0
+    # via linkify-it-py

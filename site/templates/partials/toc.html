@@ -1,0 +1,8 @@
+<ul>
+  {% for h in nodes %}
+  <li>
+    <a href="#{{ h.id }}" aria-label="{{ h.text | striptags }}">{{ h.text | safe }}</a>
+    {% if h.children %}{% with nodes = h.children %}{% include "partials/toc.html" %}{% endwith %}{% endif %}
+  </li>
+  {% endfor %}
+</ul>

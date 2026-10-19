@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title entry-hint-parent">{{ page.title }}</h1>
+    {% if page.meta.description %}
+    <div class="post-description">{{ page.meta.description }}</div>
+    {% endif %}
+    <div class="post-meta">{% if page.date %}<span title="{{ page.date | iso }}">{{ page.date | date }}</span>{% endif %}</div>
+  </header>
+  {% if page.image %}
+  <figure class="entry-cover">
+    <img loading="eager" src="{{ page.image }}" alt="{{ page.meta.cover.alt }}">
+    {% if page.meta.cover.caption %}<p>{{ page.meta.cover.caption }}</p>{% endif %}
+  </figure>
+  {% endif %}
+  {% if (page.meta.ShowToc or page.meta.showtoc) and page.toc %}
+  <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+      <div class="inner">{% with nodes = page.toc %}{% include "partials/toc.html" %}{% endwith %}</div>
+    </details>
+  </div>
+  {% endif %}
+  <div class="post-content">{{ page.content | safe }}</div>
+  <footer class="post-footer">
+    {% if page.meta.tags %}
+    <ul class="post-tags">
+      {% for t in page.meta.tags %}
+      <li><a href="/tags/{{ t | lower | replace(' ', '-') }}/">{{ t | capitalize }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </footer>
+</article>
+{% endblock %}

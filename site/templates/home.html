@@ -18,12 +18,6 @@
     <p class="cta-links" style="font-size:.9em;opacity:.8">Oh, and if you're a recruiter stalking my website — hey, no judgement. Here's my <a href="/resume/">resume</a>, save yourself some clicks. ☕</p>
   </div>
 </article>
-{% for p in posts %}
-<article class="post-entry">
-  <header class="entry-header"><h2 class="entry-hint-parent">{{ p.title }}</h2></header>
-  <div class="entry-content"><p>{{ p.summary }}</p></div>
-  <footer class="entry-footer"><span>{{ p.date_str }}</span></footer>
-  <a class="entry-link" aria-label="post link to {{ p.title }}" href="{{ p.url }}"></a>
-</article>
-{% endfor %}
+{% set entry_class = "post-entry" %}
+{% for p in posts %}{% include "partials/entry.html" %}{% endfor %}
 {% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block main %}
+<header class="page-header">
+  <h1>{{ page.title }}</h1>
+</header>
+<ul class="terms-tags">
+  {% for t in terms %}
+  <li><a href="{{ t.url }}">{{ t.name }} <sup><strong><sup>{{ t.count }}</sup></strong></sup></a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
