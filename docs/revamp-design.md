@@ -1,6 +1,6 @@
 # Site revamp: replacing Hugo + PaperMod
 
-Status: done. The design and prototype went in with #2 and the build with #3, and Hugo/PaperMod are now removed from the repo. The build lives in `site/` (see README). Date: 2026-10-19.
+Status: done. The design and prototype went in with #2 and the build with #3, and Hugo/PaperMod are now removed from the repo. The build lives in `site/` (see README). The decision to keep my own build, and the /eyrie plan, are in [build.md](build.md). Date: 2026-10-19.
 
 I like how the site looks today. What I don't like is that I don't own any of it. The look comes from a PaperMod submodule I've had to fork piece by piece, and the build depends on Hugo behaviour I can't see. So the plan is to **rewrite the build and templates and keep the same look**. It's not a redesign.
 

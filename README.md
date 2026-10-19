@@ -4,6 +4,8 @@
 
 My personal site, [alenabraham.me](https://alenabraham.me). It's built by my own small Python generator in `site/`, which replaces Hugo and PaperMod. The look carries over from PaperMod (MIT); its CSS lives in `site/css/` with the license header kept.
 
+Why I build it this way, and the plan for /eyrie: [docs/build.md](docs/build.md).
+
 ## Commands
 
 Needs [uv](https://docs.astral.sh/uv/). Dependencies are pinned in `site/requirements.txt`.
