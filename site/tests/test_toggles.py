@@ -95,6 +95,19 @@ class ToggleTest(unittest.TestCase):
         pages = self.build_with(uncomment(CONFIG, "{name: Now,"))
         self.assertTrue(all('title="Now"' in self.nav(h) for n, h in pages.items() if "page/1/" not in n))
 
+    def test_search_page_index_and_nav(self):
+        import json
+        pages = self.build_with(CONFIG)
+        self.assertIn('accesskey="/"', pages["index.html"])
+        self.assertIn("/js/search.js", pages["search/index.html"])
+        entries = json.loads((self.tmp / "public" / "index.json").read_text())
+        urls = {e["url"] for e in entries}
+        self.assertIn("/posts/big-o-notation/", urls)
+        self.assertNotIn("/search/", urls)
+        self.assertNotIn("/archives/", urls)
+        no_nav = self.build_with(comment_out(CONFIG, "name: Search"))
+        self.assertNotIn('href="/search/"', no_nav["index.html"])
+
     def test_social_icon(self):
         home = self.build_with(comment_out(CONFIG, "{name: Twitter,"))["index.html"]
         self.assertNotIn("twitter.com/op__trojan", home)

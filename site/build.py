@@ -6,6 +6,7 @@ look and every published URL stay the same (see site/urls.txt and check_urls.py)
 
 import hashlib
 import html
+import json
 import math
 import re
 import shutil
@@ -50,6 +51,7 @@ CSS_BUNDLE = [
     "extended/eyrie.css",
     "extended/mermaid.css",
     "extended/timeline.css",
+    "extended/search.css",
 ]
 
 SUMMARY_WORDS = 70  # Hugo's default summaryLength
@@ -250,6 +252,25 @@ def newest_first(pages: list[dict]) -> list[dict]:
     return sorted(pages, key=lambda p: p["date"] or epoch, reverse=True)
 
 
+def search_index(pages: list[dict], cfg: dict) -> str:
+    """/index.json for the /search/ page: every content page, minus list-style pages and `searchHidden: true`."""
+    skip = {"search", "archives", "dailies", "eyrie"}
+    titles = cfg["section_titles"]
+    entries = [
+        {
+            "title": p["title"],
+            "url": p["url"],
+            "date": p["date"].strftime("%B %-d, %Y") if p["date"] else "",
+            "section": titles.get(p["section"], ""),
+            "tags": [t for tax in cfg["taxonomies"] for t in p["meta"].get(tax) or []],
+            "text": plain_text(p["content"]),
+        }
+        for p in pages
+        if p["layout"] not in skip and not p["meta"].get("searchHidden")
+    ]
+    return json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
+
+
 # ---------- /eyrie/ landing page (release artifact) ----------
 
 def read_eyrie_lock(lock: Path | None) -> dict | None:
@@ -364,6 +385,7 @@ def build(
     )
     (out / "js").mkdir(exist_ok=True)
     shutil.copy(SITE_DIR / "js" / "highlight.js", out / "js" / "highlight.min.js")
+    shutil.copy(SITE_DIR / "js" / "search.js", out / "js" / "search.js")
 
     outputs: dict[str, str] = {}
     sitemap: list[tuple[str, datetime | None]] = []
@@ -391,7 +413,7 @@ def build(
     paged_alias("/")
 
     # Regular pages
-    layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html", "eyrie": "eyrie.html"}
+    layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html", "eyrie": "eyrie.html", "search": "search.html"}
     for p in pages:
         template = layouts.get(p["layout"]) or ("daily.html" if p["section"] == "daily" else "single.html")
         ctx = {"page": p}
@@ -436,6 +458,9 @@ def build(
             paged_alias(turl)
             term_items.append({"title": term_title(t), "url": turl, "date": ps[0]["date"], "description": ""})
         feed(url, title, sorted(term_items, key=lambda i: i["date"], reverse=True))
+
+    if any(p["layout"] == "search" for p in pages):
+        outputs["/index.json"] = search_index(pages, cfg)
 
     if eyrie:
         sitemap.append(("/eyrie/", None))
