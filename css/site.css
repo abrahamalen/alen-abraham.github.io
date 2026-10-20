@@ -1719,3 +1719,68 @@ ul.exp-role-desc li:last-child {
         min-width: unset;
     }
 }
+
+#searchbox input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 16px;
+    color: var(--primary);
+    background: var(--entry);
+    border: 1px solid var(--tertiary);
+    border-radius: var(--radius);
+}
+
+#searchbox input:focus {
+    border-color: var(--secondary);
+    outline: none;
+}
+
+.search-status {
+    margin: 12px 0 4px;
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+#searchResults {
+    list-style: none;
+    padding: 0;
+}
+
+.search-hit {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--tertiary);
+}
+
+.search-hit > a {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.search-meta {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--secondary);
+}
+
+.search-snippet {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--content);
+}
+
+.search-snippet mark {
+    color: inherit;
+    background: rgba(255, 210, 0, 0.35);
+    border-radius: 2px;
+}
+
+.search-hit {
+    overflow-wrap: anywhere;
+}
+
+#searchbox {
+    margin-bottom: var(--gap);
+}

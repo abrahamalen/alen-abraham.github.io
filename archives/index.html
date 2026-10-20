@@ -25,7 +25,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://alenabraham.me/archives/">
 <meta property="article:section" content="">
-<meta property="article:modified_time" content="2024-06-20T18:38:20+05:30"><meta property="og:site_name" content="Alen Abraham">
+<meta property="article:modified_time" content="2026-10-20T17:14:22+05:30"><meta property="og:site_name" content="Alen Abraham">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Archives">
 <meta name="twitter:description" content="Archives for Alen Abraham&#39;s blog.">
@@ -61,7 +61,7 @@
 </button>      </div>
     </div>
     <ul id="menu">
-      <li><a href="/archives/" title="Archives"><span class="active">Archives</span></a></li>
+      <li><a href="/archives/" title="Archives (Alt + /)" accesskey="/"><span class="active">Archives</span></a></li>
       <li><a href="/categories/" title="Categories"><span>Categories</span></a></li>
       <li><a href="/eyrie/" title="Eyrie"><span>Eyrie</span></a></li>
       <li><a href="/about/" title="About"><span>About</span></a></li>
@@ -75,6 +75,12 @@
 <div class="archives-categories">
   <span><a href="/dailies/"><i class="fas fa-calendar-alt"></i> Dailies</a></span>
 </div>
+<div id="searchbox">
+  <input id="searchInput" type="search" placeholder="Search posts, dailies and pages ↵" aria-label="search" autocomplete="off">
+  <p id="searchStatus" class="search-status" role="status"></p>
+  <ul id="searchResults" aria-label="search results"></ul>
+</div>
+<div id="archiveList">
 <div class="archive-year">
   <h2 class="archive-year-header">2025<sup class="archive-count">&nbsp;&nbsp;1</sup></h2>
   <div class="archive-month">
@@ -172,6 +178,8 @@
     </div>
   </div>
 </div>
+</div>
+<script src="/js/search.js" defer></script>
 </main>
 <footer class="footer">
   <span>&copy; 2026 <a href="/">Alen Abraham</a></span>
