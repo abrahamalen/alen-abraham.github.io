@@ -87,7 +87,7 @@ Mermaid renders use the two-variant mode.
 ### The flow
 
 ```
-merge to hugo ─► build + deploy (existing job)
+merge to main ─► build + deploy (existing job)
               └► syndicate job (new, needs: deploy)
                    1. find new posts: in public/, not yet in site/syndication.json
                    2. wait until https://alenabraham.me/posts/<slug>/ returns 200
@@ -108,7 +108,7 @@ merge to hugo ─► build + deploy (existing job)
   - one checkbox per platform
 
   Closing the issue is my "done" signal.
-- **Secrets** are GitHub Actions secrets on **`abrahamalen/alen-abraham.github.io` only**: `DEVTO_API_KEY`, plus `HASHNODE_PAT` and `HASHNODE_PUBLICATION_ID` if I go Pro. The job runs only when `github.repository == 'abrahamalen/alen-abraham.github.io'` and the event is a push to `hugo`, so forks and PR runs never see them. The token gets `issues: write` and `contents: write`, and nothing else.
+- **Secrets** are GitHub Actions secrets on **`abrahamalen/alen-abraham.github.io` only**: `DEVTO_API_KEY`, plus `HASHNODE_PAT` and `HASHNODE_PUBLICATION_ID` if I go Pro. The job runs only when `github.repository == 'abrahamalen/alen-abraham.github.io'` and the event is a push to `main`, so forks and PR runs never see them. The token gets `issues: write` and `contents: write`, and nothing else.
 - **Failures** don't fail the deploy. The job reports what it couldn't do in the checklist issue and leaves the state file untouched for that platform, so the next run retries.
 
 ### How diagrams travel
