@@ -2,7 +2,7 @@
 title: "Resume"
 layout: "single"
 url: "/resume/"
-description: "Alen Abraham — DevOps Engineer 3"
+description: "Alen Abraham — Software Engineer"
 summary: "Professional resume of Alen Abraham"
 ---
 
@@ -51,7 +51,7 @@ Making systems reliable, deployments boring, and incidents rare.
             <li>Owned Jenkinsfiles and CI/CD workflows across 12+ services, standardizing build, test, and release processes using a shared Jenkins library (Hawkeye)</li>
             <li>Engineered self-healing EC2 instances using IMDSv2 failure detection with automatic ASG replacement, reducing recovery time to under 5 minutes with zero manual intervention</li>
             <li>Optimized ASG auto-scaling (CPU 90%/30%, 10-min evaluation, 5-min cooldown) and reduced ALB deregistration from 300s to 30s, accelerating rolling deployments by 10x</li>
-            <li>Deployed on-premise medical imaging solutions across 5+ countries including UAE (SEHA visa screening, Burjeel hospital CT/X-ray, MOH UAE) and Vietnam with end-to-end server setup and DICOM modality integration</li>
+            <li>Deployed on-premise medical imaging solutions across 5+ countries, including the UAE (government visa screening and hospital CT/X-ray) and Vietnam, with end-to-end server setup and DICOM modality integration</li>
             <li>Developed "Pulse" — an internal monitoring platform (Django, React, TypeScript, PostgreSQL) providing real-time health dashboards for on-premise services and DICOM gateway infrastructure globally</li>
             <li>Building "Agent-Qurie" — an AI-powered knowledge base portal (LiteLLM, Open-WebUI, Prometheus) enabling vendors to self-serve L1 incident resolution, reducing escalations to the SRE team</li>
           </ul>
@@ -69,7 +69,7 @@ Making systems reliable, deployments boring, and incidents rare.
             <li>Co-built internal license management platform (Django + React) handling license lifecycle and deployment coordination for cloud and air-gapped hospital environments</li>
             <li>Established per-region p95/p99 TAT dashboards and error rate monitoring, enabling real-time service visibility and SLO-driven deployment decisions</li>
             <li>Authored SRE Knowledge Base with runbooks, incident response procedures, onboarding guides, and operational documentation adopted across the engineering team</li>
-            <li>Maintained and operated Fomema — a legacy healthcare client on Alibaba Cloud since 2022, handling ongoing infrastructure management, incident resolution, and platform stability</li>
+            <li>Maintained and operated a legacy healthcare client platform on Alibaba Cloud since 2022, handling ongoing infrastructure management, incident resolution, and platform stability</li>
           </ul>
         </div>
       </div>
