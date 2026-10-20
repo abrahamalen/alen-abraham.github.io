@@ -598,12 +598,6 @@ pre:hover .copy-code {
     font-style: italic;
 }
 
-.mermaid {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0px 25px 0px
-}
-
 .highlight-title {
     display: flex;
     position: relative;
@@ -1559,16 +1553,51 @@ Custom styles to override theme defaults
   letter-spacing: 0.02em;
 }
 
-.mermaid {
-  margin: 1.5rem auto;
-  overflow-x: auto;
-  text-align: center;
-  max-width: 100%;
+/* Diagrams (docs/publishing.md §1). Inlined SVGs colour themselves through these. */
+:root {
+  --diagram-fg: #1f2328;
+  --diagram-bg: #ffffff;
+  --diagram-accent: #0969da;
+  --diagram-muted: #59636e;
+  --diagram-line: #d0d7de;
 }
 
-.mermaid svg {
+.dark {
+  --diagram-fg: #e6edf3;
+  --diagram-bg: #1b1b1b;
+  --diagram-accent: #4493f8;
+  --diagram-muted: #9198a1;
+  --diagram-line: #3d444d;
+}
+
+.post-content figure.diagram {
+  margin: 1.5rem 0 var(--content-gap);
+  text-align: center;
+  overflow-x: auto;
+}
+
+.post-content figure.diagram svg,
+.post-content figure.diagram img {
+  display: inline-block;
   max-width: 100%;
   height: auto;
+  margin: 0 auto;
+}
+
+/* Light/dark pairs (Mermaid renders, x.light.svg + x.dark.svg): show the one for the theme. */
+.post-content figure.diagram .diagram-dark,
+.dark .post-content figure.diagram .diagram-light {
+  display: none;
+}
+
+.dark .post-content figure.diagram .diagram-dark {
+  display: inline-block;
+}
+
+.post-content figure.diagram > figcaption {
+  color: var(--secondary);
+  font-size: 14px;
+  font-weight: normal;
 }
 
 /* LinkedIn-style experience timeline */
