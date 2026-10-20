@@ -4,11 +4,15 @@ Replaces Hugo + PaperMod. URLs, feeds and markup follow what Hugo produced so th
 look and every published URL stay the same (see site/urls.txt and check_urls.py).
 """
 
+import hashlib
 import html
 import math
 import re
 import shutil
+import ssl
 import subprocess
+import tarfile
+import urllib.request
 from collections import defaultdict
 from datetime import datetime, timezone
 from itertools import groupby
@@ -22,6 +26,9 @@ SITE_DIR = Path(__file__).resolve().parent
 ROOT = SITE_DIR.parent
 CONTENT = ROOT / "content"
 OUT = ROOT / "public"
+EYRIE_LOCK = SITE_DIR / "eyrie.lock"
+CACHE = ROOT / ".cache"
+EYRIE_RELEASES = "https://github.com/abrahamalen/eyrie/releases/download"
 
 # Order matters: it is the order PaperMod bundled these in, so the cascade is unchanged.
 CSS_BUNDLE = [
@@ -243,17 +250,88 @@ def newest_first(pages: list[dict]) -> list[dict]:
     return sorted(pages, key=lambda p: p["date"] or epoch, reverse=True)
 
 
+# ---------- /eyrie/ landing page (release artifact) ----------
+
+def read_eyrie_lock(lock: Path | None) -> dict | None:
+    """The pinned landing-page release, or None when the lock is missing or commented out."""
+    if lock is None or not lock.is_file():
+        return None
+    # Plain `key: value` lines, not YAML: YAML would read an all-digit digest as an int.
+    pin = dict(
+        (k.strip(), v.strip())
+        for k, _, v in (line.partition(":") for line in lock.read_text().splitlines())
+        if k.strip() and not k.lstrip().startswith("#")
+    )
+    if not pin.get("version"):
+        return None
+    if not re.fullmatch(r"[0-9a-f]{64}", pin.get("sha256", "")):
+        raise SystemExit(f"{lock}: `sha256:` must be the tarball's 64-char hex digest")
+    return {"version": pin["version"], "sha256": pin["sha256"]}
+
+
+def sha256_of(path: Path) -> str:
+    with path.open("rb") as f:
+        return hashlib.file_digest(f, "sha256").hexdigest()
+
+
+def fetch_eyrie(pin: dict, cache: Path) -> Path:
+    """Pinned tarball from the cache, downloading it on a miss. Fails on a hash mismatch."""
+    name = f"eyrie-landing-{pin['version']}.tar.gz"
+    tarball = cache / "eyrie" / name
+    if tarball.is_file() and sha256_of(tarball) == pin["sha256"]:
+        return tarball
+    tarball.parent.mkdir(parents=True, exist_ok=True)
+    url = f"{EYRIE_RELEASES}/v{pin['version']}/{name}"
+    print(f"fetching {url}")
+    partial = tarball.with_suffix(".part")
+    # python.org's macOS Python ships without a CA bundle; the OS one works.
+    os_bundle = Path("/etc/ssl/cert.pem")
+    use_os = not ssl.get_default_verify_paths().cafile and os_bundle.is_file()
+    tls = ssl.create_default_context(cafile=str(os_bundle) if use_os else None)
+    with urllib.request.urlopen(url, timeout=60, context=tls) as resp, partial.open("wb") as f:
+        shutil.copyfileobj(resp, f)
+    got = sha256_of(partial)
+    if got != pin["sha256"]:
+        partial.unlink()
+        raise SystemExit(f"{name}: sha256 {got} does not match site/eyrie.lock ({pin['sha256']})")
+    partial.replace(tarball)
+    return tarball
+
+
+def unpack_eyrie(tarball: Path, out: Path) -> int:
+    """Unpack the landing page into out/eyrie/. Runs after the site has rendered."""
+    dest = out / "eyrie"
+    if dest.exists():
+        made = sorted(str(p.relative_to(out)) for p in dest.rglob("*") if p.is_file())
+        raise SystemExit(f"the site rendered files under /eyrie/, which the landing page owns: {made}")
+    dest.mkdir(parents=True)
+    with tarfile.open(tarball) as tar:
+        tar.extractall(dest, filter="data")
+    if not (dest / "index.html").is_file():
+        raise SystemExit(f"{tarball.name} has no index.html at its root")
+    return sum(1 for p in dest.rglob("*") if p.is_file())
+
+
 # ---------- site ----------
 
-def build(config: Path = SITE_DIR / "site.yaml", out: Path = OUT) -> None:
+def build(
+    config: Path = SITE_DIR / "site.yaml",
+    out: Path = OUT,
+    eyrie_lock: Path | None = EYRIE_LOCK,
+    cache: Path = CACHE,
+) -> None:
     cfg = yaml.safe_load(config.read_text())
     dates = git_dates()
+    eyrie = read_eyrie_lock(eyrie_lock)
+    # Fetch before rendering so a bad pin fails fast, and so a later network error can't leave half a site.
+    eyrie_tarball = fetch_eyrie(eyrie, cache) if eyrie else None
 
     pages = []
     for section in ("posts", "daily"):
         pages += [load_page(p, section, dates) for p in sorted((CONTENT / section).glob("*.md"))]
     pages += [load_page(p, "", dates) for p in sorted(CONTENT.glob("*.md"))]
-    pages = newest_first([p for p in pages if p])
+    # The coming-soon page (and its icons in static/eyrie/) only exist when the artifact is off.
+    pages = newest_first([p for p in pages if p and not (eyrie and p["meta"].get("eyrie_fallback"))])
 
     sections = {s: [p for p in pages if p["section"] == s] for s in cfg["section_titles"]}
     main_pages = sections[cfg["main_section"]]
@@ -278,7 +356,8 @@ def build(config: Path = SITE_DIR / "site.yaml", out: Path = OUT) -> None:
 
     if out.exists():
         shutil.rmtree(out)
-    shutil.copytree(ROOT / "static", out)
+    skip_eyrie = (lambda d, names: ["eyrie"] if Path(d) == ROOT / "static" else []) if eyrie else None
+    shutil.copytree(ROOT / "static", out, ignore=skip_eyrie)
     (out / "css").mkdir(exist_ok=True)
     (out / "css" / "site.css").write_text(
         "\n".join((SITE_DIR / "css" / f).read_text() for f in CSS_BUNDLE)
@@ -358,6 +437,8 @@ def build(config: Path = SITE_DIR / "site.yaml", out: Path = OUT) -> None:
             term_items.append({"title": term_title(t), "url": turl, "date": ps[0]["date"], "description": ""})
         feed(url, title, sorted(term_items, key=lambda i: i["date"], reverse=True))
 
+    if eyrie:
+        sitemap.append(("/eyrie/", None))
     emit("/404.html", "404.html", in_sitemap=False, page={"kind": "404", "url": "/404.html", "title": "404 Page not found"})
     outputs["/sitemap.xml"] = env.get_template("sitemap.xml").render(urls=sitemap)
 
@@ -368,6 +449,9 @@ def build(config: Path = SITE_DIR / "site.yaml", out: Path = OUT) -> None:
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(body)
     print(f"built {len(outputs)} files ({len(pages)} pages) -> {out}/")
+    if eyrie_tarball:
+        n = unpack_eyrie(eyrie_tarball, out)
+        print(f"eyrie landing {eyrie['version']}: {n} files -> {out}/eyrie/")
 
 
 if __name__ == "__main__":

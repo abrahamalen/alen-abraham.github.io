@@ -27,6 +27,7 @@ taxonomies:
 menu:
   - {name: Archives, url: /archives/}
   - {name: Categories, url: /categories/}
+  - {name: Eyrie, url: /eyrie/}
   # Now and Resume are reachable from the home intro, so they're off here.
   # To show one in the nav, uncomment its line:
   # - {name: Now, url: /now/}
@@ -49,7 +50,7 @@ home:
   # One paragraph per line, rendered in order; `class` keeps the existing styling.
   intro:
     - {class: intro-text, html: "I'm Alen, a DevOps/SRE engineer focused on building reliable infrastructure."}
-    - {class: work-description, html: "I specialize in creating stable and resilient systems, with a strong interest in privacy and security. My goal is to architect solutions that are robust, scalable, and secure. Check out <a href=\"/now/\">what I'm doing now</a>."}
+    - {class: work-description, html: "I specialize in creating stable and resilient systems, with a strong interest in privacy and security. My goal is to architect solutions that are robust, scalable, and secure. Lately I'm building <a href=\"/eyrie/\">Eyrie</a>, a local control plane for AI coding tools. Check out <a href=\"/now/\">what I'm doing now</a>."}
     - {class: cta-links, html: "If you're here for the first time, check out my <a href=\"/categories/\">posts</a> or learn more <a href=\"/about/\">about me</a>. Don't forget to explore my <a href=\"/archives/\">archives</a> for all content."}
   # The small, faded line under the intro.
   aside: "Oh, and if you're a recruiter stalking my website — hey, no judgement. Here's my <a href=\"/resume/\">resume</a>, save yourself some clicks. ☕"

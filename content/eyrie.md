@@ -8,4 +8,6 @@ description: "A local control plane for your AI coding tools: Claude Code, Codex
 favicons: /eyrie/
 favicon_svg: true
 excludeFromFeeds: true
+# Coming-soon fallback: only rendered when site/eyrie.lock is off (docs/build.md).
+eyrie_fallback: true
 ---
