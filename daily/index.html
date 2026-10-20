@@ -77,6 +77,42 @@
 </header>
 <article class="post-entry">
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Eyrie v0.2.0, and a new home for this site</h2>
+  </header>
+  <div class="entry-content">
+    <p>Long day. Two things shipped: Eyrie v0.2.0, and this website on its own build. On Eyrie: A Gemini CLI adapter, so all three CLIs are in. First-run setup, and a UI driven by capabilities, so it only shows what the installed CLIs can actually do. Packaging: a PyInstaller build of the server, Tauri app bundles, and .dmg , .deb , .rpm and AppImage. Release CI install-tests each distro. A one-line install.sh , a Homebrew tap, and an MIT license. Then I tagged and released v0.2.0. After the release:...</p>
+  </div>
+  <footer class="entry-footer"><span title="2026-10-20T00:00:00+00:00">October 20, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Eyrie v0.2.0, and a new home for this site" href="/daily/2026-10-20/"></a>
+</article><article class="post-entry">
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Eyrie finds my other terminals</h2>
+  </header>
+  <div class="entry-content">
+    <p>Until today Eyrie only knew about sessions it started itself. Most of my sessions don’t start there. I open a terminal tab and run claude or codex like always. So now the widget lists sessions running in my own terminals, and the Sessions page shows Claude Code and Codex sessions running outside Eyrie too. Also today: Release builds for the widget, as a .app and a .dmg . An app icon. A high-level LLD doc. Per-CLI locks, so two actions on the same CLI can’t step on each other. Wider secret masking in anything Eyrie shows or logs. Next up: Gemini CLI support and proper packaging, so someone other than me can install it.</p>
+  </div>
+  <footer class="entry-footer"><span title="2026-10-19T00:00:00+00:00">October 19, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Eyrie finds my other terminals" href="/daily/2026-10-19/"></a>
+</article><article class="post-entry">
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Eyrie gets a new look, and Linux</h2>
+  </header>
+  <div class="entry-content">
+    <p>Sunday was mostly about how Eyrie looks. I restyled the whole app in a new design language: paper and ink colours, small mono eyebrows over each section. What else got done: /api/v1/summary , one endpoint that feeds both the home page and the widget. A systemd user service, so it runs on Ubuntu the same way the launchd agent does on macOS. A platform matrix design: macOS, Ubuntu and Fedora for now. Windows is deferred. Started the top-bar widget in Tauri. Next up: getting the widget to show sessions that I started outside Eyrie.</p>
+  </div>
+  <footer class="entry-footer"><span title="2026-10-18T00:00:00+00:00">October 18, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Eyrie gets a new look, and Linux" href="/daily/2026-10-18/"></a>
+</article><article class="post-entry">
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Eyrie, day one: a backend and a prototype</h2>
+  </header>
+  <div class="entry-content">
+    <p>Started Eyrie today. It’s my own open-source control plane for the AI coding CLIs I use every day (Claude Code, Codex, Gemini CLI), and it runs locally. The code is at github.com/abrahamalen/eyrie . The first design had Docker in it. I dropped that early. Everything Eyrie needs is already on my laptop: the CLIs, their config files, their transcripts. A container would only get in the way, so it’s laptop-only....</p>
+  </div>
+  <footer class="entry-footer"><span title="2026-10-17T00:00:00+00:00">October 17, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Eyrie, day one: a backend and a prototype" href="/daily/2026-10-17/"></a>
+</article><article class="post-entry">
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Creating My Digital Scrapbook</h2>
   </header>
   <div class="entry-content">
