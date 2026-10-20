@@ -9,7 +9,7 @@ Diagrams and cross-posting are designed separately in [publishing.md](publishing
 ## 1. Decision
 
 - **My own Python build** (`site/`). No static-site framework.
-- **The blog stays plain static HTML with zero JS by default.** A page gets a script only when its content needs one: highlight.js on pages with code. Diagrams, Mermaid included, are SVGs rendered before the build, so they need no JS. The theme toggle and back-to-top link are the only always-on inline JS.
+- **The blog stays plain static HTML with zero JS by default.** A page gets a script only when its content needs one: highlight.js on pages with code (vendored as `site/js/highlight.js`, pinned to 11.12.0 from cdnjs; its sha512 matched the published SRI and the npm `@highlightjs/cdn-assets` tarball). Diagrams, Mermaid included, are SVGs rendered before the build, so they need no JS. The theme toggle and back-to-top link are the only always-on inline JS.
 - **The current minimal look stays.** It's PaperMod's look, but now I own the CSS in `site/css/`, with the MIT credit kept.
 
 ## 2. Why
@@ -55,6 +55,14 @@ Give a post (or daily) a future `date:`, merge it, and it goes live on its own:
 - `FUTURE=1 make serve` (or `FUTURE=1 make build`) includes scheduled posts, to preview them locally.
 - GitHub pauses scheduled workflows after 60 days without a commit. If the queue is longer than that, check the Actions tab, or push something.
 
+## Feeds, theme and small outputs
+
+- **Feeds.** `/index.xml` (home) lists posts and dailies, the dated entries, newest first. Standalone pages (About, Now, Resume, the list pages) aren't in it; Hugo put every regular page in the home feed, which is why they used to show up. Each section, taxonomy and term keeps its own `index.xml`.
+- **Empty taxonomies.** A taxonomy with no terms yet (today `/series/`) still renders, since its URL is in `urls.txt`, but says "No series yet" and stays out of the sitemap.
+- **Theme.** `?theme=light|dark` wins, then the choice saved by the toggle, then the OS `prefers-color-scheme`. The inline script at the top of `<body>` sets it before the first paint.
+- **`/robots.txt`** is rendered from `site/templates/robots.txt` and points at `/sitemap.xml`.
+- **`/404.html`** links to search (on `/archives/`) and home and lists the five newest posts.
+
 ## Turning things on and off
 
 Everything optional that's visible on the site is driven by `site/site.yaml`. Comment out a line (or delete it) and that piece stops rendering on every page. `make test` checks this (`site/tests/test_toggles.py`), and CI runs it.
@@ -71,15 +79,15 @@ Everything optional that's visible on the site is driven by `site/site.yaml`. Co
 | Recruiter line | `home.aside` | The small faded line (and the gap above it) goes |
 | Whole home intro block | `home:` and everything under it | Home shows only the post list |
 | Alt+/ to Archives (search) | `key: /` on the Archives line under `menu:` | The shortcut goes; the search box on `/archives/` stays. Per page: `searchHidden: true` keeps it out of the index |
-| Archives top links | each line under `archives_links:` | That link goes. Font Awesome stops loading when no link has an `icon` |
+| Archives top links | each line under `archives_links:` | That link goes. `icon:` is optional and names an inline SVG in `site/templates/partials/icons/`, like the socials; no icon font is loaded anywhere |
 | Footer | `footer_copyright: true` | No footer |
-| Theme toggle | `theme_toggle: true` | No light/dark button, so the site stays in its default dark theme |
+| Theme toggle | `theme_toggle: true` | No light/dark button, so the site follows the OS setting (dark without JS) |
 | Back-to-top arrow | `back_to_top: true` | No floating arrow |
 | Diagram size limits | `diagrams:` (`inline_svg_kb`, `img_svg_kb`, `png_kb`) | Not a toggle: missing keys fall back to the same defaults (100, 500, 400 KB) |
 | Analytics | `plausible_domain:` | No Plausible script anywhere. Per page: `excludeAnalytics: true` in front matter |
 | Eyrie landing page at `/eyrie/` | `version:` in `site/eyrie.lock` (not `site.yaml`) | The build skips the release download and renders the coming-soon page (`content/eyrie.md`, `eyrie_fallback: true`) with the icons in `static/eyrie/` instead. `make check` then reports the landing-only files in `urls.txt` (`/eyrie/install.sh`, `/eyrie/og.png`) as missing |
 
-Per-page switches live in front matter instead: `favicons:` / `favicon_svg:` (which icon set the page uses), `title_tag:` / `site_name:` (head overrides), `excludeFromFeeds: true` (keeps the page out of the home RSS) and `ShowToc: true` (table of contents).
+Per-page switches live in front matter instead: `favicons:` / `favicon_svg:` (which icon set the page uses), `title_tag:` / `site_name:` (head overrides), `excludeFromFeeds: true` (keeps a post or daily out of the home RSS) and `ShowToc: true` (table of contents).
 
 ## 4. The /eyrie plan (built: option A)
 

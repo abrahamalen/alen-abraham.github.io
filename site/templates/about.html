@@ -7,9 +7,12 @@
     <div class="post-description">{{ page.meta.description }}</div>
     {% endif %}
   </header>
+  {% set updated = page.lastmod or page.date %}
+  {% if updated %}
   <div class="post-meta">
-    <span>Last updated at {{ now | date("%-I:%M %p, %B %-d, %Y") }} (UTC)</span>
+    <span>Last updated <time datetime="{{ updated | iso }}">{{ updated | date }}</time></span>
   </div>
+  {% endif %}
   <div class="post-content">{{ page.content | safe }}</div>
   <footer class="post-footer"></footer>
 </article>
