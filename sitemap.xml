@@ -61,12 +61,8 @@
     <lastmod>2025-04-01T15:40:12+05:30</lastmod>
   </url>
   <url>
-    <loc>https://alenabraham.me/eyrie/</loc>
-    <lastmod>2026-10-20T13:51:41+05:30</lastmod>
-  </url>
-  <url>
     <loc>https://alenabraham.me/now/</loc>
-    <lastmod>2026-10-20T13:51:41+05:30</lastmod>
+    <lastmod>2026-10-20T15:41:22+05:30</lastmod>
   </url>
   <url>
     <loc>https://alenabraham.me/resume/</loc>
@@ -154,5 +150,8 @@
   </url>
   <url>
     <loc>https://alenabraham.me/series/</loc>
+  </url>
+  <url>
+    <loc>https://alenabraham.me/eyrie/</loc>
   </url>
 </urlset>

@@ -1394,7 +1394,7 @@ Custom styles to override theme defaults
 }
 
 /* Links styling */
-.cta-links a, .work-description a[href="/now/"] {
+.cta-links a, .work-description a[href="/now/"], .work-description a[href="/eyrie/"] {
     text-decoration: none;
     color: var(--primary);
     border-bottom: 1px solid var(--primary);
@@ -1403,20 +1403,20 @@ Custom styles to override theme defaults
     font-weight: normal;
 }
 
-.cta-links a:hover, .work-description a[href="/now/"]:hover {
+.cta-links a:hover, .work-description a[href="/now/"]:hover, .work-description a[href="/eyrie/"]:hover {
     color: var(--secondary);
     border-bottom-color: var(--secondary);
 }
 
 /* Remove underlines from normal links */
-.intro-text a, .work-description a:not([href="/now/"]) {
+.intro-text a, .work-description a:not([href="/now/"]):not([href="/eyrie/"]) {
     text-decoration: none;
     border-bottom: none;
     padding-bottom: 0;
     font-weight: normal;
 }
 
-.intro-text a:hover, .work-description a:not([href="/now/"]):hover {
+.intro-text a:hover, .work-description a:not([href="/now/"]):not([href="/eyrie/"]):hover {
     color: var(--secondary);
 }
 
