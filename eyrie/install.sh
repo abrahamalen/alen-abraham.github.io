@@ -7,8 +7,9 @@
 # Downloads the release for this OS and CPU from GitHub, checks it against the release's
 # SHA256SUMS, installs it, and starts Eyrie's background service. Options:
 #   --version vX.Y.Z   a specific release (default: the latest)
-#   --server-only      no tray widget (servers, SSH boxes); no root needed
-#   --user             Linux: install under ~/.local instead of the system package (implies --server-only)
+#   --server-only      server and web UI only, no tray widget (servers, SSH boxes), under ~/.local;
+#                      no root needed (macOS and Linux)
+#   --user             same as --server-only
 #   --uninstall        remove the service and Eyrie itself; ~/.eyrie (your data) is never touched
 #   --dry-run          print what would happen, change nothing
 #
@@ -83,9 +84,9 @@ if [ "$UNINSTALL" = 1 ]; then
     else
         if command -v dpkg >/dev/null 2>&1 && dpkg -s eyrie >/dev/null 2>&1; then run $SUDO apt-get remove -y eyrie; fi
         if command -v rpm >/dev/null 2>&1 && rpm -q eyrie >/dev/null 2>&1; then run $SUDO dnf remove -y eyrie; fi
-        [ -d "$USER_LIB" ] && run rm -rf "$USER_LIB"
-        [ -L "$USER_BIN/eyrie-server" ] && run rm -f "$USER_BIN/eyrie-server"
     fi
+    [ -d "$USER_LIB" ] && run rm -rf "$USER_LIB"
+    [ -L "$USER_BIN/eyrie-server" ] && run rm -f "$USER_BIN/eyrie-server"
     say "Eyrie is removed. Your data in ~/.eyrie and any running sessions were left alone."
     exit 0
 fi
@@ -103,13 +104,14 @@ fi
 V=${VERSION#v}
 [ -n "$BASE" ] || BASE="https://github.com/$REPO/releases/download/v$V"
 
-if [ "$OS" = Darwin ]; then
+if [ "$SERVER_ONLY" = 1 ]; then
+    [ "$OS" = Darwin ] && PLATFORM=macos || PLATFORM=linux
+    ASSET="eyrie-server-${V}-${PLATFORM}-${ARCH}.tar.gz"
+    KIND=tar
+elif [ "$OS" = Darwin ]; then
     [ "$ARCH" = aarch64 ] && A=aarch64 || A=x64
     ASSET="Eyrie_${V}_${A}.dmg"
     KIND=dmg
-elif [ "$SERVER_ONLY" = 1 ]; then
-    ASSET="eyrie-server-${V}-linux-${ARCH}.tar.gz"
-    KIND=tar
 elif command -v apt-get >/dev/null 2>&1; then
     [ "$ARCH" = aarch64 ] && A=arm64 || A=amd64
     ASSET="Eyrie_${V}_${A}.deb"
