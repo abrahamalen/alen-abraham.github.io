@@ -1,12 +1,15 @@
 """Commenting out a line in site/site.yaml must remove that piece from every page."""
 
 import contextlib
+import hashlib
 import io
 import re
 import shutil
 import sys
+import tarfile
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 SITE_DIR = Path(__file__).resolve().parent.parent
@@ -15,6 +18,7 @@ sys.path.insert(0, str(SITE_DIR))
 import build  # noqa: E402
 
 CONFIG = (SITE_DIR / "site.yaml").read_text()
+LANDING = "<!doctype html><title>Eyrie landing</title>"
 
 
 def comment_out(text: str, needle: str) -> str:
@@ -34,14 +38,35 @@ def uncomment(text: str, needle: str) -> str:
 
 
 class ToggleTest(unittest.TestCase):
-    def build_with(self, config_text: str) -> dict[str, str]:
-        tmp = Path(tempfile.mkdtemp())
-        self.addCleanup(shutil.rmtree, tmp)
-        cfg = tmp / "site.yaml"
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def build_with(self, config_text: str, lock_text: str | None = None) -> dict[str, str]:
+        """Build into a temp dir. No lock (the default) means the /eyrie/ artifact step is off."""
+        cfg = self.tmp / "site.yaml"
         cfg.write_text(config_text)
+        lock = None
+        if lock_text is not None:
+            lock = self.tmp / "eyrie.lock"
+            lock.write_text(lock_text)
+        out = self.tmp / "public"
         with contextlib.redirect_stdout(io.StringIO()):
-            build.build(config=cfg, out=tmp / "public")
-        return {str(p.relative_to(tmp / "public")): p.read_text() for p in (tmp / "public").rglob("*.html")}
+            build.build(config=cfg, out=out, eyrie_lock=lock, cache=self.tmp / "cache")
+        return {str(p.relative_to(out)): p.read_text() for p in out.rglob("*.html")}
+
+    def cached_landing(self, version: str = "9.9.9") -> str:
+        """Put a fake landing tarball in the build cache, so no network is needed. Returns its sha256."""
+        src = self.tmp / "landing"
+        (src / "assets").mkdir(parents=True)
+        (src / "index.html").write_text(LANDING)
+        (src / "assets" / "app.js").write_text("")
+        tarball = self.tmp / "cache" / "eyrie" / f"eyrie-landing-{version}.tar.gz"
+        tarball.parent.mkdir(parents=True)
+        with tarfile.open(tarball, "w:gz") as tar:
+            for f in ("index.html", "assets/app.js"):
+                tar.add(src / f, arcname=f)
+        return hashlib.sha256(tarball.read_bytes()).hexdigest()
 
     @staticmethod
     def nav(html: str) -> str:
@@ -94,6 +119,35 @@ class ToggleTest(unittest.TestCase):
         archives = self.build_with(comment_out(CONFIG, "{name: Dailies,"))["archives/index.html"]
         self.assertNotIn("archives-categories", archives)
         self.assertNotIn("font-awesome", archives)
+
+
+    def test_eyrie_lock_serves_the_landing_page(self):
+        sha = self.cached_landing()
+        pages = self.build_with(CONFIG, f"version: 9.9.9\nsha256: {sha}\n")
+        self.assertEqual(pages["eyrie/index.html"], LANDING)
+        self.assertTrue((self.tmp / "public" / "eyrie" / "assets" / "app.js").is_file())
+        self.assertFalse((self.tmp / "public" / "eyrie" / "site.webmanifest").exists())  # fallback icons stay out
+
+    def test_commented_out_eyrie_lock_falls_back_to_coming_soon(self):
+        sha = self.cached_landing()
+        pages = self.build_with(CONFIG, f"# version: 9.9.9\nsha256: {sha}\n")
+        self.assertIn("Coming soon", pages["eyrie/index.html"])
+
+    def test_eyrie_hash_mismatch_fails_the_build(self):
+        self.cached_landing()
+        # The cached file doesn't match, so the build re-downloads; stub that with a bad body.
+        with mock.patch.object(build.urllib.request, "urlopen", return_value=io.BytesIO(b"not it")):
+            with self.assertRaisesRegex(SystemExit, "does not match"):
+                self.build_with(CONFIG, f"version: 9.9.9\nsha256: {'0' * 64}\n")
+
+    def test_site_pages_under_eyrie_fail_the_build(self):
+        sha = self.cached_landing()
+        out = self.tmp / "public"
+        (out / "eyrie").mkdir(parents=True)
+        (out / "eyrie" / "index.html").write_text("rendered by the site")
+        tarball = build.fetch_eyrie({"version": "9.9.9", "sha256": sha}, self.tmp / "cache")
+        with self.assertRaisesRegex(SystemExit, "landing page owns"):
+            build.unpack_eyrie(tarball, out)
 
 
 if __name__ == "__main__":

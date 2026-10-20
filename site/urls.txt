@@ -117,3 +117,8 @@
 /tags/web-development/page/1/index.html
 # Added after the freeze:
 /eyrie/index.html
+# Eyrie landing page (release artifact, site/eyrie.lock); hashed assets/ are not listed.
+/eyrie/apple-touch-icon.png
+/eyrie/favicon.svg
+/eyrie/install.sh
+/eyrie/og.png

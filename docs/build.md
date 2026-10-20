@@ -52,12 +52,13 @@ Everything optional that's visible on the site is driven by `site/site.yaml`. Co
 | Theme toggle | `theme_toggle: true` | No light/dark button, so the site stays in its default dark theme |
 | Back-to-top arrow | `back_to_top: true` | No floating arrow |
 | Analytics | `plausible_domain:` | No Plausible script anywhere. Per page: `excludeAnalytics: true` in front matter |
+| Eyrie landing page at `/eyrie/` | `version:` in `site/eyrie.lock` (not `site.yaml`) | The build skips the release download and renders the coming-soon page (`content/eyrie.md`, `eyrie_fallback: true`) with the icons in `static/eyrie/` instead. `make check` then reports the landing-only files in `urls.txt` (`/eyrie/install.sh`, `/eyrie/og.png`) as missing |
 
 Per-page switches live in front matter instead: `favicons:` / `favicon_svg:` (which icon set the page uses), `title_tag:` / `site_name:` (head overrides), `excludeFromFeeds: true` (keeps the page out of the home RSS) and `ShowToc: true` (table of contents).
 
-## 4. The /eyrie plan (design only, not built yet)
+## 4. The /eyrie plan (built: option A)
 
-**What it is.** `/eyrie` is a small Vite + React landing page that lives in the Eyrie repo (`alenabraham-qure/eyrie`, which is public), for example under `eyrie/landing/`. It reuses Eyrie's own Tailwind tokens and components, such as the "e." logo and the cards, so it looks like the product rather than like my blog. The blog itself stays zero-JS; React exists only under `/eyrie/`.
+**What it is.** `/eyrie` is a small Vite + React landing page that lives in the Eyrie repo (`abrahamalen/eyrie`, which is public). It reuses Eyrie's own Tailwind tokens and components, such as the "e." logo and the cards, so it looks like the product rather than like my blog. The blog itself stays zero-JS; React exists only under `/eyrie/`.
 
 **How it gets into the site.** At site build time, the landing page's static build output (`index.html` plus hashed assets, built with Vite `base: "/eyrie/"`) is copied into `public/eyrie/`.
 
@@ -77,7 +78,13 @@ Per-page switches live in front matter instead: `favicons:` / `favicon_svg:` (wh
 **Guardrails.**
 - The copy runs **after** the site has rendered.
 - The build fails if the site itself generated anything under `/eyrie/`, or if the artifact's hash doesn't match.
-- `make check` must keep passing. `/eyrie/` only adds files, and I'll add `/eyrie/index.html` to `site/urls.txt` once it's live so it's protected too.
+- `make check` must keep passing. `/eyrie/` only adds files, and `site/urls.txt` lists its stable files (`index.html`, `install.sh`, the icons and `og.png`), not the hashed `assets/`.
+
+**As built.**
+- `site/eyrie.lock` holds `version:` and `sha256:` (from the release's `SHA256SUMS`). To update, bump both in one PR.
+- `build.py` downloads `eyrie-landing-<version>.tar.gz` from the `v<version>` release into `.cache/eyrie/` (gitignored), verifies the hash and fails on a mismatch. A cached tarball with the right hash is reused, so offline builds work once it's been fetched. The fetch happens before rendering; the unpack into `public/eyrie/` happens after.
+- With the lock on, the coming-soon page and `static/eyrie/` are left out, and the build fails if anything else rendered under `/eyrie/`.
+- `/eyrie/install.sh` comes from the tarball; GitHub Pages serves it as `application/x-sh`, which `curl … | sh` is fine with.
 
 ## 5. Go-live
 
