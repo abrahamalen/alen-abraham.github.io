@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" dir="auto">
+<head>
+{% include "partials/head.html" %}
+</head>
+<body class="{{ 'list ' if page.kind != 'page' or page.layout == 'archives' }}dark" id="top">
+<script>
+  (function () {
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
+    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
+    if (pref === "light") document.body.classList.remove("dark");
+  })();
+</script>
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a href="/" accesskey="h" title="{{ site.title }} (Alt + H)">{{ site.title }}</a>
+      {% if site.theme_toggle %}
+      <div class="logo-switches">
+        {% include "partials/theme_toggle.html" %}
+      </div>
+      {% endif %}
+    </div>
+    {% if site.menu %}
+    <ul id="menu">
+      {% for item in site.menu %}
+      <li><a href="{{ item.url }}" title="{{ item.name }}"><span{% if page.url == item.url %} class="active"{% endif %}>{{ item.name }}</span></a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </nav>
+</header>
+<main class="main">
+{% block main %}{% endblock %}
+</main>
+{% if site.footer_copyright %}
+<footer class="footer">
+  <span>&copy; {{ year }} <a href="/">{{ site.title }}</a></span>
+</footer>
+{% endif %}
+{% if site.back_to_top %}
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+{% endif %}
+<script>
+  var menu = document.getElementById("menu");
+  if (menu) {
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () { localStorage.setItem("menu-scroll-position", menu.scrollLeft); };
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = this.getAttribute("href").substr(1);
+      var el = document.querySelector("[id='" + decodeURIComponent(id) + "']");
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView(reduce ? undefined : { behavior: "smooth" });
+      if (id === "top") history.replaceState(null, null, " ");
+      else history.pushState(null, null, "#" + id);
+    });
+  });
+  var topLink = document.getElementById("top-link");
+  if (topLink) window.onscroll = function () {
+    var on = document.body.scrollTop > 800 || document.documentElement.scrollTop > 800;
+    topLink.style.visibility = on ? "visible" : "hidden";
+    topLink.style.opacity = on ? "1" : "0";
+  };
+  var themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) themeToggle.addEventListener("click", function () {
+    var dark = document.body.classList.toggle("dark");
+    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+  });
+</script>
+</body>
+</html>

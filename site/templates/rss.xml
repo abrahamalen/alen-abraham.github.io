@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{% if feed.title %}{{ feed.title }} on {% endif %}{{ site.title }}</title>
+    <link>{{ abs(feed.url) }}</link>
+    <description>Recent content {% if feed.title %}in {{ feed.title }} {% endif %}on {{ site.title }}</description>
+    <language>{{ site.language }}</language>
+    {% if feed["items"] and feed["items"][0].date %}
+    <lastBuildDate>{{ feed["items"][0].date | rfc822 }}</lastBuildDate>
+    {% endif %}
+    <atom:link href="{{ abs(feed.url) }}index.xml" rel="self" type="application/rss+xml" />
+    {% for item in feed["items"] %}
+    <item>
+      <title>{{ item.title }}</title>
+      <link>{{ abs(item.url) }}</link>
+      {% if item.date %}
+      <pubDate>{{ item.date | rfc822 }}</pubDate>
+      {% endif %}
+      <guid>{{ abs(item.url) }}</guid>
+      <description>{{ item.description }}</description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

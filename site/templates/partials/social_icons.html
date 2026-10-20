@@ -1,0 +1,7 @@
+<div class="social-icons">
+  {% for s in site.socials or [] %}
+  <a href="{{ s.url }}" target="_blank" rel="noopener noreferrer me" title="{{ s.name }}">
+    {% include "partials/icons/" ~ s.icon ~ ".svg" %}
+  </a>
+  {% endfor %}
+</div>

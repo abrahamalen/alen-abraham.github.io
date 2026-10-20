@@ -1,0 +1,67 @@
+# Site config. Anything visible that's optional lives here: comment a line
+# out (or delete it) and that piece stops rendering. See docs/build.md,
+# "Turning things on and off".
+
+title: Alen Abraham
+description: Alen Abraham's personal website
+base_url: https://alenabraham.me
+language: en-us
+keywords: [Alen, Abraham, Blog, Portfolio, Resume]
+
+# Plausible analytics. Comment out to drop the script from every page.
+plausible_domain: alenabraham.me
+
+# Favicon prefix; a page can override it with `favicons: /eyrie/` in front matter.
+favicons: /
+
+main_section: posts
+section_titles:
+  posts: Posts
+  daily: Dailies
+taxonomies:
+  tags: Tags
+  categories: Categories
+  series: Series
+
+# Header nav (top right), in order. One line per item.
+menu:
+  - {name: Archives, url: /archives/}
+  - {name: Categories, url: /categories/}
+  # Now and Resume are reachable from the home intro, so they're off here.
+  # To show one in the nav, uncomment its line:
+  # - {name: Now, url: /now/}
+  # - {name: Resume, url: /resume/}
+  - {name: About, url: /about/}
+
+# Social links: home "Also seen on" icons and the JSON-LD sameAs list.
+# `icon` is a file in site/templates/partials/icons/ (without .svg).
+socials:
+  - {name: Github, icon: github, url: "https://github.com/abrahamalen/"}
+  - {name: Twitter, icon: twitter, url: "https://twitter.com/op__trojan/"}
+  - {name: LinkedIn, icon: linkedin, url: "https://www.linkedin.com/in/alenabraham/"}
+  - {name: Behance, icon: behance, url: "https://www.behance.net/alenabraham"}
+  - {name: Medium, icon: medium, url: "https://medium.com/@alen-abraham"}
+
+# Home page intro block.
+home:
+  title: Scale, Stabilize and Secure Systems
+  socials_label: "Also seen on:"
+  # One paragraph per line, rendered in order; `class` keeps the existing styling.
+  intro:
+    - {class: intro-text, html: "I'm Alen, a DevOps/SRE engineer focused on building reliable infrastructure."}
+    - {class: work-description, html: "I specialize in creating stable and resilient systems, with a strong interest in privacy and security. My goal is to architect solutions that are robust, scalable, and secure. Check out <a href=\"/now/\">what I'm doing now</a>."}
+    - {class: cta-links, html: "If you're here for the first time, check out my <a href=\"/categories/\">posts</a> or learn more <a href=\"/about/\">about me</a>. Don't forget to explore my <a href=\"/archives/\">archives</a> for all content."}
+  # The small, faded line under the intro.
+  aside: "Oh, and if you're a recruiter stalking my website — hey, no judgement. Here's my <a href=\"/resume/\">resume</a>, save yourself some clicks. ☕"
+
+# Links shown above the archive list. `icon` is a Font Awesome class;
+# Font Awesome only loads on /archives/ when one of these has an icon.
+archives_links:
+  - {name: Dailies, url: /dailies/, icon: fas fa-calendar-alt}
+
+# Footer "© <year> <title>". Comment out to drop the footer.
+footer_copyright: true
+# Light/dark toggle next to the site title.
+theme_toggle: true
+# Floating "back to top" arrow.
+back_to_top: true

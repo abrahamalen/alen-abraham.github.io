@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block main %}
+<header class="page-header">
+  <h1>{{ page.title }}</h1>
+</header>
+{% if site.archives_links %}
+<div class="archives-categories">
+  {% for link in site.archives_links %}
+  <span><a href="{{ link.url }}">{% if link.icon %}<i class="{{ link.icon }}"></i> {% endif %}{{ link.name }}</a></span>
+  {% endfor %}
+</div>
+{% endif %}
+{% for year, months in years %}
+<div class="archive-year">
+  <h2 class="archive-year-header">{{ year }}<sup class="archive-count">&nbsp;&nbsp;{{ year_counts[year] }}</sup></h2>
+  {% for month, entries in months %}
+  <div class="archive-month">
+    <h3 class="archive-month-header">{{ month }}<sup class="archive-count">&nbsp;&nbsp;{{ entries | length }}</sup></h3>
+    <div class="archive-posts">
+      {% for p in entries %}
+      <div class="archive-entry">
+        <h3 class="archive-entry-title">{{ p.title }}</h3>
+        <div class="archive-meta"><span title="{{ p.date | iso }}">{{ p.date | date }}</span></div>
+        <a class="entry-link" aria-label="post link to {{ p.title }}" href="{{ p.url }}"></a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

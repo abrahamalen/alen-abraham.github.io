@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block main %}
+<header class="page-header">
+  <h1>{{ page.title }}</h1>
+  {% if page.meta.description %}
+  <div class="post-description">{{ page.meta.description }}</div>
+  {% endif %}
+</header>
+<div class="post-content">{{ page.content | safe }}</div>
+<div class="dailies-list">
+  {% for year, months in years %}
+  <div class="year-group">
+    <h2 class="year-header">{{ year }} <sup class="post-count">{{ months | map(attribute=1) | map('length') | sum }}</sup></h2>
+    {% for month, entries in months %}
+    <div class="month-group">
+      <h3 class="month-header">{{ month }} <sup class="post-count">{{ entries | length }}</sup></h3>
+      <div class="entries">
+        {% for n, d in entries %}
+        <div class="daily-entry">
+          <h4 class="entry-title"><a href="{{ d.url }}">#{{ n }} {{ d.title }}</a></h4>
+          <div class="entry-meta">{{ d.date | date }} · {{ d.reading_time }} min</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

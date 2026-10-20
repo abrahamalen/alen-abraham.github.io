@@ -1,0 +1,76 @@
+{% set is_page = page.kind == "page" %}
+{% set title = page.meta.title_tag if is_page and page.meta.title_tag else (page.title ~ " | " ~ site.title if page.title else site.title) %}
+{% set desc = page.meta.description if is_page and page.meta.description else (page.summary if is_page else site.description) %}
+{% set url = abs(page.url) %}
+{% set image = abs(page.image) if page.image else "" %}
+{% set fav = page.meta.favicons if is_page and page.meta.favicons else site.favicons %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>{{ title }}</title>
+<meta name="keywords" content="{{ (page.meta.tags if is_page and page.meta.tags else site.keywords) | join(', ') }}">
+<meta name="description" content="{{ desc }}">
+<link rel="canonical" href="{{ url }}">
+<link rel="stylesheet" href="/css/site.css">
+{# One favicon set per page; /eyrie/ will point `favicons` at its own folder. #}
+<link rel="icon" href="{{ fav }}favicon.ico">
+{% if is_page and page.meta.favicon_svg %}
+<link rel="icon" type="image/svg+xml" href="{{ fav }}favicon.svg">
+{% endif %}
+<link rel="icon" type="image/png" sizes="16x16" href="{{ fav }}favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ fav }}favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ fav }}apple-touch-icon.png">
+<link rel="manifest" href="{{ fav }}site.webmanifest">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+{% if not is_page and page.kind != "404" %}
+<link rel="alternate" type="application/rss+xml" href="{{ url }}index.xml">
+{% endif %}
+<noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
+{% if page.layout == "archives" and (site.archives_links or []) | selectattr("icon") | list %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endif %}
+{% if page.has_code %}
+<script defer src="/js/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>
+{% endif %}
+{% if page.needs_mermaid %}
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains("dark") ? "dark" : "default",
+      flowchart: { useMaxWidth: true },
+      securityLevel: "loose"
+    });
+  });
+</script>
+{% endif %}
+{% if site.plausible_domain and not (is_page and page.meta.excludeAnalytics) %}
+<script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>
+{% endif %}
+<meta property="og:title" content="{{ page.title or site.title }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:type" content="{{ 'article' if is_page else 'website' }}">
+<meta property="og:url" content="{{ url }}">
+{% if image %}
+<meta property="og:image" content="{{ image }}">
+{% endif %}
+{% if is_page %}
+<meta property="article:section" content="{{ page.section }}">
+{% if page.date %}<meta property="article:published_time" content="{{ page.date | iso }}">{% endif %}
+{% if page.lastmod %}<meta property="article:modified_time" content="{{ page.lastmod | iso }}">{% endif %}
+{% endif %}
+<meta property="og:site_name" content="{{ page.meta.site_name if is_page and page.meta.site_name else site.title }}">
+<meta name="twitter:card" content="{{ 'summary_large_image' if image else 'summary' }}">
+{% if image %}
+<meta name="twitter:image" content="{{ image }}">
+{% endif %}
+<meta name="twitter:title" content="{{ page.title or site.title }}">
+<meta name="twitter:description" content="{{ desc }}">
+{% if page.kind == "home" %}
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "Organization", "name": site.title, "url": abs("/"), "description": site.description, "thumbnailUrl": abs("/favicon.ico"), "sameAs": (site.socials or []) | map(attribute="url") | list} | tojson }}</script>
+{% elif is_page and page.section %}
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "BlogPosting", "headline": page.title, "name": page.title, "description": desc, "keywords": page.meta.tags or [], "wordCount": page.word_count | string, "inLanguage": "en", "image": image or None, "datePublished": page.date | iso, "dateModified": (page.lastmod or page.date) | iso, "mainEntityOfPage": {"@type": "WebPage", "@id": url}, "publisher": {"@type": "Organization", "name": site.title, "logo": {"@type": "ImageObject", "url": abs("/favicon.ico")}}} | tojson }}</script>
+{% endif %}

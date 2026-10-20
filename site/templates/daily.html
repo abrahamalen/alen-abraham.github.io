@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.meta.description %}
+    <div class="post-description">{{ page.meta.description }}</div>
+    {% endif %}
+  </header>
+  <div class="post-meta">
+    <span>{{ page.date | date }}</span>
+    {% if page.meta.tags %}
+    <div class="post-tags">
+      {% for t in page.meta.tags %}<a href="/tags/{{ t | lower | replace(' ', '-') }}/">#{{ t }}</a>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="post-content">{{ page.content | safe }}</div>
+  <footer class="post-footer"></footer>
+</article>
+{% endblock %}

@@ -23,7 +23,7 @@ We follow a feature branch workflow:
 
 1. **Create a PR**:
    - Make changes in your feature branch
-   - Test locally using `hugo server`
+   - Test locally with `make serve` and `make check` (the URL parity check must pass)
    - Push your branch to the fork repository
    - Create a PR to the appropriate target branch
 
@@ -59,7 +59,7 @@ If you're working from a fork:
 - Indent using 2 spaces
 - Keep template logic simple and readable
 - Comment complex template logic
-- Follow Hugo's best practices for partials and layouts
+- Templates are Jinja, in `site/templates/`; see [docs/STYLE_GUIDE.md](docs/STYLE_GUIDE.md)
 
 ### Content Standards
 
