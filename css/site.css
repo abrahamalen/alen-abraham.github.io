@@ -185,16 +185,64 @@ img {
     max-width: 100%;
 }
 
+.not-found-page {
+    padding: calc(var(--gap) * 2) 0;
+}
+
 .not-found {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    font-size: 160px;
+    margin-bottom: 8px;
+    font-size: 96px;
     font-weight: 700;
+    line-height: 1;
+    color: var(--secondary);
+}
+
+.not-found-page h1 {
+    margin-bottom: 12px;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+.not-found-page h2 {
+    margin: calc(var(--gap) * 1.5) 0 12px;
+    font-size: 20px;
+}
+
+.not-found-page p {
+    color: var(--content);
+    line-height: 1.6;
+}
+
+.not-found-page a {
+    color: var(--primary);
+    box-shadow: 0 1px 0 var(--primary);
+}
+
+.not-found-posts {
+    padding: 0;
+    list-style: none;
+}
+
+.not-found-posts li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--tertiary);
+}
+
+.not-found-posts a {
+    box-shadow: none;
+}
+
+.not-found-posts a:hover {
+    box-shadow: 0 1px 0 var(--primary);
+}
+
+.not-found-posts span {
+    font-size: 14px;
+    color: var(--secondary);
 }
 
 .archive-posts {
@@ -298,10 +346,6 @@ img {
     color: var(--primary);
 }
 
-.top-link:focus,
-#theme-toggle:focus {
-    outline: 0;
-}
 .nav {
     display: flex;
     flex-wrap: wrap;
@@ -902,7 +946,7 @@ pre:hover .copy-code {
     margin-inline-start: var(--gap);
 }
 
-.toc summary:focus {
+.toc summary:focus:not(:focus-visible) {
     outline: 0;
 }
 
@@ -1085,6 +1129,17 @@ codapi-snippet codapi-toolbar button:after {
 .terms-tags a:active {
     background: var(--tertiary);
     transform: scale(0.96);
+}
+
+.terms-empty p {
+    margin-bottom: 12px;
+    color: var(--secondary);
+    line-height: 1.6;
+}
+
+.terms-empty a {
+    color: var(--primary);
+    box-shadow: 0 1px 0 var(--primary);
 }
 
 .hljs-comment,
@@ -1347,8 +1402,15 @@ Custom styles to override theme defaults
     color: var(--secondary);
 }
 
-.archives-categories span a i {
+.archives-categories span a svg {
+    flex-shrink: 0;
     margin-right: 10px;
+}
+
+/* Keyboard focus. --primary is near-black in light and near-white in dark, so it shows on both. */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* Home page styles */

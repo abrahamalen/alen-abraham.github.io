@@ -35,9 +35,19 @@
 <body class="list dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -71,7 +81,19 @@
   </nav>
 </header>
 <main class="main">
-<div class="not-found">404</div>
+<article class="not-found-page">
+  <p class="not-found" aria-hidden="true">404</p>
+  <h1>This page doesn't exist</h1>
+  <p>The link may be old, or the page has moved. Try searching the <a href="/archives/">archives</a>, or go back <a href="/">home</a>.</p>
+  <h2>Recent posts</h2>
+  <ul class="not-found-posts">
+    <li><a href="/posts/introduction-to-mermaid/">Using Mermaid Diagrams in Technical Documentation</a> <span title="2025-04-02T00:00:00+00:00">April 2, 2025</span></li>
+    <li><a href="/posts/on-prem-deployment-hits-different/">On Prem Deployments Hits Different</a> <span title="2023-09-24T11:34:59+05:30">September 24, 2023</span></li>
+    <li><a href="/posts/gitlab-ci-cd/">GitLab for CI/CD</a> <span title="2022-06-16T12:56:25+05:30">June 16, 2022</span></li>
+    <li><a href="/posts/what-is-github-actions/">What is Github Actions? How does it simplify CI/CD?</a> <span title="2022-04-08T11:40:35+05:30">April 8, 2022</span></li>
+    <li><a href="/posts/big-o-notation/">Big O notation explained: DSA-01</a> <span title="2022-03-14T12:56:25+05:30">March 14, 2022</span></li>
+  </ul>
+</article>
 </main>
 <footer class="footer">
   <span>&copy; 2026 <a href="/">Alen Abraham</a></span>
@@ -105,7 +127,7 @@
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>

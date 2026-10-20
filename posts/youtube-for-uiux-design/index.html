@@ -25,19 +25,29 @@
 <meta property="og:url" content="https://alenabraham.me/posts/youtube-for-uiux-design/">
 <meta property="og:image" content="https://alenabraham.me/images/posts/youtube-for-uiux-design/cover-image.jpg">
 <meta property="article:section" content="posts">
-<meta property="article:published_time" content="2022-01-05T12:56:25+05:30"><meta property="article:modified_time" content="2026-10-20T17:14:34+05:30"><meta property="og:site_name" content="Alen Abraham">
+<meta property="article:published_time" content="2022-01-05T12:56:25+05:30"><meta property="article:modified_time" content="2026-10-20T23:33:10+05:30"><meta property="og:site_name" content="Alen Abraham">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenabraham.me/images/posts/youtube-for-uiux-design/cover-image.jpg">
 <meta name="twitter:title" content="Best Youtube Channels to Learn UI/UX Design">
 <meta name="twitter:description" content="A list of youtube channels to learn UI/UX Design.">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T17:14:34+05:30", "datePublished": "2022-01-05T12:56:25+05:30", "description": "A list of youtube channels to learn UI/UX Design.", "headline": "Best Youtube Channels to Learn UI/UX Design", "image": "https://alenabraham.me/images/posts/youtube-for-uiux-design/cover-image.jpg", "inLanguage": "en", "keywords": ["resources", "ui/ux"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/youtube-for-uiux-design/", "@type": "WebPage"}, "name": "Best Youtube Channels to Learn UI/UX Design", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "120"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T23:33:10+05:30", "datePublished": "2022-01-05T12:56:25+05:30", "description": "A list of youtube channels to learn UI/UX Design.", "headline": "Best Youtube Channels to Learn UI/UX Design", "image": "https://alenabraham.me/images/posts/youtube-for-uiux-design/cover-image.jpg", "inLanguage": "en", "keywords": ["resources", "ui/ux"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/youtube-for-uiux-design/", "@type": "WebPage"}, "name": "Best Youtube Channels to Learn UI/UX Design", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "120"}</script>
 </head>
 <body class="dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -77,7 +87,7 @@
     <div class="post-meta"><span title="2022-01-05T12:56:25+05:30">January 5, 2022</span></div>
   </header>
   <figure class="entry-cover">
-    <img loading="eager" src="/images/posts/youtube-for-uiux-design/cover-image.jpg" alt="this is a post image">
+    <img loading="eager" src="/images/posts/youtube-for-uiux-design/cover-image.jpg" alt="A hand holding a pink sticky note reading &#34;Run a usability test&#34; in front of a wall of notes with other UX research methods, like user survey and card sorting">
 <p>Youtube Channels for UI/UX Design</p>  </figure>
   <div class="post-content"><h2 id="hey-everyone">Hey everyone!<a hidden class="anchor" aria-hidden="true" href="#hey-everyone">#</a></h2>
 <p>This is my first write up in <strong>2022</strong> and it is based on <strong>UI/UX Design</strong>. For those who are looking to start with UI/UX Design, this article will be very helpful because I have curate a list of awesome <strong>youtubers</strong> where you could <strong><em>Master UI/UX from beginner-level.</em></strong></p>
@@ -174,7 +184,7 @@
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>

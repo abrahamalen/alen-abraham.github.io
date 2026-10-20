@@ -27,7 +27,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Alen Abraham's website"><meta property="article:section" content="">
-<meta property="article:modified_time" content="2025-04-01T15:40:12+05:30"><meta property="og:site_name" content="Alen Abraham">
+<meta property="article:modified_time" content="2026-10-20T23:33:10+05:30"><meta property="og:site_name" content="Alen Abraham">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenabraham.me/og.png?v=1">
 <meta name="twitter:title" content="Digital Scrapbook">
@@ -36,9 +36,19 @@
 <body class="dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -81,7 +91,7 @@
 <li>This is a space for quick thoughts and experiences I want to remember.</li>
 <li>I post irregularly, whenever I have something interesting to share.</li>
 <li>These entries are mostly unedited brain dumps about tech, life, and whatever else is on my mind.</li>
-<li>Expect a mix of software development notes, desiging infrasturctures, and random musings.</li>
+<li>Expect a mix of software development notes, designing infrastructures, and random musings.</li>
 <li>Each entry represents a snapshot of my thinking - which constantly evolves.</li>
 </ol>
 <p>Some entries might contain useful code snippets, problem-solving approaches, or resources I’ve found helpful. Hope you find something interesting!</p>
@@ -166,7 +176,7 @@
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>

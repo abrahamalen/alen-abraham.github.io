@@ -25,19 +25,29 @@
 <meta property="og:url" content="https://alenabraham.me/posts/web-development-resources-part2/">
 <meta property="og:image" content="https://alenabraham.me/images/posts/web-development-resources-part2/cover-image.jpg">
 <meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-10-06T12:56:25+05:30"><meta property="article:modified_time" content="2026-10-20T17:14:34+05:30"><meta property="og:site_name" content="Alen Abraham">
+<meta property="article:published_time" content="2021-10-06T12:56:25+05:30"><meta property="article:modified_time" content="2026-10-20T23:33:10+05:30"><meta property="og:site_name" content="Alen Abraham">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenabraham.me/images/posts/web-development-resources-part2/cover-image.jpg">
 <meta name="twitter:title" content="Resources: Web Development - Part-2">
 <meta name="twitter:description" content="A collection of resources by Alen to make your web development process easier.">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T17:14:34+05:30", "datePublished": "2021-10-06T12:56:25+05:30", "description": "A collection of resources by Alen to make your web development process easier.", "headline": "Resources: Web Development - Part-2", "image": "https://alenabraham.me/images/posts/web-development-resources-part2/cover-image.jpg", "inLanguage": "en", "keywords": ["resources", "web-development"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/web-development-resources-part2/", "@type": "WebPage"}, "name": "Resources: Web Development - Part-2", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "462"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T23:33:10+05:30", "datePublished": "2021-10-06T12:56:25+05:30", "description": "A collection of resources by Alen to make your web development process easier.", "headline": "Resources: Web Development - Part-2", "image": "https://alenabraham.me/images/posts/web-development-resources-part2/cover-image.jpg", "inLanguage": "en", "keywords": ["resources", "web-development"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/web-development-resources-part2/", "@type": "WebPage"}, "name": "Resources: Web Development - Part-2", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "462"}</script>
 </head>
 <body class="dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -77,7 +87,7 @@
     <div class="post-meta"><span title="2021-10-06T12:56:25+05:30">October 6, 2021</span></div>
   </header>
   <figure class="entry-cover">
-    <img loading="eager" src="/images/posts/web-development-resources-part2/cover-image.jpg" alt="this is a post image">
+    <img loading="eager" src="/images/posts/web-development-resources-part2/cover-image.jpg" alt="A MacBook Pro showing code in an editor on a dark desk, next to a stack of books, with window light on the wall">
 <p>Web Development Resources</p>  </figure>
   <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
 <h4 id="hello-to-all-developers-and-designers-around-the-world-">Hello👋 to all Developers and Designers around the world…! 🌈<a hidden class="anchor" aria-hidden="true" href="#hello-to-all-developers-and-designers-around-the-world-">#</a></h4>
@@ -210,7 +220,7 @@
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>

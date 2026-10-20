@@ -18,7 +18,6 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script defer data-domain="alenabraham.me" src="https://plausible.io/js/script.js"></script>
 <meta property="og:title" content="Archives">
 <meta property="og:description" content="Archives for Alen Abraham&#39;s blog.">
@@ -37,9 +36,19 @@
 <body class="list dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -77,7 +86,12 @@
   <h1>Archives</h1>
 </header>
 <div class="archives-categories">
-  <span><a href="/dailies/"><i class="fas fa-calendar-alt"></i> Dailies</a></span>
+  <span><a href="/dailies/"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+<line x1="16" y1="2" x2="16" y2="6"/>
+<line x1="8" y1="2" x2="8" y2="6"/>
+<line x1="3" y1="10" x2="21" y2="10"/>
+</svg>Dailies</a></span>
 </div>
 <div id="searchbox">
   <input id="searchInput" type="search" placeholder="Search posts, dailies and pages ↵" aria-label="search" autocomplete="off">
@@ -217,7 +231,7 @@
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>

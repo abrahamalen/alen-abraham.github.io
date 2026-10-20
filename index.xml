@@ -64,13 +64,6 @@
       <description>My first experience with on-prem deployment and also my first travel outside India.</description>
     </item>
     <item>
-      <title>About</title>
-      <link>https://alenabraham.me/about/</link>
-      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
-      <guid>https://alenabraham.me/about/</guid>
-      <description>About Alen Abraham and his blog</description>
-    </item>
-    <item>
       <title>GitLab for CI/CD</title>
       <link>https://alenabraham.me/posts/gitlab-ci-cd/</link>
       <pubDate>Thu, 16 Jun 2022 12:56:25 +0530</pubDate>
@@ -118,24 +111,6 @@
       <pubDate>Sun, 12 Sep 2021 12:56:25 +0530</pubDate>
       <guid>https://alenabraham.me/posts/web-development-resources-part1/</guid>
       <description>A collection of resources by Alen to make your web development process easier.</description>
-    </item>
-    <item>
-      <title>Digital Scrapbook</title>
-      <link>https://alenabraham.me/dailies/</link>
-      <guid>https://alenabraham.me/dailies/</guid>
-      <description>A collection of thoughts, ideas, and experiences from daily life</description>
-    </item>
-    <item>
-      <title>What I&#39;m Doing Now</title>
-      <link>https://alenabraham.me/now/</link>
-      <guid>https://alenabraham.me/now/</guid>
-      <description>My current focus and activities</description>
-    </item>
-    <item>
-      <title>Resume</title>
-      <link>https://alenabraham.me/resume/</link>
-      <guid>https://alenabraham.me/resume/</guid>
-      <description>Alen Abraham — Software Engineer</description>
     </item>
   </channel>
 </rss>

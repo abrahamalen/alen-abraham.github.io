@@ -36,9 +36,19 @@
 <body class="dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -78,7 +88,7 @@
     <div class="post-description">About Alen Abraham and his blog</div>
   </header>
   <div class="post-meta">
-    <span>Last updated at 6:01 PM, October 20, 2026 (UTC)</span>
+    <span>Last updated <time datetime="2026-10-20T13:51:41+05:30">October 20, 2026</time></span>
   </div>
   <div class="post-content"><h2 id="about-me">About me<a hidden class="anchor" aria-hidden="true" href="#about-me">#</a></h2>
 <p>I’m <strong>Alen Abraham</strong> (he/him), a Software Engineer from Kerala, India 🇮🇳. I focus on <strong>DevOps</strong>, <strong>Cloud</strong> and <strong>Cloud native</strong> environments along with a strong interest towards Open-Source. I like to learn new stuffs, especially topics related to site reliability, devops, security and almost all kinds of tech stuffs. I write tech and career related blogposts here on my website and on various other platforms like <a href="https://dev.to/alenabraham">Dev.to</a> and <a href="https://alenabraham.hashnode.dev/">Hashnode</a> etc.</p>
@@ -128,7 +138,7 @@ The list is growing.</p>
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>

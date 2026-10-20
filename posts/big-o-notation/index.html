@@ -18,7 +18,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
-<script defer src="/js/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>
+<script defer src="/js/highlight.min.js" onload="hljs.highlightAll();"></script>
 <script defer data-domain="alenabraham.me" src="https://plausible.io/js/script.js"></script>
 <meta property="og:title" content="Big O notation explained: DSA-01">
 <meta property="og:description" content="A brief explanation on Big O notation in Data Structures and Algorithms with examples.">
@@ -26,19 +26,29 @@
 <meta property="og:url" content="https://alenabraham.me/posts/big-o-notation/">
 <meta property="og:image" content="https://alenabraham.me/images/posts/big-o-notation/cover-image.png">
 <meta property="article:section" content="posts">
-<meta property="article:published_time" content="2022-03-14T12:56:25+05:30"><meta property="article:modified_time" content="2026-10-20T17:14:34+05:30"><meta property="og:site_name" content="Alen Abraham">
+<meta property="article:published_time" content="2022-03-14T12:56:25+05:30"><meta property="article:modified_time" content="2026-10-20T23:33:10+05:30"><meta property="og:site_name" content="Alen Abraham">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenabraham.me/images/posts/big-o-notation/cover-image.png">
 <meta name="twitter:title" content="Big O notation explained: DSA-01">
 <meta name="twitter:description" content="A brief explanation on Big O notation in Data Structures and Algorithms with examples.">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T17:14:34+05:30", "datePublished": "2022-03-14T12:56:25+05:30", "description": "A brief explanation on Big O notation in Data Structures and Algorithms with examples.", "headline": "Big O notation explained: DSA-01", "image": "https://alenabraham.me/images/posts/big-o-notation/cover-image.png", "inLanguage": "en", "keywords": ["dsa"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/big-o-notation/", "@type": "WebPage"}, "name": "Big O notation explained: DSA-01", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "407"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T23:33:10+05:30", "datePublished": "2022-03-14T12:56:25+05:30", "description": "A brief explanation on Big O notation in Data Structures and Algorithms with examples.", "headline": "Big O notation explained: DSA-01", "image": "https://alenabraham.me/images/posts/big-o-notation/cover-image.png", "inLanguage": "en", "keywords": ["dsa"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/big-o-notation/", "@type": "WebPage"}, "name": "Big O notation explained: DSA-01", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "407"}</script>
 </head>
 <body class="dark" id="top">
 <script>
   (function () {
-    // ?theme=light|dark wins (handy for screenshots), then the saved toggle.
-    var pref = new URLSearchParams(location.search).get("theme") || localStorage.getItem("pref-theme");
-    if (pref === "light") document.body.classList.remove("dark");
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
   })();
 </script>
 <header class="header">
@@ -78,8 +88,8 @@
     <div class="post-meta"><span title="2022-03-14T12:56:25+05:30">March 14, 2022</span></div>
   </header>
   <figure class="entry-cover">
-    <img loading="eager" src="/images/posts/big-o-notation/cover-image.png" alt="this is a post image">
-<p>still finding</p>  </figure>
+    <img loading="eager" src="/images/posts/big-o-notation/cover-image.png" alt="A line chart with a jagged dark line and a smooth white curve rising together, next to a white ring with the word BIG in it, on a light blue background">
+<p>Big O notation</p>  </figure>
   <div class="toc">
     <details>
       <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
@@ -145,7 +155,7 @@ t = a*n + b</p>
 Therefore; <strong>t = O(n)</strong></li>
 </ol>
 <p><em>Example program for t = O(n): To get square numbers</em></p>
-<pre tabindex="0"><code>def get_squared_numbers(numbers):
+<pre tabindex="0"><code class="language-python">def get_squared_numbers(numbers):
     squared_numbers = []
     for n in numbers:
         squared_numbers.append(n * n)
@@ -164,13 +174,13 @@ def foo(arr): size(arr) -&gt; 1000 -&gt; 0.23ms</p>
 Dropping the constant leaves t = 1.<br />
 Therefore, <strong>t = O(1)</strong></p>
 <p><em>Example program for t = O(1)</em></p>
-<pre tabindex="0"><code>def find_first_pe(prices, eps, index):
+<pre tabindex="0"><code class="language-python">def find_first_pe(prices, eps, index):
     pe = prices[index]/eps[index]
     return pe
 </code></pre>
 <h4 id="3-on2">3. O(n^2)<a hidden class="anchor" aria-hidden="true" href="#3-on2">#</a></h4>
 <p><em>Example Program for O(n^2): To find duplicates from the list</em></p>
-<pre tabindex="0"><code>numbers = [3, 6, 2, 4, 3, 6, 8, 9]
+<pre tabindex="0"><code class="language-python">numbers = [3, 6, 2, 4, 3, 6, 8, 9]
 
 for i in range(len(numbers)):
     for j in range(i + 1, len(numbers)):
@@ -264,7 +274,7 @@ Repost on <a href="https://alenabraham.hashnode.dev/big-o-notation-explained-dsa
   var themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) themeToggle.addEventListener("click", function () {
     var dark = document.body.classList.toggle("dark");
-    localStorage.setItem("pref-theme", dark ? "dark" : "light");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
   });
 </script>
 </body>
