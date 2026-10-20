@@ -122,6 +122,8 @@
 /eyrie/favicon.svg
 /eyrie/install.sh
 /eyrie/og.png
+# Site-wide social preview image (og_image in site.yaml).
+/og.png
 # Search on /archives/ (site/js/search.js).
 /index.json
 /js/search.js
