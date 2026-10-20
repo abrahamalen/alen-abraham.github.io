@@ -14,7 +14,7 @@ _This page was last updated on: {{< lastmod >}}_
 
 ### Personal Projects
 
-- Building [Eyrie](/eyrie/), a local control plane for AI coding tools (coming soon)
+- Building [Eyrie](/eyrie/), a local control plane for AI coding tools, now installable with one command
 - Rebuilding this website on my own small Python static-site generator instead of Hugo
 
 ---
