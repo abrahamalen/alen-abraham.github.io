@@ -55,7 +55,7 @@ t = a\*n + b
 
 _Example program for t = O(n): To get square numbers_
 
-```
+```python
 def get_squared_numbers(numbers):
     squared_numbers = []
     for n in numbers:
@@ -78,7 +78,7 @@ Therefore, **t = O(1)**
 
 _Example program for t = O(1)_
 
-```
+```python
 def find_first_pe(prices, eps, index):
     pe = prices[index]/eps[index]
     return pe
@@ -88,7 +88,7 @@ def find_first_pe(prices, eps, index):
 
 _Example Program for O(n^2): To find duplicates from the list_
 
-```
+```python
 numbers = [3, 6, 2, 4, 3, 6, 8, 9]
 
 for i in range(len(numbers)):

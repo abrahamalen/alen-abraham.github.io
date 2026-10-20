@@ -34,7 +34,7 @@ flowchart TD
 
 The code to create this flowchart is surprisingly simple:
 
-```
+```text
 flowchart TD
     A[Code Changes] --> B{Code Review}
     B -->|Approved| C[Build & Test]
