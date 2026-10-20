@@ -10,6 +10,12 @@
   {% endfor %}
 </div>
 {% endif %}
+<div id="searchbox">
+  <input id="searchInput" type="search" placeholder="{{ page.meta.placeholder or 'Search ↵' }}" aria-label="search" autocomplete="off">
+  <p id="searchStatus" class="search-status" role="status"></p>
+  <ul id="searchResults" aria-label="search results"></ul>
+</div>
+<div id="archiveList">
 {% for year, months in years %}
 <div class="archive-year">
   <h2 class="archive-year-header">{{ year }}<sup class="archive-count">&nbsp;&nbsp;{{ year_counts[year] }}</sup></h2>
@@ -29,4 +35,6 @@
   {% endfor %}
 </div>
 {% endfor %}
+</div>
+<script src="/js/search.js" defer></script>
 {% endblock %}
