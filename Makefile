@@ -2,8 +2,9 @@
 UV_RUN := uv run --no-project --python 3.12 --with-requirements site/requirements.txt
 PORT ?= 1313
 
-.PHONY: build serve check test lint clean
+.PHONY: build serve check test lint scheduled clean
 
+# FUTURE=1 make build (or serve) includes posts dated in the future, for previewing them.
 build:
 	$(UV_RUN) python site/build.py
 
@@ -19,6 +20,10 @@ test:
 
 lint:
 	uv run --no-project --python 3.12 --with-requirements site/requirements-dev.txt ruff check site
+
+# Posts and dailies with a future `date:`; they go live on the first deploy after it.
+scheduled:
+	@$(UV_RUN) python site/build.py --scheduled
 
 clean:
 	rm -rf public

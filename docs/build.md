@@ -35,6 +35,16 @@ Diagrams and cross-posting are designed separately in [publishing.md](publishing
   - Before/after screenshots (light, dark and mobile) in the PR for anything that touches templates or CSS.
 - **Split, don't switch.** When `build.py` passes about 800 lines, I'll split it into modules (`content.py` for loading and Markdown, `pages.py` for rendering, `feeds.py` for RSS and the sitemap) rather than adopt a framework.
 
+## Scheduling a post
+
+Give a post (or daily) a future `date:`, merge it, and it goes live on its own:
+
+- The build leaves any page in `posts/` or `daily/` dated after the build time out of **everything**: its page, home, archives, section and tag lists, feeds, the sitemap and the search index. Dates without an offset are UTC, so `date: 2026-11-03` is 05:30 IST; write `date: 2026-11-03T09:00:00+05:30` to be exact.
+- The deploy workflow also runs daily at 03:30 UTC (09:00 IST), on `main`, exactly like a push. A post goes live on the first run after its date. Only `abrahamalen/alen-abraham.github.io` deploys on the schedule; forks skip it.
+- `make scheduled` lists what's queued (date, path, title); it prints nothing when the queue is empty.
+- `FUTURE=1 make serve` (or `FUTURE=1 make build`) includes scheduled posts, to preview them locally.
+- GitHub pauses scheduled workflows after 60 days without a commit. If the queue is longer than that, check the Actions tab, or push something.
+
 ## Turning things on and off
 
 Everything optional that's visible on the site is driven by `site/site.yaml`. Comment out a line (or delete it) and that piece stops rendering on every page. `make test` checks this (`site/tests/test_toggles.py`), and CI runs it.

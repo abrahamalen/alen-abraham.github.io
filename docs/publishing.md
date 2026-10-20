@@ -123,7 +123,7 @@ The syndication renderer is the Markdown renderer with these rewrites turned on:
 
 ## 3. Later (not in this phase)
 
-- **Scheduling.** Posts get a future `date`, the build skips future-dated posts, and a daily scheduled CI run rebuilds and deploys. The syndicate job fires on the run where a post first appears, which is its publish day. The Substack checklist uses that date for scheduling.
+- **Scheduling (built, 2026-10-20; see "Scheduling a post" in [build.md](build.md)).** Posts get a future `date`, the build skips future-dated posts, and a daily scheduled CI run (03:30 UTC, 09:00 IST) rebuilds and deploys. Still to do with syndication: the syndicate job fires on the run where a post first appears, which is its publish day, and the Substack checklist uses that date for scheduling.
 - Updating copies when I edit a post: a Dev.to `PUT` plus a checklist note for the manual platforms.
 - Webmentions or "also on" links under posts, pointing to the copies.
 
@@ -144,7 +144,7 @@ The syndication renderer is the Markdown renderer with these rewrites turned on:
    - checklist issues
    - front matter opt-outs
    - a dry-run mode (`make syndicate-dry-run`) that prints what it would do
-3. **Scheduling**, later.
+3. **Scheduling**: built (future-dated posts are skipped, daily deploy at 09:00 IST).
 
 ## Open questions
 
