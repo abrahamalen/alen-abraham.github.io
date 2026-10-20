@@ -3,5 +3,5 @@
 # .cache/eyrie/), checks the sha256 and unpacks it into public/eyrie/.
 # sha256 comes from the release's SHA256SUMS.
 # Comment out `version:` to fall back to the coming-soon page (content/eyrie.md).
-version: 0.2.0
-sha256: 710c5e388dc5fab37d00f989c9f837870349751881f9c817cd8bb90ef8fd768c
+version: 0.3.0
+sha256: fa2d5b7936a0e26935936504ccbc78219cfa755d908c441e05508f686257bd9f
