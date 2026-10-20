@@ -2,7 +2,7 @@
 {% set title = page.meta.title_tag if is_page and page.meta.title_tag else (page.title ~ " | " ~ site.title if page.title else site.title) %}
 {% set desc = page.meta.description if is_page and page.meta.description else (page.summary if is_page else site.description) %}
 {% set url = abs(page.url) %}
-{% set image = abs(page.image) if page.image else "" %}
+{% set image = abs(page.image) if page.image else (abs(site.og_image) if site.og_image else "") %}
 {% set fav = page.meta.favicons if is_page and page.meta.favicons else site.favicons %}
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,6 +56,9 @@
 <meta property="og:url" content="{{ url }}">
 {% if image %}
 <meta property="og:image" content="{{ image }}">
+{% if not page.image %}<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ site.title }}'s website">{% endif %}
 {% endif %}
 {% if is_page %}
 <meta property="article:section" content="{{ page.section }}">

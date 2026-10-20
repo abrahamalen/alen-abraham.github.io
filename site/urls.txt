@@ -122,3 +122,4 @@
 /eyrie/favicon.svg
 /eyrie/install.sh
 /eyrie/og.png
+/og.png

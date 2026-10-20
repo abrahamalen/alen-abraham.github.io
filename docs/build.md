@@ -41,6 +41,7 @@ Everything optional that's visible on the site is driven by `site/site.yaml`. Co
 |---|---|---|
 | Header nav items | each `- {name: …, url: …}` line under `menu:` | That item disappears from the top-right nav. Comment out every entry and the nav is gone. The page itself still builds |
 | Now / Resume in the nav | already commented out under `menu:` | Uncomment `# - {name: Now, url: /now/}` or `# - {name: Resume, url: /resume/}` to show them. They're off on purpose, because the home intro links to both |
+| Link-preview image | `og_image: /og.png` | Pages without their own `cover` image send no preview image (WhatsApp/Slack/X show text only). Pages with a cover always use their cover |
 | Home social icons | each line under `socials:` | That icon disappears from "Also seen on" and from the JSON-LD `sameAs`. With no socials, the whole row goes |
 | "Also seen on:" label | `home.socials_label` | The icons stay, without the label |
 | Home headline | `home.title` | No headline on the home page |
