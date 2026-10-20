@@ -9,7 +9,7 @@ categories: ["devops"]
 # showToc: true
 cover:
     image: "/images/posts/what-is-github-actions/cover-image.png"
-    alt: this is a post image
+    alt: "The GitHub Actions logo: a blue workflow graph of a play button branching into check marks and a pending step, above the words GitHub Actions"
     caption: 'Github Actions'
     relative: false
 ---
@@ -41,7 +41,7 @@ For example, you can run a workflow to automatically add the appropriate labels 
 - Deploy to cloud.
 
 I have added a github actions workflow in my personal website repository.  
-![Workflow](/images/posts/what-is-github-actions/workflow.png "Github-actions workflow diagram")
+![Workflow diagram: 1. push code to GitHub, 2. GitHub, 3. create a workflow in GitHub Actions that builds and tests, builds a Docker image and pushes it to Docker Hub](/images/posts/what-is-github-actions/workflow.png "Github-actions workflow diagram")
 
 The above diagram shows the flow of the github-action which I have added to automate the code changes and commits, so that the workflow will automatically run as scheduled and deploy the changes successfully to production.  
 You can checkout the repository [here](https://github.com/abrahamalen/alen-abraham.github.io).

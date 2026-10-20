@@ -8,7 +8,7 @@ tags: ["resources", "web-development"]
 categories: ["resources"]
 cover:
     image: "/images/posts/web-development-resources-part1/cover-image.jpg"
-    alt: this is a post image
+    alt: "A dimly lit desk with two monitors, one showing code in an editor and the other a mountain road wallpaper, and a backlit keyboard"
     caption: 'Web Development Resources'
     relative: false
 ---
@@ -81,7 +81,7 @@ I have curated a list of super cool resources, which will save valuable time and
 
 **9. Show beautiful message in the console**
 
-👉 [npjms.com](https://www.npmjs.com/package/figlet)
+👉 [npmjs.com](https://www.npmjs.com/package/figlet)
 
 - FIGlet is a program for making large letters out of the ordinary text.
 

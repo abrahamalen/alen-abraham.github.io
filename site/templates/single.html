@@ -11,7 +11,7 @@
   {% if page.image %}
   <figure class="entry-cover">
     <img loading="eager" src="{{ page.image }}" alt="{{ page.meta.cover.alt }}">
-    {% if page.meta.cover.caption %}<p>{{ page.meta.cover.caption }}</p>{% endif %}
+    {% if page.meta.cover.caption %}<p>{{ page.meta.cover.caption | markdown_inline }}</p>{% endif %}
   </figure>
   {% endif %}
   {% if (page.meta.ShowToc or page.meta.showtoc) and page.toc %}

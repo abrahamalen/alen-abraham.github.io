@@ -9,8 +9,8 @@ categories: ["dsa", "tutorial"]
 ShowToc: true
 cover:
     image: "/images/posts/big-o-notation/cover-image.png"
-    alt: this is a post image
-    caption: 'still finding'
+    alt: "A line chart with a jagged dark line and a smooth white curve rising together, next to a white ring with the word BIG in it, on a light blue background"
+    caption: 'Big O notation'
     relative: false
 ---
 
