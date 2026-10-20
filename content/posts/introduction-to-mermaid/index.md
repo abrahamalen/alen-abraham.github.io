@@ -5,7 +5,7 @@ categories: ["tutorial"]
 tags: ["mermaid", "diagrams", "documentation"]
 cover:
     image: "/images/posts/introduction-to-mermaid/cover-image.jpg"
-    alt: "Mermaid Diagrams for Technical Documentation"
+    alt: "A person in a beanie drawing flowcharts with boxes, arrows and database symbols on a large whiteboard"
     caption: "Learn how to create diagrams with code"
 ---
 
@@ -114,6 +114,9 @@ gantt
     accTitle: Gantt chart of a DevOps project timeline from planning to monitoring
     title DevOps Project Timeline
     dateFormat  YYYY-MM-DD
+    axisFormat  %b %d
+    tickInterval 1week
+    weekday monday
     
     section Planning
     Project kickoff      :a1, 2025-04-05, 3d
