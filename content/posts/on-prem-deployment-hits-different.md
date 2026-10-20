@@ -10,7 +10,7 @@ tags: ["qure.ai"]
 categories: ["work"]
 cover:
     image: "/images/posts/on-prem-deployment-hits-different/cover-image.jpg"
-    alt: "Fiji Islands"
+    alt: "Aerial view of a Fiji beach: turquoise water and coral on one side, white sand, palm trees and thatched huts on the other"
     caption: "[Fiji Islands Photo by Damon Hall](https://www.pexels.com/photo/aerial-view-of-beach-and-huts-1752461/)"
     relative: false
 ---
@@ -36,7 +36,7 @@ Deployment in Fiji was scheduled for five days, and our journey began on July 28
 
 On the night of Sunday, July 30th, I found myself in my hotel room with four q-boxes. I was able to complete the deployment setup on all the 4 boxes without much issues using the script we had prepared. The next day, we were joined by the UNDP team, and we began workshops.
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-8.jpg#center" title="Setting up the qboxes with dockers" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-8.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-8.jpg#center" alt="A desk in a small room with a laptop and a monitor both showing terminal output, a keyboard, a desk phone and a small black qbox unit" title="Setting up the qboxes with dockers" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-8.jpg" target="_blank" class="align-center" >}}
 
 The next crucial step involved was integrating our NUC boxes, affectionately known as **"Qboxes"**, with the **[Fujifilm setup](https://xairbyfujifilm.com/)**. We received virtual assistance from Fujifilm experts, which enabled us to complete the deployment setups for all four boxes within just two days. This rapid progress was a testament to the collaborative spirit that underpinned our mission.
 
@@ -44,19 +44,19 @@ Simultaneously, we commenced training sessions for the X-ray technicians who had
 
 Some photo dumps from the deployment
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-4.jpg#center" title="The entire team with the UNDP officials" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-4.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-4.jpg#center" alt="The Qure.ai and Fujifilm team and the UNDP officials posing in two rows, in matching black Fujifilm and Qure.ai T-shirts" title="The entire team with the UNDP officials" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-4.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-5.jpg#center" title="Qure Boys" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-5.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-5.jpg#center" alt="Two Qure.ai team members in black Fujifilm Never Stop TB Screening T-shirts, in front of UN Sustainable Development Goals posters" title="Qure Boys" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-5.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-1.jpg#center" title="Me explaining our qtrack to X-ray techs" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-1.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-1.jpg#center" alt="Alen in a black Qure.ai T-shirt pointing at a monitor showing a chest X-ray in qTrack" title="Me explaining our qtrack to X-ray techs" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-1.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-2.jpg#center" title="Workshop" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-2.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-2.jpg#center" alt="A workshop in a conference room: two presenters at the front and attendees seated around tables facing a projected slide" title="Workshop" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-2.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-7.jpg#center" title="Workshop" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-7.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-7.jpg#center" alt="A group in black team T-shirts standing around a table with a monitor, a projector and laptops during a hands-on session" title="Workshop" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-7.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-3.jpg#center" title="Training" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-3.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-3.jpg#center" alt="Two presenters, one holding a microphone, beside a monitor showing a chest X-ray on screen" title="Training" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-3.jpg" target="_blank" class="align-center" >}}
 
-{{< figure src="/images/posts/on-prem-deployment-hits-different/image-6.jpg#center" title="Photobombing Sessions" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-6.jpg" target="_blank" class="align-center" >}}
+{{< figure src="/images/posts/on-prem-deployment-hits-different/image-6.jpg#center" alt="Five team members in black T-shirts posing playfully with hand signs in front of UN Leave No One Behind posters" title="Photobombing Sessions" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-6.jpg" target="_blank" class="align-center" >}}
 
 
 ### Exploring Fiji

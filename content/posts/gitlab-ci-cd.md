@@ -9,7 +9,7 @@ categories: ["devops"]
 ShowToc: true
 cover:
     image: "/images/posts/gitlab-ci-cd/cover-image.jpg"
-    alt: this is a post image
+    alt: "The GitLab fox logo and wordmark on a screen, with a GitLab CI/CD pipeline view showing passing jobs"
     caption: 'GitLab'
     relative: false
 ---
@@ -87,7 +87,7 @@ For more details on GitLab's Architecture and its components - [click here](http
 - Always keeping CI/CD and code management in the same place.
 - Seamless integration into the code repository.
 - Using CI/CD without the overhead of setting it up ourselves.
-- Pipeline configutation as part of our application code.
+- Pipeline configuration as part of our application code.
 - Self-hosted or SaaS managed.
 
 ## Conclusion

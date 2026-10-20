@@ -39,8 +39,15 @@ Custom styles to override theme defaults
     color: var(--secondary);
 }
 
-.archives-categories span a i {
+.archives-categories span a svg {
+    flex-shrink: 0;
     margin-right: 10px;
+}
+
+/* Keyboard focus. --primary is near-black in light and near-white in dark, so it shows on both. */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* Home page styles */

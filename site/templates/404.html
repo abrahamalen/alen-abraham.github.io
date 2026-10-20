@@ -1,4 +1,16 @@
 {% extends "base.html" %}
 {% block main %}
-<div class="not-found">404</div>
+<article class="not-found-page">
+  <p class="not-found" aria-hidden="true">404</p>
+  <h1>This page doesn't exist</h1>
+  <p>The link may be old, or the page has moved. Try searching the <a href="/archives/">archives</a>, or go back <a href="/">home</a>.</p>
+  {% if posts %}
+  <h2>Recent posts</h2>
+  <ul class="not-found-posts">
+    {% for p in posts %}
+    <li><a href="{{ p.url }}">{{ p.title }}</a> <span title="{{ p.date | iso }}">{{ p.date | date }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</article>
 {% endblock %}

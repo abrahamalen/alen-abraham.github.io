@@ -245,5 +245,17 @@ class SchedulingTest(TempSite):
         ])
 
 
+
+class LastUpdatedTest(TempSite):
+    def test_about_and_lastmod_use_the_page_date_not_the_build_time(self):
+        self.write("about.md", '---\ntitle: About\nlayout: about\ndate: 2023-01-01\n---\nhi\n')
+        self.write("now.md", '---\ntitle: Now\nurl: /now/\ndate: 2024-02-03\n---\nUpdated {{< lastmod >}}\n')
+        self.build()
+        out = self.outputs()
+        self.assertIn("Last updated <time datetime=\"2023-01-01T00:00:00+00:00\">January 1, 2023</time>",
+                      out["about/index.html"])
+        self.assertIn("Updated February 3, 2024 at 12:00 AM", out["now/index.html"])
+
+
 if __name__ == "__main__":
     unittest.main()

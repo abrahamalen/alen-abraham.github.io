@@ -8,7 +8,7 @@ tags: ["career"]
 categories: ["career"]
 cover:
     image: "/images/posts/getting-started-with-linkedin/cover-image.jpg"
-    alt: this is a post image
+    alt: "The LinkedIn \"in\" logo as a glossy dark-blue 3D app icon on a dark background"
     caption: 'LinkedIn'
     relative: false
 ---

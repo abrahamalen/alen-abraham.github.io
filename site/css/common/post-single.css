@@ -293,7 +293,7 @@
     margin-inline-start: var(--gap);
 }
 
-.toc summary:focus {
+.toc summary:focus:not(:focus-visible) {
     outline: 0;
 }
 

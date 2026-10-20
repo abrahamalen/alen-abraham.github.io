@@ -8,7 +8,7 @@ tags: ["resources", "ui/ux"]
 categories: ["resources"]
 cover:
     image: "/images/posts/youtube-for-uiux-design/cover-image.jpg"
-    alt: this is a post image
+    alt: "A hand holding a pink sticky note reading \"Run a usability test\" in front of a wall of notes with other UX research methods, like user survey and card sorting"
     caption: 'Youtube Channels for UI/UX Design'
     relative: false
 ---

@@ -6,7 +6,7 @@
 {% if site.archives_links %}
 <div class="archives-categories">
   {% for link in site.archives_links %}
-  <span><a href="{{ link.url }}">{% if link.icon %}<i class="{{ link.icon }}"></i> {% endif %}{{ link.name }}</a></span>
+  <span><a href="{{ link.url }}">{% if link.icon %}{% include "partials/icons/" ~ link.icon ~ ".svg" %}{% endif %}{{ link.name }}</a></span>
   {% endfor %}
 </div>
 {% endif %}

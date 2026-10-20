@@ -8,7 +8,7 @@ tags: ["resources", "web-development"]
 categories: ["resources"]
 cover:
     image: "/images/posts/web-development-resources-part2/cover-image.jpg"
-    alt: this is a post image
+    alt: "A MacBook Pro showing code in an editor on a dark desk, next to a stack of books, with window light on the wall"
     caption: 'Web Development Resources'
     relative: false
 ---

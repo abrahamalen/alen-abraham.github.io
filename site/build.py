@@ -26,6 +26,7 @@ import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markdown_it import MarkdownIt
 from markdown_it.renderer import RendererHTML
+from markupsafe import Markup
 
 import diagrams
 
@@ -173,8 +174,9 @@ class Shortcodes:
             return self._hold(f"<figure{cls}>{img}{cap}</figure>")
 
         def lastmod(_):
-            when = page["lastmod"] or datetime.now(UTC)
-            return when.strftime("%B %-d, %Y at %-I:%M %p")
+            # Git's last commit date, else the front-matter date; never the build time.
+            when = page["lastmod"] or page["date"]
+            return when.strftime("%B %-d, %Y at %-I:%M %p") if when else ""
 
         body = MERMAID_SC.sub(mermaid, body)
         body = re.sub(r"\{\{<\s*diagram\s+(.*?)>\}\}", diagram, body)
@@ -340,6 +342,11 @@ def scheduled(now: datetime) -> list[tuple[datetime, str, str]]:
 def newest_first(pages: list[dict]) -> list[dict]:
     epoch = datetime.min.replace(tzinfo=UTC)
     return sorted(pages, key=lambda p: p["date"] or epoch, reverse=True)
+
+
+def home_feed(pages: list[dict], cfg: dict) -> list[dict]:
+    """/index.xml: dated entries only (posts and dailies), not standalone pages like About or Now."""
+    return [p for p in pages if p["section"] in cfg["section_titles"] and not p["meta"].get("excludeFromFeeds")]
 
 
 def search_index(pages: list[dict], cfg: dict) -> str:
@@ -527,6 +534,8 @@ def build(
     env.filters["date"] = lambda d, fmt="%B %-d, %Y": d.strftime(fmt) if d else ""
     env.filters["rfc822"] = lambda d: d.strftime("%a, %d %b %Y %H:%M:%S %z") if d else ""
     env.filters["iso"] = lambda d: d.isoformat() if d else ""
+    # Cover captions are Markdown in front matter (PaperMod ran them through markdownify).
+    env.filters["markdown_inline"] = lambda s: Markup(md.renderInline(str(s))) if s else ""
 
     if out.exists():
         shutil.rmtree(out)
@@ -571,8 +580,7 @@ def build(
     # Home
     emit("/", "home.html", "the home page", lastmod=latest(main_pages), page={"kind": "home", "url": "/"},
          posts=main_pages)
-    feed("/", "", [p for p in pages if p["layout"] != "archives" and not p["meta"].get("excludeFromFeeds")],
-         "the home page")
+    feed("/", "", home_feed(pages, cfg), "the home page")
     paged_alias("/", "the home page")
 
     # Regular pages
@@ -611,7 +619,9 @@ def build(
         term_list = [{"name": t, "url": f"{url}{urlize(t)}/", "count": len(ps)} for t, ps in terms]
         tp = {"kind": "taxonomy", "url": url, "title": title}
         all_tax_pages = [p for _, ps in terms for p in ps]
-        emit(url, "terms.html", f"taxonomy {tax!r}", lastmod=latest(all_tax_pages), page=tp, terms=term_list)
+        # An empty taxonomy keeps its URL (Hugo published it) but says so, and stays out of the sitemap.
+        emit(url, "terms.html", f"taxonomy {tax!r}", in_sitemap=bool(terms), lastmod=latest(all_tax_pages),
+             page=tp, terms=term_list)
         term_items = []
         for t, ps in terms:
             turl = f"{url}{urlize(t)}/"
@@ -630,8 +640,9 @@ def build(
     if eyrie:
         sitemap.append(("/eyrie/", None))
     page_404 = {"kind": "404", "url": "/404.html", "title": "404 Page not found"}
-    emit("/404.html", "404.html", "the 404 page", in_sitemap=False, page=page_404)
+    emit("/404.html", "404.html", "the 404 page", in_sitemap=False, page=page_404, posts=main_pages[:5])
     put("/sitemap.xml", env.get_template("sitemap.xml").render(urls=sitemap), "the sitemap")
+    put("/robots.txt", env.get_template("robots.txt").render() + "\n", "robots.txt")
 
     for url, body in outputs.items():
         dest = out / url.lstrip("/")

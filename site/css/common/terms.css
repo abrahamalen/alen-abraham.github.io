@@ -16,3 +16,14 @@
     background: var(--tertiary);
     transform: scale(0.96);
 }
+
+.terms-empty p {
+    margin-bottom: 12px;
+    color: var(--secondary);
+    line-height: 1.6;
+}
+
+.terms-empty a {
+    color: var(--primary);
+    box-shadow: 0 1px 0 var(--primary);
+}

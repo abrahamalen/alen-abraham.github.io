@@ -126,10 +126,52 @@ class ToggleTest(unittest.TestCase):
         pages = self.build_with(comment_out(CONFIG, "plausible_domain:"))
         self.assertFalse(any("plausible.io" in h for h in pages.values()))
 
-    def test_archives_links_and_font_awesome(self):
+    def test_archives_links(self):
+        archives = self.build_with(CONFIG)["archives/index.html"]
+        self.assertRegex(archives, r'<a href="/dailies/"><svg[^>]*aria-hidden="true"')
         archives = self.build_with(comment_out(CONFIG, "{name: Dailies,"))["archives/index.html"]
         self.assertNotIn("archives-categories", archives)
-        self.assertNotIn("font-awesome", archives)
+
+    def test_no_font_awesome_anywhere(self):
+        for name, html in self.build_with(CONFIG).items():
+            self.assertNotRegex(html.lower(), r"font-?awesome|\bfa[srb]? fa-", name)
+        self.assertNotIn("Font Awesome", CONFIG)
+
+    def test_theme_follows_the_os_unless_chosen(self):
+        for name, html in self.build_with(CONFIG).items():
+            if "page/1/" in name or name.startswith("eyrie/"):
+                continue
+            head = html.split("<header", 1)[0]
+            self.assertIn('prefers-color-scheme: light', head, name)
+            self.assertIn('localStorage.getItem("pref-theme")', head, name)
+            self.assertIn('get("theme")', head, name)
+
+    def test_robots_points_at_the_sitemap(self):
+        self.build_with(CONFIG)
+        robots = (self.tmp / "public" / "robots.txt").read_text()
+        self.assertIn("Sitemap: https://alenabraham.me/sitemap.xml", robots.splitlines())
+
+    def test_404_helps(self):
+        page = self.build_with(CONFIG)["404.html"]
+        self.assertIn('href="/archives/"', page)
+        self.assertIn('href="/"', page)
+        self.assertIn("Recent posts", page)
+        self.assertEqual(page.count('<li><a href="/posts/'), 5)
+
+    def test_empty_taxonomy_says_so(self):
+        pages = self.build_with(CONFIG)
+        self.assertIn("No series yet", pages["series/index.html"])
+        sitemap = (self.tmp / "public" / "sitemap.xml").read_text()
+        self.assertNotIn("/series/", sitemap)
+        self.assertIn("/tags/", sitemap)
+
+    def test_home_feed_is_posts_and_dailies(self):
+        self.build_with(CONFIG)
+        feed = (self.tmp / "public" / "index.xml").read_text()
+        links = re.findall(r"<link>https://alenabraham.me(/[^<]*)</link>", feed)[1:]
+        self.assertIn("/posts/big-o-notation/", links)
+        self.assertTrue(any(u.startswith("/daily/") for u in links))
+        self.assertTrue(all(u.startswith(("/posts/", "/daily/")) for u in links), links)
 
 
     def test_eyrie_lock_serves_the_landing_page(self):

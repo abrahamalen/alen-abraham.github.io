@@ -3,9 +3,16 @@
 <header class="page-header">
   <h1>{{ page.title }}</h1>
 </header>
+{% if terms %}
 <ul class="terms-tags">
   {% for t in terms %}
   <li><a href="{{ t.url }}">{{ t.name }} <sup><strong><sup>{{ t.count }}</sup></strong></sup></a></li>
   {% endfor %}
 </ul>
+{% else %}
+<div class="terms-empty">
+  <p>No {{ page.title | lower }} yet. When posts start belonging to one, it'll be listed here.</p>
+  <p>Meanwhile, browse the <a href="/archives/">archives</a> or the <a href="/tags/">tags</a>.</p>
+</div>
+{% endif %}
 {% endblock %}
