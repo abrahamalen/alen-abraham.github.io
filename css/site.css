@@ -1276,6 +1276,42 @@ codapi-snippet codapi-toolbar button:after {
     }
 }
 
+/* Print (the resume mostly): light colours whatever the theme, no site chrome. */
+@media print {
+    :root,
+    .dark {
+        --theme: #fff;
+        --entry: #fff;
+        --primary: #000;
+        --secondary: #444;
+        --tertiary: #ccc;
+        --content: #111;
+        --code-bg: #f5f5f5;
+        --border: #ddd;
+    }
+    body {
+        background: #fff;
+    }
+    .header,
+    .footer,
+    .top-link,
+    #theme-toggle {
+        display: none !important;
+    }
+    a {
+        color: inherit;
+    }
+    .exp-role-desc li,
+    pre,
+    figure {
+        break-inside: avoid;
+    }
+    .exp-role-title,
+    .exp-role-date {
+        break-after: avoid;
+    }
+}
+
 /*
 Custom styles to override theme defaults
 */
