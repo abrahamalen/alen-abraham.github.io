@@ -253,8 +253,8 @@ def newest_first(pages: list[dict]) -> list[dict]:
 
 
 def search_index(pages: list[dict], cfg: dict) -> str:
-    """/index.json for the /search/ page: every content page, minus list-style pages and `searchHidden: true`."""
-    skip = {"search", "archives", "dailies", "eyrie"}
+    """/index.json for the search box on /archives/: every content page, minus list pages and `searchHidden: true`."""
+    skip = {"archives", "dailies", "eyrie"}
     titles = cfg["section_titles"]
     entries = [
         {
@@ -413,7 +413,7 @@ def build(
     paged_alias("/")
 
     # Regular pages
-    layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html", "eyrie": "eyrie.html", "search": "search.html"}
+    layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html", "eyrie": "eyrie.html"}
     for p in pages:
         template = layouts.get(p["layout"]) or ("daily.html" if p["section"] == "daily" else "single.html")
         ctx = {"page": p}
@@ -459,7 +459,7 @@ def build(
             term_items.append({"title": term_title(t), "url": turl, "date": ps[0]["date"], "description": ""})
         feed(url, title, sorted(term_items, key=lambda i: i["date"], reverse=True))
 
-    if any(p["layout"] == "search" for p in pages):
+    if any(p["layout"] == "archives" for p in pages):
         outputs["/index.json"] = search_index(pages, cfg)
 
     if eyrie:

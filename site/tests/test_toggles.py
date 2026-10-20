@@ -88,25 +88,23 @@ class ToggleTest(unittest.TestCase):
             if "page/1/" in name:
                 continue
             self.assertNotIn('title="About"', self.nav(html), name)
-            self.assertIn('title="Archives"', self.nav(html), name)
+            self.assertIn('href="/archives/"', self.nav(html), name)
         self.assertIn("about/index.html", pages)  # the page itself still builds
 
     def test_uncommenting_now_adds_it_everywhere(self):
         pages = self.build_with(uncomment(CONFIG, "{name: Now,"))
         self.assertTrue(all('title="Now"' in self.nav(h) for n, h in pages.items() if "page/1/" not in n))
 
-    def test_search_page_index_and_nav(self):
+    def test_search_on_archives(self):
         import json
         pages = self.build_with(CONFIG)
         self.assertIn('accesskey="/"', pages["index.html"])
-        self.assertIn("/js/search.js", pages["search/index.html"])
+        self.assertIn("/js/search.js", pages["archives/index.html"])
+        self.assertNotIn("/js/search.js", pages["index.html"])
         entries = json.loads((self.tmp / "public" / "index.json").read_text())
         urls = {e["url"] for e in entries}
         self.assertIn("/posts/big-o-notation/", urls)
-        self.assertNotIn("/search/", urls)
         self.assertNotIn("/archives/", urls)
-        no_nav = self.build_with(comment_out(CONFIG, "name: Search"))
-        self.assertNotIn('href="/search/"', no_nav["index.html"])
 
     def test_social_icon(self):
         home = self.build_with(comment_out(CONFIG, "{name: Twitter,"))["index.html"]

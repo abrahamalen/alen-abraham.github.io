@@ -58,3 +58,7 @@
 .search-hit {
     overflow-wrap: anywhere;
 }
+
+#searchbox {
+    margin-bottom: var(--gap);
+}

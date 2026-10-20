@@ -1,10 +1,22 @@
-// Client-side search over /index.json (built by site/build.py). Every word must match;
-// title hits rank above tag hits, which rank above body hits.
+// Search box on /archives/, over /index.json (built by site/build.py). While there's a query the
+// ranked results replace the archive list. Every word must match; title hits rank above tag
+// hits, which rank above body hits.
 (function () {
   var input = document.getElementById("searchInput");
   var status = document.getElementById("searchStatus");
   var list = document.getElementById("searchResults");
-  var index = null;
+  var archive = document.getElementById("archiveList");
+  var index = null, loading = false;
+
+  // Fetched on first use, so a plain visit to Archives costs nothing extra.
+  function load() {
+    if (index || loading) return;
+    loading = true;
+    fetch("/index.json").then(function (r) { return r.json(); }).then(function (data) {
+      index = data;
+      run();
+    }).catch(function () { loading = false; status.textContent = "Couldn't load the search index."; });
+  }
 
   function esc(s) {
     return s.replace(/[&<>"']/g, function (c) {
@@ -36,8 +48,9 @@
     if (q) url.searchParams.set("q", q); else url.searchParams.delete("q");
     history.replaceState(null, "", url);
     list.innerHTML = "";
+    if (archive) archive.hidden = !!q;
     if (!q) { status.textContent = ""; return; }
-    if (!index) { status.textContent = "Loading…"; return; }
+    if (!index) { status.textContent = "Loading…"; load(); return; }
     var words = q.toLowerCase().split(/\s+/);
     var hits = [];
     index.forEach(function (e) {
@@ -66,8 +79,10 @@
     if (ev.key === "Escape") { input.value = ""; run(); }
     if (ev.key === "Enter") { var a = list.querySelector("a"); if (a) location.href = a.href; }
   });
-  fetch("/index.json").then(function (r) { return r.json(); }).then(function (data) {
-    index = data;
-    run();
-  }).catch(function () { status.textContent = "Couldn't load the search index."; });
+  input.addEventListener("focus", load);
+  document.addEventListener("keydown", function (ev) {
+    var t = ev.target.tagName;
+    if (ev.key === "/" && !ev.altKey && t !== "INPUT" && t !== "TEXTAREA") { ev.preventDefault(); input.focus(); }
+  });
+  if (input.value) run();
 })();
