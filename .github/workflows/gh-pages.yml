@@ -8,12 +8,18 @@ on:
     branches:
       - main
   workflow_dispatch:
+  # Daily rebuild so posts with a future `date:` go live on their day. 03:30 UTC is 09:00 IST.
+  # Scheduled runs use the default branch (main), so they deploy exactly like a push to main.
+  schedule:
+    - cron: "30 3 * * *"
 
 jobs:
   build-and-publish:
     # Pinned: ubuntu-latest moves to new releases on its own schedule.
     runs-on: ubuntu-24.04
     name: Build and Publish Website
+    # Forks get the schedule too; only this repo publishes on it.
+    if: ${{ github.event_name != 'schedule' || github.repository == 'abrahamalen/alen-abraham.github.io' }}
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:

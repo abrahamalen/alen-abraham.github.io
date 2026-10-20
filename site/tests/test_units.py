@@ -2,10 +2,12 @@
 
 import contextlib
 import io
+import os
 import shutil
 import sys
 import tempfile
 import unittest
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from unittest import mock
 
@@ -121,10 +123,14 @@ class HeadingIdTest(unittest.TestCase):
         self.assertIn('href="#hello-world"', html)
 
 
-class ContentErrorsTest(unittest.TestCase):
+class TempSite(unittest.TestCase):
     """A throwaway site root: its own content/ and an empty static/, with the real templates and config."""
 
     def setUp(self):
+        env = mock.patch.dict(os.environ)
+        env.start()
+        self.addCleanup(env.stop)
+        os.environ.pop("FUTURE", None)
         self.root = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, self.root)
         for d in ("content/posts", "content/daily", "static"):
@@ -141,6 +147,12 @@ class ContentErrorsTest(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             build.build(out=self.root / "public", eyrie_lock=None, cache=self.root / "cache")
 
+    def outputs(self) -> dict[str, str]:
+        out = self.root / "public"
+        return {str(p.relative_to(out)): p.read_text() for p in out.rglob("*") if p.is_file()}
+
+
+class ContentErrorsTest(TempSite):
     def test_clean_content_builds(self):
         self.write("posts/a.md", post("A", tags='["ui ux"]'))
         self.build()
@@ -175,6 +187,62 @@ class ContentErrorsTest(unittest.TestCase):
         self.write("now.md", post("Now", date=None))
         self.build()
         self.assertTrue((self.root / "public/now/index.html").is_file())
+
+
+class SchedulingTest(TempSite):
+    NOW = datetime(2026, 10, 20, 3, 30, tzinfo=UTC)
+
+    def test_is_scheduled(self):
+        cases = [
+            ("posts", "2026-10-21", True),
+            ("daily", "2026-10-20T09:01:00+05:30", True),
+            ("posts", "2026-10-20T09:00:00+05:30", False),  # exactly now
+            ("posts", "2026-10-20", False),  # midnight UTC, earlier today
+            ("posts", "2020-01-01", False),
+            ("", "2999-01-01", False),  # top-level pages are never held back
+        ]
+        for section, date, want in cases:
+            with self.subTest(section=section, date=date):
+                page = {"section": section, "date": build.parse_date(date)}
+                self.assertEqual(build.is_scheduled(page, self.NOW), want)
+
+    def write_both(self) -> None:
+        past = (datetime.now(UTC) - timedelta(minutes=1)).isoformat(timespec="seconds")
+        self.write("posts/live.md", post("Live Post", past, tags='["shared"]'))
+        self.write("posts/later.md", post("Zebra Future Post", "2999-01-01", tags='["shared", "zebratag"]'))
+        self.write("daily/later.md", post("Zebra Future Daily", "2999-01-02"))
+        self.write("archives.md", post("Archives", None, layout="archives"))
+
+    def test_future_posts_are_in_no_output(self):
+        self.write_both()
+        self.build()
+        files = self.outputs()
+        for path in ("posts/later/index.html", "daily/later/index.html", "tags/zebratag/index.html"):
+            self.assertNotIn(path, files)
+        leaks = [path for path, text in files.items() if "Zebra" in text or "zebratag" in text or "/later/" in text]
+        self.assertEqual(leaks, [])
+        lists = ("index.html", "index.xml", "sitemap.xml", "index.json", "posts/index.html", "tags/shared/index.html")
+        for path in lists:
+            self.assertIn("/posts/live/", files[path], path)
+
+    def test_future_1_includes_them(self):
+        self.write_both()
+        os.environ["FUTURE"] = "1"
+        self.build()
+        files = self.outputs()
+        for path in ("posts/later/index.html", "daily/later/index.html", "tags/zebratag/index.html"):
+            self.assertIn(path, files)
+        for path in ("index.html", "index.xml", "sitemap.xml", "index.json", "tags/shared/index.html"):
+            self.assertIn("/posts/later/", files[path], path)
+
+    def test_scheduled_lists_upcoming_soonest_first(self):
+        self.write_both()
+        self.write("posts/draft.md", post("Draft", "2999-01-01", draft="true"))
+        got = [(d.date().isoformat(), path, title) for d, path, title in build.scheduled(datetime.now(UTC))]
+        self.assertEqual(got, [
+            ("2999-01-01", "content/posts/later.md", "Zebra Future Post"),
+            ("2999-01-02", "content/daily/later.md", "Zebra Future Daily"),
+        ])
 
 
 if __name__ == "__main__":

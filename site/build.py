@@ -8,10 +8,12 @@ import hashlib
 import html
 import json
 import math
+import os
 import re
 import shutil
 import ssl
 import subprocess
+import sys
 import tarfile
 import urllib.request
 from collections import defaultdict
@@ -252,6 +254,28 @@ def auto_summary(content_html: str) -> tuple[str, bool]:
     return plain_text(content_html), False
 
 
+def is_scheduled(page: dict, now: datetime) -> bool:
+    """A post or daily dated after the build is scheduled: it stays out of every output until then."""
+    return page["section"] in ("posts", "daily") and page["date"] is not None and page["date"] > now
+
+
+def future_wanted() -> bool:
+    """`FUTURE=1 make serve` previews scheduled posts locally."""
+    return os.environ.get("FUTURE", "") not in ("", "0")
+
+
+def scheduled(now: datetime) -> list[tuple[datetime, str, str]]:
+    """(date, path, title) of every scheduled post or daily, soonest first. Front matter only."""
+    upcoming = []
+    for section in ("posts", "daily"):
+        for path in sorted((CONTENT / section).glob("*.md")):
+            meta = yaml.load(path.read_text().split("---", 2)[1], Loader=_Loader) or {}
+            page = {"section": section, "date": parse_date(meta.get("date"))}
+            if not meta.get("draft") and is_scheduled(page, now):
+                upcoming.append((page["date"], str(path.relative_to(ROOT)), meta.get("title", "")))
+    return sorted(upcoming)
+
+
 def newest_first(pages: list[dict]) -> list[dict]:
     epoch = datetime.min.replace(tzinfo=UTC)
     return sorted(pages, key=lambda p: p["date"] or epoch, reverse=True)
@@ -345,8 +369,11 @@ def build(
     out: Path = OUT,
     eyrie_lock: Path | None = EYRIE_LOCK,
     cache: Path = CACHE,
+    future: bool | None = None,
 ) -> None:
     cfg = yaml.safe_load(config.read_text())
+    now = datetime.now(UTC)
+    future = future_wanted() if future is None else future
     dates = git_dates()
     eyrie = read_eyrie_lock(eyrie_lock)
     # Fetch before rendering so a bad pin fails fast, and so a later network error can't leave half a site.
@@ -358,6 +385,10 @@ def build(
     pages += [load_page(p, "", dates) for p in sorted(CONTENT.glob("*.md"))]
     # The coming-soon page (and its icons in static/eyrie/) only exist when the artifact is off.
     pages = newest_first([p for p in pages if p and not (eyrie and p["meta"].get("eyrie_fallback"))])
+    if future:
+        print(f"FUTURE=1: including {sum(is_scheduled(p, now) for p in pages)} scheduled page(s)")
+    else:
+        pages = [p for p in pages if not is_scheduled(p, now)]
 
     sections = {s: [p for p in pages if p["section"] == s] for s in cfg["section_titles"]}
     main_pages = sections[cfg["main_section"]]
@@ -374,7 +405,6 @@ def build(
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    now = datetime.now(UTC)
     env.globals.update(site=cfg, now=now, year=now.year, abs=lambda u: cfg["base_url"] + u)
     env.filters["date"] = lambda d, fmt="%B %-d, %Y": d.strftime(fmt) if d else ""
     env.filters["rfc822"] = lambda d: d.strftime("%a, %d %b %Y %H:%M:%S %z") if d else ""
@@ -498,4 +528,8 @@ def build(
 
 
 if __name__ == "__main__":
-    build()
+    if sys.argv[1:] == ["--scheduled"]:
+        for when, path, title in scheduled(datetime.now(UTC)):
+            print(f"{when.isoformat()}  {path}  {title}")
+    else:
+        build()
