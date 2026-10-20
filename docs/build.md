@@ -83,4 +83,4 @@ Per-page switches live in front matter instead: `favicons:` / `favicon_svg:` (wh
 
 1. Everything lands on the fork's `revamp` branch first. The site runs fully locally (`make serve`) and CI is green there.
 2. **One final PR**: fork `revamp` → `abrahamalen/alen-abraham.github.io:hugo`, which I merge on the personal repo. The existing workflow builds with `make build` and `make check`, and publishes `public/` to `gh-pages` (same CNAME), so the switch is just that merge.
-3. Optional, separate step later: rename the deploy branch `hugo` (for example to `main`) now that Hugo is gone. That means updating the workflow's branch filters and deploy condition, and changing the repo's default branch, in its own small PR.
+3. Done 2026-10-20: the deploy branch is `main` (renamed from `hugo`); the workflow's branch filters and deploy condition follow it.

@@ -9,7 +9,7 @@ Thank you for your interest in contributing to my personal website! This documen
 We follow a feature branch workflow:
 
 1. **Main Branches**:
-   - `hugo`: The main production branch that deploys to alenabraham.me
+   - `main`: The production branch; every merge builds and deploys to alenabraham.me
    - `develop`: (Future) Pre-production branch that will deploy to preprod.alenabraham.me
 
 2. **Feature Branches**:
@@ -47,9 +47,9 @@ If you're working from a fork:
 2. **Keep your fork in sync**:
    ```
    git fetch upstream
-   git checkout hugo
-   git merge upstream/hugo
-   git push origin hugo
+   git checkout main
+   git merge upstream/main
+   git push origin main
    ```
 
 ## Code Standards

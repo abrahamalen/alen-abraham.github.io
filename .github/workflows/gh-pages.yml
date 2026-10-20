@@ -3,26 +3,26 @@ name: Build and Publish Website
 on:
   push:
     branches:
-      - hugo
+      - main
   pull_request:
     branches:
-      - hugo
-      - revamp
+      - main
   workflow_dispatch:
 
 jobs:
   build-and-publish:
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moves to new releases on its own schedule.
+    runs-on: ubuntu-24.04
     name: Build and Publish Website
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # full history: lastmod dates come from git
 
       - name: Setup uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v10.2.0
 
       - name: Build
         run: make build
@@ -34,8 +34,8 @@ jobs:
         run: make test
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/hugo' }}
+        uses: peaceiris/actions-gh-pages@v4
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
