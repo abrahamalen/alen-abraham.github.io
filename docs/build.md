@@ -22,7 +22,7 @@ Diagrams and cross-posting are designed separately in [publishing.md](publishing
 - **Dead config.** `ShowReadingTime`, `ShowToc`, `ShowShareButtons`, `images` and others were nested under `cover:` in `config.yml`, so they did nothing, and Hugo never complained.
 - **About 3 MB of Mermaid on every page**, plus all of Font Awesome, because extending the theme's head was the easy path.
 
-**The trade-off I accept.** Hugo gave me pagination, image processing, i18n and search for free. Here each of those becomes a small function I write *when I actually need it*, not before. Today I need none of them: all posts fit on one page, images are pre-sized, the site is English-only, and search was dropped.
+**The trade-off I accept.** Hugo gave me pagination, image processing, i18n and search for free. Here each of those becomes a small function I write *when I actually need it*, not before. Today I need only search: all posts fit on one page, images are pre-sized and the site is English-only. Search is a box on `/archives/`: a small script (`site/js/search.js`) over `/index.json`, which the build writes; no other page loads it.
 
 ## 3. Habits that keep it healthy
 
@@ -48,6 +48,7 @@ Everything optional that's visible on the site is driven by `site/site.yaml`. Co
 | Home intro paragraphs | each line under `home.intro:` | That paragraph disappears |
 | Recruiter line | `home.aside` | The small faded line (and the gap above it) goes |
 | Whole home intro block | `home:` and everything under it | Home shows only the post list |
+| Alt+/ to Archives (search) | `key: /` on the Archives line under `menu:` | The shortcut goes; the search box on `/archives/` stays. Per page: `searchHidden: true` keeps it out of the index |
 | Archives top links | each line under `archives_links:` | That link goes. Font Awesome stops loading when no link has an `icon` |
 | Footer | `footer_copyright: true` | No footer |
 | Theme toggle | `theme_toggle: true` | No light/dark button, so the site stays in its default dark theme |

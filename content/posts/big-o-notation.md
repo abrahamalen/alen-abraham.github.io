@@ -59,12 +59,12 @@ _Example program for t = O(n): To get square numbers_
 def get_squared_numbers(numbers):
     squared_numbers = []
     for n in numbers:
-        square_numbers.append(n * n)
+        squared_numbers.append(n * n)
     return squared_numbers
 
 numbers = [2, 5, 8, 9]
 get_squared_numbers(numbers)
-// returns [4, 25, 64, 81]
+# returns [4, 25, 64, 81]
 ```
 
 #### 2. O(1)
@@ -72,8 +72,8 @@ get_squared_numbers(numbers)
 > def foo(arr): size(arr) -> 100 -> 0.22ms  
 > def foo(arr): size(arr) -> 1000 -> 0.23ms
 
-time, t = a _ n + b -> t = a _ n ( b constant) -> t = n (dropping constants(a))  
-n = 1 => t = 1  
+Here time stays the same however big the array gets: t = a\*n + b with a = 0, so t = b (a constant).  
+Dropping the constant leaves t = 1.  
 Therefore, **t = O(1)**
 
 _Example program for t = O(1)_
@@ -94,7 +94,7 @@ numbers = [3, 6, 2, 4, 3, 6, 8, 9]
 for i in range(len(numbers)):
     for j in range(i + 1, len(numbers)):
         if numbers[i] == numbers[j]:
-            print(numbers[i] + " is a duplicate.")
+            print(f"{numbers[i]} is a duplicate.")
             break
 ```
 

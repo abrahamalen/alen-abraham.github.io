@@ -102,3 +102,6 @@ GitLab is an easy-to-use tool for newcomers in the software development world. I
 - [GitLab Uses](https://docs.gitlab.com/ee/user/)
 - [A Short Tutorial](https://luong-komorebi.github.io/Short-Gitlab-Tutorial/)
 - [How To Set Up a Continuous Deployment Pipeline with GitLab CI/CD on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-continuous-deployment-pipeline-with-gitlab-ci-cd-on-ubuntu-18-04)
+
+Thank you for the read.  
+Repost on [Hashnode](https://alenabraham.hashnode.dev/an-introduction-to-gitlab-and-gitlab-cicd)

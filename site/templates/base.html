@@ -24,7 +24,7 @@
     {% if site.menu %}
     <ul id="menu">
       {% for item in site.menu %}
-      <li><a href="{{ item.url }}" title="{{ item.name }}"><span{% if page.url == item.url %} class="active"{% endif %}>{{ item.name }}</span></a></li>
+      <li><a href="{{ item.url }}" title="{{ item.name }}{% if item.key %} (Alt + {{ item.key }}){% endif %}"{% if item.key %} accesskey="{{ item.key }}"{% endif %}><span{% if page.url == item.url %} class="active"{% endif %}>{{ item.name }}</span></a></li>
       {% endfor %}
     </ul>
     {% endif %}

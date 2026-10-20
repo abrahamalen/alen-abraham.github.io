@@ -28,7 +28,8 @@ taxonomies:
 
 # Header nav (top right), in order. One line per item.
 menu:
-  - {name: Archives, url: /archives/}
+  # `key` is the Alt+<key> shortcut; Alt+/ opens Archives, where search lives.
+  - {name: Archives, url: /archives/, key: /}
   - {name: Categories, url: /categories/}
   - {name: Eyrie, url: /eyrie/}
   # Now and Resume are reachable from the home intro, so they're off here.

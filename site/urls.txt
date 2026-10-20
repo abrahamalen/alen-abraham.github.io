@@ -1,5 +1,5 @@
 # Every file the Hugo build published (hugo --minify @ ed183b6), frozen for URL parity.
-# Excluded: /assets/* (Hugo's fingerprinted bundles) and /index.json (search index, dropped on purpose).
+# Excluded: /assets/* (Hugo's fingerprinted bundles). /index.json was dropped at first, then came back for search on /archives/.
 /404.html
 /about/index.html
 /android-chrome-192x192.png
@@ -122,4 +122,8 @@
 /eyrie/favicon.svg
 /eyrie/install.sh
 /eyrie/og.png
+# Site-wide social preview image (og_image in site.yaml).
 /og.png
+# Search on /archives/ (site/js/search.js).
+/index.json
+/js/search.js
