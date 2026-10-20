@@ -28,11 +28,8 @@
 <link rel="alternate" type="application/rss+xml" href="{{ url }}index.xml">
 {% endif %}
 <noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
-{% if page.layout == "archives" and (site.archives_links or []) | selectattr("icon") | list %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-{% endif %}
 {% if page.has_code %}
-<script defer src="/js/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>
+<script defer src="/js/highlight.min.js" onload="hljs.highlightAll();"></script>
 {% endif %}
 {% if site.plausible_domain and not (is_page and page.meta.excludeAnalytics) %}
 <script defer data-domain="{{ site.plausible_domain }}" src="https://plausible.io/js/script.js"></script>

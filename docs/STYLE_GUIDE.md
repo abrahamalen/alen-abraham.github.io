@@ -16,7 +16,7 @@ How I write the templates and build code in `site/`.
 
 - One concern per file. `CSS_BUNDLE` in `site/build.py` sets the bundle order, so add new files to that list.
 - `core/license.css` keeps PaperMod's MIT notice, and it stays first in the bundle.
-- Page-specific scripts (Mermaid, highlight.js, Font Awesome) are added in `partials/head.html` only for the pages that need them.
+- Page-specific scripts (highlight.js, search) are added only on the pages that need them. Icons are inline SVGs from `partials/icons/`; no icon fonts.
 
 ## Build code (`site/build.py`)
 

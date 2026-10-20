@@ -66,10 +66,10 @@ home:
   # The small, faded line under the intro.
   aside: "Oh, and if you're a recruiter stalking my website — hey, no judgement. Here's my <a href=\"/resume/\">resume</a>, save yourself some clicks. ☕"
 
-# Links shown above the archive list. `icon` is a Font Awesome class;
-# Font Awesome only loads on /archives/ when one of these has an icon.
+# Links shown above the archive list. `icon` (optional) is an inline SVG in
+# site/templates/partials/icons/ (without .svg), like the socials.
 archives_links:
-  - {name: Dailies, url: /dailies/, icon: fas fa-calendar-alt}
+  - {name: Dailies, url: /dailies/, icon: calendar}
 
 # Footer "© <year> <title>". Comment out to drop the footer.
 footer_copyright: true
