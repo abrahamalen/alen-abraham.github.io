@@ -13,7 +13,7 @@ serve: build
 check: build
 	$(UV_RUN) python site/check_urls.py
 
-# Config toggles: commenting out a line in site/site.yaml removes that piece.
+# Unit tests for build.py's helpers, and config toggles (commenting out a line in site/site.yaml removes that piece).
 test:
 	$(UV_RUN) python -m unittest discover -s site/tests -v
 
