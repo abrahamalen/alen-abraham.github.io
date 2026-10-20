@@ -2,7 +2,7 @@
 UV_RUN := uv run --no-project --python 3.12 --with-requirements site/requirements.txt
 PORT ?= 1313
 
-.PHONY: build serve check test clean
+.PHONY: build serve check test lint clean
 
 build:
 	$(UV_RUN) python site/build.py
@@ -16,6 +16,9 @@ check: build
 # Unit tests for build.py's helpers, and config toggles (commenting out a line in site/site.yaml removes that piece).
 test:
 	$(UV_RUN) python -m unittest discover -s site/tests -v
+
+lint:
+	uv run --no-project --python 3.12 --with-requirements site/requirements-dev.txt ruff check site
 
 clean:
 	rm -rf public

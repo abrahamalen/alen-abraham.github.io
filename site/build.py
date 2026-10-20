@@ -15,7 +15,7 @@ import subprocess
 import tarfile
 import urllib.request
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from itertools import groupby
 from pathlib import Path
 
@@ -78,7 +78,7 @@ def parse_date(value) -> datetime | None:
     if not value:
         return None
     d = datetime.fromisoformat(str(value))
-    return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+    return d if d.tzinfo else d.replace(tzinfo=UTC)
 
 
 def anchorize(text: str) -> str:
@@ -154,7 +154,7 @@ class Shortcodes:
             return self._hold(f"<figure{cls}>{img}{cap}</figure>")
 
         def lastmod(_):
-            when = page["lastmod"] or datetime.now(timezone.utc)
+            when = page["lastmod"] or datetime.now(UTC)
             return when.strftime("%B %-d, %Y at %-I:%M %p")
 
         body = re.sub(r"\{\{<\s*mermaid\s*>\}\}(.*?)\{\{<\s*/mermaid\s*>\}\}", mermaid, body, flags=re.S)
@@ -253,7 +253,7 @@ def auto_summary(content_html: str) -> tuple[str, bool]:
 
 
 def newest_first(pages: list[dict]) -> list[dict]:
-    epoch = datetime.min.replace(tzinfo=timezone.utc)
+    epoch = datetime.min.replace(tzinfo=UTC)
     return sorted(pages, key=lambda p: p["date"] or epoch, reverse=True)
 
 
@@ -374,7 +374,7 @@ def build(
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     env.globals.update(site=cfg, now=now, year=now.year, abs=lambda u: cfg["base_url"] + u)
     env.filters["date"] = lambda d, fmt="%B %-d, %Y": d.strftime(fmt) if d else ""
     env.filters["rfc822"] = lambda d: d.strftime("%a, %d %b %Y %H:%M:%S %z") if d else ""
