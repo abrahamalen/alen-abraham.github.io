@@ -29,6 +29,7 @@ Diagrams and cross-posting are designed separately in [publishing.md](publishing
 - **Add features only when they're needed**, each as a small function with a test. Write the test next to the function, and add pytest to the pinned deps when the first test lands.
 - **Keep the guardrails in every PR:**
   - `make check`, the URL parity check against `site/urls.txt`. If a URL goes away on purpose, `urls.txt` changes in the same PR, with the reason.
+  - `make test`: unit tests for the pure helpers (`site/tests/test_units.py`) and the config toggles. The build itself refuses two outputs at one URL and a post or daily without a `date:`.
   - Pinned deps: `site/requirements.in`, compiled into `site/requirements.txt` with `uv pip compile`. Bump them deliberately, never to `latest`.
   - Before/after screenshots (light, dark and mobile) in the PR for anything that touches templates or CSS.
 - **Split, don't switch.** When `build.py` passes about 800 lines, I'll split it into modules (`content.py` for loading and Markdown, `pages.py` for rendering, `feeds.py` for RSS and the sitemap) rather than adopt a framework.

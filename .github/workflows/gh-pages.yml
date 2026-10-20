@@ -30,7 +30,7 @@ jobs:
       - name: URL parity check
         run: make check
 
-      - name: Config toggle tests
+      - name: Tests
         run: make test
 
       - name: Deploy

@@ -170,14 +170,16 @@ class Shortcodes:
 def render_markdown(body: str, page: dict) -> tuple[str, list]:
     sc = Shortcodes()
     out = md.render(sc.expand(body, page))
-    headings, seen = [], defaultdict(int)
+    headings, used = [], set()
 
     def heading(m):
         level, inner = int(m.group(1)), m.group(2)
-        slug = anchorize(inner)
-        if seen[slug]:
-            slug = f"{slug}-{seen[slug]}"
-        seen[anchorize(inner)] += 1
+        base = slug = anchorize(inner)
+        n = 0
+        while slug in used:  # "Foo", "Foo", "Foo 1" -> foo, foo-1, foo-1-1
+            n += 1
+            slug = f"{base}-{n}"
+        used.add(slug)
         headings.append({"level": level, "id": slug, "text": inner})
         return (
             f'<h{level} id="{slug}">{inner}'
@@ -212,9 +214,12 @@ def load_page(path: Path, section: str, dates: dict) -> dict | None:
     if meta.get("draft"):
         return None
     rel = str(path.relative_to(ROOT))
+    if section in ("posts", "daily") and not meta.get("date"):
+        raise SystemExit(f"{rel}: entries in {section}/ need a `date:` in their front matter")
     default_url = f"/{section}/{path.stem}/" if section else f"/{path.stem}/"
     page = {
         "kind": "page",
+        "source": rel,
         "section": section,
         "meta": meta,
         "title": meta.get("title", ""),
@@ -388,29 +393,39 @@ def build(
     shutil.copy(SITE_DIR / "js" / "search.js", out / "js" / "search.js")
 
     outputs: dict[str, str] = {}
+    sources: dict[str, str] = {}
     sitemap: list[tuple[str, datetime | None]] = []
 
-    def emit(url: str, template: str, in_sitemap: bool = True, lastmod=None, **ctx) -> None:
-        outputs[url] = env.get_template(template).render(**ctx)
+    def put(url: str, body: str, source: str) -> None:
+        # A second output at the same URL would silently overwrite the first:
+        # tags "ui ux" and "ui-ux", or a page whose `url:` is a section's.
+        if url in outputs:
+            raise SystemExit(f"{url} is produced twice: by {sources[url]} and by {source}")
+        outputs[url], sources[url] = body, source
+
+    def emit(url: str, template: str, source: str, in_sitemap: bool = True, lastmod=None, **ctx) -> None:
+        put(url, env.get_template(template).render(**ctx), source)
         if in_sitemap:
             sitemap.append((url, lastmod))
 
     def latest(ps):
         return max((p["lastmod"] or p["date"] for p in ps if p["lastmod"] or p["date"]), default=None)
 
-    def feed(url: str, title: str, items: list[dict]) -> None:
-        outputs[url + "index.xml"] = env.get_template("rss.xml").render(
-            feed={"url": url, "title": title, "items": items}
-        )
+    def feed(url: str, title: str, items: list[dict], source: str) -> None:
+        put(url + "index.xml", env.get_template("rss.xml").render(feed={"url": url, "title": title, "items": items}),
+            f"the feed of {source}")
 
-    def paged_alias(url: str) -> None:
+    def paged_alias(url: str, source: str) -> None:
         # Hugo publishes /<list>/page/1/ as a redirect to the list itself; keep it.
-        outputs[url + "page/1/"] = env.get_template("alias.html").render(target=cfg["base_url"] + url)
+        put(url + "page/1/", env.get_template("alias.html").render(target=cfg["base_url"] + url),
+            f"the page/1/ alias of {source}")
 
     # Home
-    emit("/", "home.html", lastmod=latest(main_pages), page={"kind": "home", "url": "/"}, posts=main_pages)
-    feed("/", "", [p for p in pages if p["layout"] != "archives" and not p["meta"].get("excludeFromFeeds")])
-    paged_alias("/")
+    emit("/", "home.html", "the home page", lastmod=latest(main_pages), page={"kind": "home", "url": "/"},
+         posts=main_pages)
+    feed("/", "", [p for p in pages if p["layout"] != "archives" and not p["meta"].get("excludeFromFeeds")],
+         "the home page")
+    paged_alias("/", "the home page")
 
     # Regular pages
     layouts = {"about": "about.html", "dailies": "dailies.html", "archives": "archives.html", "eyrie": "eyrie.html"}
@@ -430,15 +445,16 @@ def build(
                 (year, [(month, list(ms)) for month, ms in groupby(list(ys), key=lambda q: q[1]["date"].strftime("%B"))])
                 for year, ys in groupby(numbered, key=lambda q: q[1]["date"].year)
             ]
-        emit(p["url"], template, lastmod=p["lastmod"] or p["date"], **ctx)
+        emit(p["url"], template, p["source"], lastmod=p["lastmod"] or p["date"], **ctx)
 
     # Sections
     for section, title in cfg["section_titles"].items():
         url = f"/{section}/"
         sp = {"kind": "section", "url": url, "title": title}
-        emit(url, "list.html", lastmod=latest(sections[section]), page=sp, entries=sections[section])
-        feed(url, title, sections[section])
-        paged_alias(url)
+        src = f"section {section!r}"
+        emit(url, "list.html", src, lastmod=latest(sections[section]), page=sp, entries=sections[section])
+        feed(url, title, sections[section], src)
+        paged_alias(url, src)
 
     # Taxonomies and terms
     for tax, title in cfg["taxonomies"].items():
@@ -447,25 +463,27 @@ def build(
         term_list = [{"name": t, "url": f"{url}{urlize(t)}/", "count": len(ps)} for t, ps in terms]
         tp = {"kind": "taxonomy", "url": url, "title": title}
         all_tax_pages = [p for _, ps in terms for p in ps]
-        emit(url, "terms.html", lastmod=latest(all_tax_pages), page=tp, terms=term_list)
+        emit(url, "terms.html", f"taxonomy {tax!r}", lastmod=latest(all_tax_pages), page=tp, terms=term_list)
         term_items = []
         for t, ps in terms:
             turl = f"{url}{urlize(t)}/"
             ps = newest_first(ps)
             term_page = {"kind": "term", "url": turl, "title": term_title(t)}
-            emit(turl, "list.html", lastmod=latest(ps), page=term_page, entries=ps)
-            feed(turl, term_title(t), ps)
-            paged_alias(turl)
+            src = f"{tax} term {t!r}"
+            emit(turl, "list.html", src, lastmod=latest(ps), page=term_page, entries=ps)
+            feed(turl, term_title(t), ps, src)
+            paged_alias(turl, src)
             term_items.append({"title": term_title(t), "url": turl, "date": ps[0]["date"], "description": ""})
-        feed(url, title, sorted(term_items, key=lambda i: i["date"], reverse=True))
+        feed(url, title, sorted(term_items, key=lambda i: i["date"], reverse=True), f"taxonomy {tax!r}")
 
     if any(p["layout"] == "archives" for p in pages):
-        outputs["/index.json"] = search_index(pages, cfg)
+        put("/index.json", search_index(pages, cfg), "the search index")
 
     if eyrie:
         sitemap.append(("/eyrie/", None))
-    emit("/404.html", "404.html", in_sitemap=False, page={"kind": "404", "url": "/404.html", "title": "404 Page not found"})
-    outputs["/sitemap.xml"] = env.get_template("sitemap.xml").render(urls=sitemap)
+    page_404 = {"kind": "404", "url": "/404.html", "title": "404 Page not found"}
+    emit("/404.html", "404.html", "the 404 page", in_sitemap=False, page=page_404)
+    put("/sitemap.xml", env.get_template("sitemap.xml").render(urls=sitemap), "the sitemap")
 
     for url, body in outputs.items():
         dest = out / url.lstrip("/")
