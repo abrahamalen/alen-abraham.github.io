@@ -1,32 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dailies on Alen Abraham</title><link>https://alenabraham.me/daily/</link><description>Recent content in Dailies on Alen Abraham</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 01 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://alenabraham.me/daily/index.xml" rel="self" type="application/rss+xml"/><item><title>Creating My Digital Scrapbook</title><link>https://alenabraham.me/daily/2025-04-01/</link><pubDate>Tue, 01 Apr 2025 00:00:00 +0000</pubDate><guid>https://alenabraham.me/daily/2025-04-01/</guid><description>&lt;p&gt;Today I added a proper Digital Scrapbook section to my website. This is a place where I can post shorter, more casual thoughts and updates compared to my regular blog posts.&lt;/p&gt;
-&lt;p&gt;The implementation included:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Creating a dedicated layout template for the scrapbook page&lt;/li&gt;
-&lt;li&gt;Styling it with CSS to match the rest of my site&amp;rsquo;s aesthetic&lt;/li&gt;
-&lt;li&gt;Adding a simple search functionality&lt;/li&gt;
-&lt;li&gt;Setting up the proper directory structure for daily entries&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I&amp;rsquo;m planning to use this space to document quick learnings, interesting links I find, and progress on various projects. It feels good to have a low-pressure space to jot down thoughts without the formality of a full blog post.&lt;/p&gt;</description></item><item><title>Website Improvements - March 31, 2025</title><link>https://alenabraham.me/daily/2025-03-31/</link><pubDate>Mon, 31 Mar 2025 00:00:00 +0000</pubDate><guid>https://alenabraham.me/daily/2025-03-31/</guid><description>&lt;h2 id="todays-website-improvements"&gt;Today&amp;rsquo;s Website Improvements&lt;/h2&gt;
-&lt;p&gt;Made several significant improvements to the website today:&lt;/p&gt;
-&lt;h3 id="archives-page"&gt;Archives Page&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Added a &amp;ldquo;Dailies&amp;rdquo; section to the Archives page with a clean calendar icon&lt;/li&gt;
-&lt;li&gt;Styled the link to align perfectly with the page design&lt;/li&gt;
-&lt;li&gt;Removed &amp;ldquo;Daily Logs&amp;rdquo; from the main menu for cleaner navigation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="home-page-redesign"&gt;Home Page Redesign&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Completely revamped the home page layout&lt;/li&gt;
-&lt;li&gt;Added &amp;ldquo;Also seen on:&amp;rdquo; section with aligned social media icons&lt;/li&gt;
-&lt;li&gt;Improved spacing and typography across the page&lt;/li&gt;
-&lt;li&gt;Made the layout more consistent with proper line heights&lt;/li&gt;
-&lt;li&gt;Kept only important navigation links underlined for better visual hierarchy&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="added-now-page"&gt;Added &amp;ldquo;Now&amp;rdquo; Page&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Created a new &amp;ldquo;Now&amp;rdquo; page to showcase current activities&lt;/li&gt;
-&lt;li&gt;Implemented auto-updating timestamp using Git information&lt;/li&gt;
-&lt;li&gt;Added professional focus, learning, reading, and projects sections&lt;/li&gt;
-&lt;li&gt;Created a custom shortcode for timestamp display&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Overall, today&amp;rsquo;s changes focused on better organization, improved navigation, and a cleaner, more consistent design across the site.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dailies on Alen Abraham</title>
+    <link>https://alenabraham.me/daily/</link>
+    <description>Recent content in Dailies on Alen Abraham</description>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://alenabraham.me/daily/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating My Digital Scrapbook</title>
+      <link>https://alenabraham.me/daily/2025-04-01/</link>
+      <pubDate>Tue, 01 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>https://alenabraham.me/daily/2025-04-01/</guid>
+      <description>Today I added a proper Digital Scrapbook section to my website. This is a place where I can post shorter, more casual thoughts and updates compared to my regular blog posts. The implementation included: Creating a dedicated layout template for the scrapbook page Styling it with CSS to match the rest of my site’s aesthetic Adding a simple search functionality Setting up the proper directory structure for daily entries I’m planning to use this space to document quick learnings, interesting links I find, and progress on various projects. It feels good to have a low-pressure space to jot down thoughts without the formality of a full blog post.</description>
+    </item>
+    <item>
+      <title>Website Improvements - March 31, 2025</title>
+      <link>https://alenabraham.me/daily/2025-03-31/</link>
+      <pubDate>Mon, 31 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>https://alenabraham.me/daily/2025-03-31/</guid>
+      <description>Today’s Website Improvements Made several significant improvements to the website today: Archives Page Added a “Dailies” section to the Archives page with a clean calendar icon Styled the link to align perfectly with the page design Removed “Daily Logs” from the main menu for cleaner navigation Home Page Redesign Completely revamped the home page layout Added “Also seen on:” section with aligned social media icons Improved spacing and typography across the page Made the layout more consistent with proper line heights Kept only important navigation links underlined for better visual hierarchy Added “Now” Page Created a new “Now” page to showcase current activities Implemented auto-updating timestamp using Git information Added professional focus, learning, reading, and projects sections Created a custom shortcode for timestamp display Overall, today’s changes focused on better organization, improved navigation, and a cleaner, more consistent design across the site.</description>
+    </item>
+  </channel>
+</rss>
