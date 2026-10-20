@@ -7,7 +7,8 @@ description: Alen Abraham's personal website
 base_url: https://alenabraham.me
 # Link-preview image (WhatsApp, Slack, X...) for pages without their own cover; 1200x630.
 # Comment out to send no image.
-og_image: /og.png
+# Bump ?v= when og.png changes: WhatsApp and the CDN cache the image by its URL.
+og_image: /og.png?v=1
 language: en-us
 keywords: [Alen, Abraham, Blog, Portfolio, Resume]
 
