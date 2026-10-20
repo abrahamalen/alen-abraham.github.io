@@ -31,6 +31,28 @@ I'm going to blog here regularly now, and alenabraham.me/eyrie will be Eyrie's p
   - Before/after screenshots (light, dark and mobile) in the PR for anything that touches templates or CSS.
 - **Split, don't switch.** When `build.py` passes about 800 lines, I'll split it into modules (`content.py` for loading and Markdown, `pages.py` for rendering, `feeds.py` for RSS and the sitemap) rather than adopt a framework.
 
+## Turning things on and off
+
+Everything optional that's visible on the site is driven by `site/site.yaml`. Comment out a line (or delete it) and that piece stops rendering on every page. `make test` checks this (`site/tests/test_toggles.py`), and CI runs it.
+
+| What | Key / line in `site/site.yaml` | Effect when commented out |
+|---|---|---|
+| Header nav items | each `- {name: …, url: …}` line under `menu:` | That item disappears from the top-right nav. Comment out every entry and the nav is gone. The page itself still builds |
+| Now / Resume in the nav | already commented out under `menu:` | Uncomment `# - {name: Now, url: /now/}` or `# - {name: Resume, url: /resume/}` to show them. They're off on purpose, because the home intro links to both |
+| Home social icons | each line under `socials:` | That icon disappears from "Also seen on" and from the JSON-LD `sameAs`. With no socials, the whole row goes |
+| "Also seen on:" label | `home.socials_label` | The icons stay, without the label |
+| Home headline | `home.title` | No headline on the home page |
+| Home intro paragraphs | each line under `home.intro:` | That paragraph disappears |
+| Recruiter line | `home.aside` | The small faded line (and the gap above it) goes |
+| Whole home intro block | `home:` and everything under it | Home shows only the post list |
+| Archives top links | each line under `archives_links:` | That link goes. Font Awesome stops loading when no link has an `icon` |
+| Footer | `footer_copyright: true` | No footer |
+| Theme toggle | `theme_toggle: true` | No light/dark button, so the site stays in its default dark theme |
+| Back-to-top arrow | `back_to_top: true` | No floating arrow |
+| Analytics | `plausible_domain:` | No Plausible script anywhere. Per page: `excludeAnalytics: true` in front matter |
+
+Per-page switches live in front matter instead: `favicons:` / `favicon_svg:` (which icon set the page uses), `title_tag:` / `site_name:` (head overrides), `excludeFromFeeds: true` (keeps the page out of the home RSS) and `ShowToc: true` (table of contents).
+
 ## 4. The /eyrie plan (design only, not built yet)
 
 **What it is.** `/eyrie` is a small Vite + React landing page that lives in the Eyrie repo (`alenabraham-qure/eyrie`, which is public), for example under `eyrie/landing/`. It reuses Eyrie's own Tailwind tokens and components, such as the "e." logo and the cards, so it looks like the product rather than like my blog. The blog itself stays zero-JS; React exists only under `/eyrie/`.

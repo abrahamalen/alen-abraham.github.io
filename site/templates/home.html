@@ -1,23 +1,32 @@
 {% extends "base.html" %}
 {% block main %}
+{% set home = site.home or {} %}
+{% if home %}
 <article class="first-entry home-info">
+  {% if home.title %}
   <header class="entry-header">
-    <h1>Scale, Stabilize and Secure Systems</h1>
+    <h1>{{ home.title }}</h1>
   </header>
+  {% endif %}
   <div class="entry-content">
+    {% if site.socials %}
     <div class="social-section">
-      <span class="also-seen-on">Also seen on:</span>
+      {% if home.socials_label %}<span class="also-seen-on">{{ home.socials_label }}</span>{% endif %}
       <div class="home-social-icons">
         {% include "partials/social_icons.html" %}
       </div>
     </div>
-    <p class="intro-text">I'm Alen, a DevOps/SRE engineer focused on building reliable infrastructure.</p>
-    <p class="work-description">I specialize in creating stable and resilient systems, with a strong interest in privacy and security. My goal is to architect solutions that are robust, scalable, and secure. Check out <a href="/now/">what I'm doing now</a>.</p>
-    <p class="cta-links">If you're here for the first time, check out my <a href="/categories/">posts</a> or learn more <a href="/about/">about me</a>. Don't forget to explore my <a href="/archives/">archives</a> for all content.</p>
+    {% endif %}
+    {% for p in home.intro or [] %}
+    <p class="{{ p.class }}">{{ p.html | safe }}</p>
+    {% endfor %}
+    {% if home.aside %}
     <br>
-    <p class="cta-links" style="font-size:.9em;opacity:.8">Oh, and if you're a recruiter stalking my website — hey, no judgement. Here's my <a href="/resume/">resume</a>, save yourself some clicks. ☕</p>
+    <p class="cta-links" style="font-size:.9em;opacity:.8">{{ home.aside | safe }}</p>
+    {% endif %}
   </div>
 </article>
+{% endif %}
 {% set entry_class = "post-entry" %}
 {% for p in posts %}{% include "partials/entry.html" %}{% endfor %}
 {% endblock %}
