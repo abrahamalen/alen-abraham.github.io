@@ -9,8 +9,8 @@ import sys
 import tarfile
 import tempfile
 import unittest
-from unittest import mock
 from pathlib import Path
+from unittest import mock
 
 SITE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(SITE_DIR))

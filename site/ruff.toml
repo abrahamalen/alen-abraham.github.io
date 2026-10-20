@@ -1,0 +1,6 @@
+# Lint only; formatting stays as written (no `ruff format`).
+target-version = "py312"
+line-length = 121  # the longest existing line
+
+[lint]
+select = ["E", "F", "W", "I", "B", "UP"]
