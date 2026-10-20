@@ -15,6 +15,7 @@ import ssl
 import subprocess
 import sys
 import tarfile
+import urllib.parse
 import urllib.request
 from collections import defaultdict
 from datetime import UTC, datetime
@@ -24,6 +25,9 @@ from pathlib import Path
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markdown_it import MarkdownIt
+from markdown_it.renderer import RendererHTML
+
+import diagrams
 
 SITE_DIR = Path(__file__).resolve().parent
 ROOT = SITE_DIR.parent
@@ -51,7 +55,7 @@ CSS_BUNDLE = [
     "core/zmedia.css",
     "extended/custom.css",
     "extended/eyrie.css",
-    "extended/mermaid.css",
+    "extended/diagram.css",
     "extended/timeline.css",
     "extended/search.css",
 ]
@@ -103,7 +107,9 @@ ANCHOR_RE = re.compile(r'<a hidden class="anchor"[^>]*>#</a>')
 
 
 def plain_text(content_html: str) -> str:
-    text = re.sub(r"<[^>]+>", " ", ANCHOR_RE.sub("", content_html))
+    # Inlined diagrams carry their own <title> and <style>; neither is prose.
+    content_html = re.sub(r"<svg\b.*?</svg>", " ", ANCHOR_RE.sub("", content_html), flags=re.S)
+    text = re.sub(r"<[^>]+>", " ", content_html)
     return re.sub(r"\s+", " ", html.unescape(text)).strip()
 
 
@@ -124,8 +130,11 @@ def git_dates() -> dict[str, datetime]:
 
 # ---------- content ----------
 
+MERMAID_SC = re.compile(r"\{\{<\s*mermaid\s*>\}\}(.*?)\{\{<\s*/mermaid\s*>\}\}", re.S)
+
+
 class Shortcodes:
-    """Hugo shortcodes used in my content: figure, mermaid, lastmod."""
+    """Hugo shortcodes used in my content: figure, mermaid, lastmod; plus diagram."""
 
     def __init__(self):
         self.blocks: list[str] = []
@@ -137,8 +146,16 @@ class Shortcodes:
 
     def expand(self, body: str, page: dict) -> str:
         def mermaid(m):
-            page["needs_mermaid"] = True
-            return self._hold(f'<div class="mermaid">\n{m.group(1).strip()}\n</div>')
+            return self._hold(diagrams.mermaid(m.group(1), page, page.get("limits")))
+
+        def diagram(m):
+            a = dict(re.findall(r'(\w+)="([^"]*)"', m.group(1)))
+            if not page.get("bundle"):
+                raise SystemExit(f"{page.get('source')}: {{{{< diagram >}}}} needs a page bundle (<slug>/index.md)")
+            src = a.get("src", "")
+            path, url = page["bundle"] / "diagrams" / src, f"{page['url']}diagrams/{src}"
+            alt, caption = a.get("alt", ""), a.get("caption", "")
+            return self._hold(diagrams.diagram(path, url, alt, caption, page, page.get("limits")))
 
         def figure(m):
             a = dict(re.findall(r'(\w+)="([^"]*)"', m.group(1)))
@@ -159,7 +176,8 @@ class Shortcodes:
             when = page["lastmod"] or datetime.now(UTC)
             return when.strftime("%B %-d, %Y at %-I:%M %p")
 
-        body = re.sub(r"\{\{<\s*mermaid\s*>\}\}(.*?)\{\{<\s*/mermaid\s*>\}\}", mermaid, body, flags=re.S)
+        body = MERMAID_SC.sub(mermaid, body)
+        body = re.sub(r"\{\{<\s*diagram\s+(.*?)>\}\}", diagram, body)
         body = re.sub(r"\{\{<\s*figure\s+(.*?)>\}\}", figure, body)
         return re.sub(r"\{\{<\s*lastmod\s*>\}\}", lastmod, body)
 
@@ -169,9 +187,41 @@ class Shortcodes:
         return out
 
 
+def _fence(self, tokens, idx, options, env):
+    """```mermaid blocks become their committed render; other fences render as usual."""
+    token = tokens[idx]
+    if token.info.strip() == "mermaid":
+        page = env["page"]
+        return env["shortcodes"]._hold(diagrams.mermaid(token.content, page, page.get("limits")))
+    return RendererHTML.fence(self, tokens, idx, options, env)
+
+
+md.add_render_rule("fence", _fence)
+
+IMG_RE = re.compile(r'<img src="([^"]+)" alt="([^"]*)"(?: title="[^"]*")? ?/?>')
+RELATIVE_RE = re.compile(r'(\s(?:src|href)=")(?![a-zA-Z][\w+.-]*:|/|#|\?)([^"]+)"')
+
+
+def bundle_links(out: str, page: dict, sc: "Shortcodes") -> str:
+    """In a page bundle, `![alt](diagrams/x.svg)` is a diagram, and relative links resolve against the page."""
+
+    def svg_image(m):
+        src, alt = m.groups()
+        if RELATIVE_RE.match(f' src="{src}"') is None or not src.lower().endswith(".svg"):
+            return m.group(0)
+        path = page["bundle"] / urllib.parse.unquote(src)
+        return sc._hold(diagrams.diagram(path, page["url"] + src, alt, "", page, page.get("limits")))
+
+    out = IMG_RE.sub(svg_image, out)
+    # Absolute, so the links also work in feeds and on list pages.
+    return RELATIVE_RE.sub(lambda m: f'{m.group(1)}{page["url"]}{m.group(2)}"', out)
+
+
 def render_markdown(body: str, page: dict) -> tuple[str, list]:
     sc = Shortcodes()
-    out = md.render(sc.expand(body, page))
+    out = md.render(sc.expand(body, page), {"page": page, "shortcodes": sc})
+    if page.get("bundle"):
+        out = bundle_links(out, page, sc)
     headings, used = [], set()
 
     def heading(m):
@@ -210,7 +260,16 @@ def build_toc(headings: list[dict]) -> list:
     return root
 
 
-def load_page(path: Path, section: str, dates: dict) -> dict | None:
+def content_files(directory: Path) -> list[Path]:
+    """Single-file pages (<slug>.md) and page bundles (<slug>/index.md)."""
+    return sorted([*directory.glob("*.md"), *directory.glob("*/index.md")])
+
+
+def slug_of(path: Path) -> str:
+    return path.parent.name if path.name == "index.md" else path.stem
+
+
+def load_page(path: Path, section: str, dates: dict, limits: dict | None = None) -> dict | None:
     _, fm, body = path.read_text().split("---", 2)
     meta = yaml.load(fm, Loader=_Loader) or {}
     if meta.get("draft"):
@@ -218,7 +277,8 @@ def load_page(path: Path, section: str, dates: dict) -> dict | None:
     rel = str(path.relative_to(ROOT))
     if section in ("posts", "daily") and not meta.get("date"):
         raise SystemExit(f"{rel}: entries in {section}/ need a `date:` in their front matter")
-    default_url = f"/{section}/{path.stem}/" if section else f"/{path.stem}/"
+    slug = slug_of(path)
+    default_url = f"/{section}/{slug}/" if section else f"/{slug}/"
     page = {
         "kind": "page",
         "source": rel,
@@ -229,7 +289,8 @@ def load_page(path: Path, section: str, dates: dict) -> dict | None:
         "layout": meta.get("layout", ""),
         "date": parse_date(meta.get("date")),
         "lastmod": dates.get(rel),
-        "needs_mermaid": False,
+        "bundle": path.parent if path.name == "index.md" else None,
+        "limits": limits,
     }
     page["content"], page["toc"] = render_markdown(body, page)
     words = plain_text(page["content"]).split()
@@ -268,7 +329,7 @@ def scheduled(now: datetime) -> list[tuple[datetime, str, str]]:
     """(date, path, title) of every scheduled post or daily, soonest first. Front matter only."""
     upcoming = []
     for section in ("posts", "daily"):
-        for path in sorted((CONTENT / section).glob("*.md")):
+        for path in content_files(CONTENT / section):
             meta = yaml.load(path.read_text().split("---", 2)[1], Loader=_Loader) or {}
             page = {"section": section, "date": parse_date(meta.get("date"))}
             if not meta.get("draft") and is_scheduled(page, now):
@@ -298,6 +359,63 @@ def search_index(pages: list[dict], cfg: dict) -> str:
         if p["layout"] not in skip and not p["meta"].get("searchHidden")
     ]
     return json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
+
+
+BUNDLE_SKIP = {".md", ".excalidraw"}  # sources, not published
+
+
+def copy_bundles(pages: list[dict], out: Path, outputs: dict) -> int:
+    """Copy each bundle's files (diagrams/, images) next to its page. Returns how many."""
+    n = 0
+    for p in pages:
+        if not p["bundle"]:
+            continue
+        for f in sorted(p["bundle"].rglob("*")):
+            rel = f.relative_to(p["bundle"])
+            if not f.is_file() or f.suffix in BUNDLE_SKIP or any(part.startswith(".") for part in rel.parts):
+                continue
+            url = p["url"] + rel.as_posix()
+            if url in outputs or (url.endswith("/index.html") and url[: -len("index.html")] in outputs):
+                raise SystemExit(f"{url} is produced twice: by {p['source']} and by its bundle file {rel}")
+            dest = out / url.lstrip("/")
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, dest)
+            n += 1
+    return n
+
+
+def mermaid_blocks(body: str) -> list[str]:
+    """Every Mermaid source in a page: {{< mermaid >}} shortcodes and ```mermaid fences."""
+    blocks = [m.group(1) for m in MERMAID_SC.finditer(body)]
+    tokens = md.parse(MERMAID_SC.sub("", body))
+    return blocks + [t.content for t in tokens if t.type == "fence" and t.info.strip() == "mermaid"]
+
+
+def render_all_mermaid(
+    mmdc: Path = SITE_DIR / "node_modules/.bin/mmdc", config: Path = SITE_DIR / "mermaid.json"
+) -> None:
+    """`make diagrams`: render missing Mermaid blocks into their bundles, and drop renders nothing uses."""
+    made, pruned = [], []
+    bundles: dict[Path, set[str]] = {}
+    for section in ("posts", "daily", ""):
+        files = content_files(CONTENT / section) if section else sorted(CONTENT.glob("*.md"))
+        for path in files:
+            blocks = mermaid_blocks(path.read_text().split("---", 2)[2])
+            bundle = path.parent if path.name == "index.md" else None
+            if blocks and bundle is None:
+                raise SystemExit(f"{path.relative_to(ROOT)}: Mermaid diagrams need a page bundle: "
+                                 f"move it to {path.with_suffix('').relative_to(ROOT)}/index.md")
+            if bundle is not None:
+                bundles[bundle] = {diagrams.mermaid_key(b) for b in blocks}
+                for b in blocks:
+                    made += diagrams.render_mermaid(b, bundle, mmdc, config)
+    for bundle, keep in bundles.items():
+        pruned += diagrams.prune_mermaid(bundle, keep)
+    for f in made:
+        print(f"rendered {f.relative_to(ROOT)}")
+    for f in pruned:
+        print(f"removed  {f.relative_to(ROOT)}")
+    print(f"mermaid: {len(made)} rendered, {len(pruned)} removed")
 
 
 # ---------- /eyrie/ landing page (release artifact) ----------
@@ -381,8 +499,8 @@ def build(
 
     pages = []
     for section in ("posts", "daily"):
-        pages += [load_page(p, section, dates) for p in sorted((CONTENT / section).glob("*.md"))]
-    pages += [load_page(p, "", dates) for p in sorted(CONTENT.glob("*.md"))]
+        pages += [load_page(p, section, dates, cfg.get("diagrams")) for p in content_files(CONTENT / section)]
+    pages += [load_page(p, "", dates, cfg.get("diagrams")) for p in sorted(CONTENT.glob("*.md"))]
     # The coming-soon page (and its icons in static/eyrie/) only exist when the artifact is off.
     pages = newest_first([p for p in pages if p and not (eyrie and p["meta"].get("eyrie_fallback"))])
     if future:
@@ -521,14 +639,20 @@ def build(
             dest = dest / "index.html"
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(body)
-    print(f"built {len(outputs)} files ({len(pages)} pages) -> {out}/")
+    copied = copy_bundles(pages, out, outputs)
+    print(f"built {len(outputs)} files ({len(pages)} pages, {copied} bundle files) -> {out}/")
     if eyrie_tarball:
         n = unpack_eyrie(eyrie_tarball, out)
         print(f"eyrie landing {eyrie['version']}: {n} files -> {out}/eyrie/")
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["--scheduled"]:
+    if sys.argv[1:] == ["--diagrams"]:
+        render_all_mermaid()
+    elif sys.argv[1:2] == ["--new-diagram"] and len(sys.argv) == 4:
+        svg = diagrams.scaffold(CONTENT / "posts" / sys.argv[2], sys.argv[3])
+        print(f"created {svg.relative_to(ROOT)}\n\nPrompt for Claude:\n{diagrams.PROMPT}")
+    elif sys.argv[1:] == ["--scheduled"]:
         for when, path, title in scheduled(datetime.now(UTC)):
             print(f"{when.isoformat()}  {path}  {title}")
     else:

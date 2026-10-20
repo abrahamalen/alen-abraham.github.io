@@ -18,6 +18,12 @@ plausible_domain: alenabraham.me
 # Favicon prefix; a page can override it with `favicons: /eyrie/` in front matter.
 favicons: /
 
+# Diagram size limits (docs/publishing.md §1); the build fails above them.
+diagrams:
+  inline_svg_kb: 100
+  img_svg_kb: 500
+  png_kb: 400
+
 main_section: posts
 section_titles:
   posts: Posts

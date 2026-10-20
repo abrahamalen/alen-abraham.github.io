@@ -1,0 +1,8 @@
+{
+  "name": "alenabraham-site-diagrams",
+  "private": true,
+  "description": "Only for `make diagrams` (Mermaid renders). The site build itself is Python-only.",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "11.17.0"
+  }
+}

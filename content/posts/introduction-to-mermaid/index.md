@@ -17,8 +17,9 @@ In this post, I'll show several examples of diagrams you can create using Mermai
 
 Let's start with a basic flowchart showing a deployment process:
 
-{{< mermaid >}}
+```mermaid
 flowchart TD
+    accTitle: Deployment flow: code review, build and test, staging, production, monitoring
     A[Code Changes] --> B{Code Review}
     B -->|Approved| C[Build & Test]
     B -->|Rejected| A
@@ -29,7 +30,7 @@ flowchart TD
     F -->|Pass| G[Deploy to Production]
     F -->|Fail| A
     G --> H[Monitor]
-{{< /mermaid >}}
+```
 
 The code to create this flowchart is surprisingly simple:
 
@@ -51,8 +52,9 @@ flowchart TD
 
 Sequence diagrams are perfect for showing interactions between components:
 
-{{< mermaid >}}
+```mermaid
 sequenceDiagram
+    accTitle: Read-through cache: the API checks the cache and falls back to the database
     participant User
     participant API
     participant DB
@@ -70,14 +72,15 @@ sequenceDiagram
         API->>Cache: Store in cache
         API->>User: Return data
     end
-{{< /mermaid >}}
+```
 
 ## Class Diagram Example
 
 Class diagrams help visualize the structure of a system:
 
-{{< mermaid >}}
+```mermaid
 classDiagram
+    accTitle: Class diagram: an Application runs on a Server and uses Databases
     class Server {
         +String hostname
         +String ip
@@ -100,14 +103,15 @@ classDiagram
     
     Application "1..*" -- "1" Server : runs on
     Application "1" -- "0..*" Database : uses
-{{< /mermaid >}}
+```
 
 ## Gantt Chart Example
 
 Gantt charts are useful for project planning:
 
-{{< mermaid >}}
+```mermaid
 gantt
+    accTitle: Gantt chart of a DevOps project timeline from planning to monitoring
     title DevOps Project Timeline
     dateFormat  YYYY-MM-DD
     
@@ -127,7 +131,7 @@ gantt
     section Monitoring
     Set up monitoring    :d1, after c3, 3d
     Training             :d2, after d1, 4d
-{{< /mermaid >}}
+```
 
 ## Tips for Using Mermaid
 

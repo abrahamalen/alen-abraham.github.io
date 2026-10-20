@@ -9,7 +9,7 @@ Diagrams and cross-posting are designed separately in [publishing.md](publishing
 ## 1. Decision
 
 - **My own Python build** (`site/`). No static-site framework.
-- **The blog stays plain static HTML with zero JS by default.** A page gets a script only when its content needs one: Mermaid on diagram posts, highlight.js on pages with code. The theme toggle and back-to-top link are the only always-on inline JS.
+- **The blog stays plain static HTML with zero JS by default.** A page gets a script only when its content needs one: highlight.js on pages with code. Diagrams, Mermaid included, are SVGs rendered before the build, so they need no JS. The theme toggle and back-to-top link are the only always-on inline JS.
 - **The current minimal look stays.** It's PaperMod's look, but now I own the CSS in `site/css/`, with the MIT credit kept.
 
 ## 2. Why
@@ -29,11 +29,21 @@ Diagrams and cross-posting are designed separately in [publishing.md](publishing
 - **Add features only when they're needed**, each as a small function with a test. Write the test next to the function, and add pytest to the pinned deps when the first test lands.
 - **Keep the guardrails in every PR:**
   - `make check`, the URL parity check against `site/urls.txt`. If a URL goes away on purpose, `urls.txt` changes in the same PR, with the reason.
-  - `make test`: unit tests for the pure helpers (`site/tests/test_units.py`) and the config toggles. The build itself refuses two outputs at one URL and a post or daily without a `date:`.
+  - `make test`: unit tests for the pure helpers (`site/tests/test_units.py`), diagrams (`site/tests/test_diagrams.py`) and the config toggles. The build itself refuses two outputs at one URL and a post or daily without a `date:`.
   - `make lint`: ruff over `site/` (config in `site/ruff.toml`, pinned in `site/requirements-dev.in`). Lint only, no auto-format.
   - Pinned deps: `site/requirements.in`, compiled into `site/requirements.txt` with `uv pip compile`. Bump them deliberately, never to `latest`.
   - Before/after screenshots (light, dark and mobile) in the PR for anything that touches templates or CSS.
 - **Split, don't switch.** When `build.py` passes about 800 lines, I'll split it into modules (`content.py` for loading and Markdown, `pages.py` for rendering, `feeds.py` for RSS and the sitemap) rather than adopt a framework.
+
+## Page bundles and diagrams
+
+A post can be a single file, `content/posts/<slug>.md`, or a folder ("page bundle"), `content/posts/<slug>/index.md`. Both publish at `/posts/<slug>/`. Every other file in the folder (`diagrams/*.svg`, `diagrams/*.png`, images) is copied next to the page, except `.md` and `.excalidraw` sources and dotfiles; relative links and images in the post resolve against the page. Dailies work the same way.
+
+Diagrams (the design and the rules are in [publishing.md](publishing.md) §1; the code is `site/diagrams.py`):
+- `![alt](diagrams/x.svg)` or `{{< diagram src="x.svg" alt="…" caption="…" >}}`. An SVG that uses the `--diagram-*` CSS variables is inlined and follows the theme; any other SVG is an `<img>`; `x.light.svg` + `x.dark.svg` show the one that matches the theme.
+- ` ```mermaid ` blocks (and `{{< mermaid >}}`) need a bundle and an `accTitle:` line. `make diagrams` renders them into `diagrams/_mermaid/`, and the renders are committed. It's the only target that needs Node (`site/package.json`, pinned with a lockfile; `npm ci` runs inside it). `make build` stays Python-only and fails with "run `make diagrams`" when a render is missing.
+- `make diagram POST=<slug> NAME=<name>` writes a starter SVG and prints a prompt for Claude.
+- Size limits are under `diagrams:` in `site/site.yaml`.
 
 ## Scheduling a post
 
@@ -65,6 +75,7 @@ Everything optional that's visible on the site is driven by `site/site.yaml`. Co
 | Footer | `footer_copyright: true` | No footer |
 | Theme toggle | `theme_toggle: true` | No light/dark button, so the site stays in its default dark theme |
 | Back-to-top arrow | `back_to_top: true` | No floating arrow |
+| Diagram size limits | `diagrams:` (`inline_svg_kb`, `img_svg_kb`, `png_kb`) | Not a toggle: missing keys fall back to the same defaults (100, 500, 400 KB) |
 | Analytics | `plausible_domain:` | No Plausible script anywhere. Per page: `excludeAnalytics: true` in front matter |
 | Eyrie landing page at `/eyrie/` | `version:` in `site/eyrie.lock` (not `site.yaml`) | The build skips the release download and renders the coming-soon page (`content/eyrie.md`, `eyrie_fallback: true`) with the icons in `static/eyrie/` instead. `make check` then reports the landing-only files in `urls.txt` (`/eyrie/install.sh`, `/eyrie/og.png`) as missing |
 

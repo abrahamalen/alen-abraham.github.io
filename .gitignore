@@ -2,3 +2,4 @@
 .DS_Store
 public/
 .cache/
+site/node_modules/
