@@ -73,4 +73,4 @@ Refer this [youtube video](https://youtu.be/D48ER-3dlFI) for more clarification.
 
 You can connect me on LinkedIn @ **_[alenabraham](https://www.linkedin.com/in/alenabraham)_**.  
 **Happy to connect!**  
-Repost on [Hashnode](https://alenabraham.hashnode.dev/linkedin-how-to-get-started) & [Dev](https://dev.to/alenabraham/how-important-is-your-linkedin-profile-3327)
+Repost on [Dev](https://dev.to/alenabraham/how-important-is-your-linkedin-profile-3327)

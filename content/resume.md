@@ -20,7 +20,7 @@ Making systems reliable, deployments boring, and incidents rare.
     <div class="exp-company-header">
       <div class="exp-company-name">Qure.ai</div>
       <div class="exp-company-meta">Medical imaging AI company using deep learning to detect critical findings in X-rays, CT scans, and emergency radiology — deployed across 15+ AWS regions serving hospitals globally.</div>
-      <div class="exp-company-meta">Full-time · 3 yrs 7 mos+ · Bengaluru, India</div>
+      <div class="exp-company-meta">Full-time · Sep 2022 – Present · Bengaluru, India</div>
     </div>
     <div class="exp-roles">
       <div class="exp-role">

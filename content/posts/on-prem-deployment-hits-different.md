@@ -32,9 +32,9 @@ Collaborating with us on this ambitious endeavor was the **United Nations Develo
 
 ### The Deployment
 
-Deployment in Fiji was scheduled for five days, and our journey began on July 28th when we flew from Mumbai to Fiji, finally arriving on the 30th. On Monday, August 31st, we commenced our deployments and conducted training sessions for X-ray technicians from various Pacific Islands. The diversity of attendees added a unique dimension to our mission, fostering cross-cultural exchanges and cooperation.
+Deployment in Fiji was scheduled for five days, and our journey began on July 28th when we flew from Mumbai to Fiji, finally arriving on the 30th. On Monday, July 31st, we commenced our deployments and conducted training sessions for X-ray technicians from various Pacific Islands. The diversity of attendees added a unique dimension to our mission, fostering cross-cultural exchanges and cooperation.
 
-On the night of Sunday, August 30th, I found myself in my hotel room with four q-boxes. I was able to complete the deployment setup on all the 4 boxes without much issues using the script we had prepared. The next day, we were joined by the UNDP team, and we began workshops.
+On the night of Sunday, July 30th, I found myself in my hotel room with four q-boxes. I was able to complete the deployment setup on all the 4 boxes without much issues using the script we had prepared. The next day, we were joined by the UNDP team, and we began workshops.
 
 {{< figure src="/images/posts/on-prem-deployment-hits-different/image-8.jpg#center" title="Setting up the qboxes with dockers" caption="Fiji Deployment Days" link="/images/posts/on-prem-deployment-hits-different/image-8.jpg" target="_blank" class="align-center" >}}
 
