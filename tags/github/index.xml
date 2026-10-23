@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on Alen Abraham</title>
+    <link>https://alenabraham.me/tags/github/</link>
+    <description>Recent content in Github on Alen Abraham</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Oct 2026 09:00:00 +0530</lastBuildDate>
+    <atom:link href="https://alenabraham.me/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stacked pull requests and squash merges don&#39;t mix</title>
+      <link>https://alenabraham.me/posts/stacked-prs-and-squash-merges/</link>
+      <pubDate>Fri, 23 Oct 2026 09:00:00 +0530</pubDate>
+      <guid>https://alenabraham.me/posts/stacked-prs-and-squash-merges/</guid>
+      <description>Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.</description>
+    </item>
+  </channel>
+</rss>

@@ -5,8 +5,15 @@
     <link>https://alenabraham.me/categories/</link>
     <description>Recent content in Categories on Alen Abraham</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 09:00:00 +0530</lastBuildDate>
     <atom:link href="https://alenabraham.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Devops</title>
+      <link>https://alenabraham.me/categories/devops/</link>
+      <pubDate>Fri, 23 Oct 2026 09:00:00 +0530</pubDate>
+      <guid>https://alenabraham.me/categories/devops/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Tutorial</title>
       <link>https://alenabraham.me/categories/tutorial/</link>
@@ -19,13 +26,6 @@
       <link>https://alenabraham.me/categories/work/</link>
       <pubDate>Sun, 24 Sep 2023 11:34:59 +0530</pubDate>
       <guid>https://alenabraham.me/categories/work/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Devops</title>
-      <link>https://alenabraham.me/categories/devops/</link>
-      <pubDate>Thu, 16 Jun 2022 12:56:25 +0530</pubDate>
-      <guid>https://alenabraham.me/categories/devops/</guid>
       <description></description>
     </item>
     <item>

@@ -5,8 +5,15 @@
     <link>https://alenabraham.me/tags/devops/</link>
     <description>Recent content in Devops on Alen Abraham</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Apr 2022 11:40:35 +0530</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 09:00:00 +0530</lastBuildDate>
     <atom:link href="https://alenabraham.me/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stacked pull requests and squash merges don&#39;t mix</title>
+      <link>https://alenabraham.me/posts/stacked-prs-and-squash-merges/</link>
+      <pubDate>Fri, 23 Oct 2026 09:00:00 +0530</pubDate>
+      <guid>https://alenabraham.me/posts/stacked-prs-and-squash-merges/</guid>
+      <description>Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.</description>
+    </item>
     <item>
       <title>What is Github Actions? How does it simplify CI/CD?</title>
       <link>https://alenabraham.me/posts/what-is-github-actions/</link>

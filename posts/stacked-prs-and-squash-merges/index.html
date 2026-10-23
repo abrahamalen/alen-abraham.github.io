@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en" dir="auto">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Stacked pull requests and squash merges don&#39;t mix | Alen Abraham</title>
+<meta name="keywords" content="git, github, devops">
+<meta name="description" content="Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.">
+<link rel="canonical" href="https://alenabraham.me/posts/stacked-prs-and-squash-merges/">
+<link rel="stylesheet" href="/css/site.css">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
+<script defer src="/js/highlight.min.js" onload="hljs.highlightAll();"></script>
+<script defer data-domain="alenabraham.me" src="https://plausible.io/js/script.js"></script>
+<meta property="og:title" content="Stacked pull requests and squash merges don&#39;t mix">
+<meta property="og:description" content="Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alenabraham.me/posts/stacked-prs-and-squash-merges/">
+<meta property="og:image" content="https://alenabraham.me/og.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alen Abraham's website"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2026-10-23T09:00:00+05:30"><meta property="article:modified_time" content="2026-10-20T23:31:07+05:30"><meta property="og:site_name" content="Alen Abraham">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alenabraham.me/og.png?v=1">
+<meta name="twitter:title" content="Stacked pull requests and squash merges don&#39;t mix">
+<meta name="twitter:description" content="Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "dateModified": "2026-10-20T23:31:07+05:30", "datePublished": "2026-10-23T09:00:00+05:30", "description": "Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.", "headline": "Stacked pull requests and squash merges don\u0027t mix", "image": "https://alenabraham.me/og.png?v=1", "inLanguage": "en", "keywords": ["git", "github", "devops"], "mainEntityOfPage": {"@id": "https://alenabraham.me/posts/stacked-prs-and-squash-merges/", "@type": "WebPage"}, "name": "Stacked pull requests and squash merges don\u0027t mix", "publisher": {"@type": "Organization", "logo": {"@type": "ImageObject", "url": "https://alenabraham.me/favicon.ico"}, "name": "Alen Abraham"}, "wordCount": "1219"}</script>
+</head>
+<body class="dark" id="top">
+<script>
+  (function () {
+    // ?theme=light|dark wins (handy for screenshots), then the saved toggle, then the OS setting.
+    // Runs before the first paint, so there's no flash of the other theme.
+    var saved = null;
+    try { saved = localStorage.getItem("pref-theme"); } catch (e) {}
+    var forced = new URLSearchParams(location.search).get("theme") || saved;
+    var os = window.matchMedia("(prefers-color-scheme: light)");
+    var apply = function (pref) { document.body.classList.toggle("dark", pref !== "light"); };
+    apply(forced || (os.matches ? "light" : "dark"));
+    // With no saved choice, follow the OS when it switches (e.g. at sunset).
+    if (!forced && os.addEventListener) os.addEventListener("change", function (e) {
+      try { if (localStorage.getItem("pref-theme")) return; } catch (err) {}
+      apply(e.matches ? "light" : "dark");
+    });
+  })();
+</script>
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a href="/" accesskey="h" title="Alen Abraham (Alt + H)">Alen Abraham</a>
+      <div class="logo-switches">
+<button id=theme-toggle accesskey=t title="(Alt + T)">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+</svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="5"/>
+<line x1="12" y1="1" x2="12" y2="3"/>
+<line x1="12" y1="21" x2="12" y2="23"/>
+<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+<line x1="1" y1="12" x2="3" y2="12"/>
+<line x1="21" y1="12" x2="23" y2="12"/>
+<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+</svg>
+</button>      </div>
+    </div>
+    <ul id="menu">
+      <li><a href="/archives/" title="Archives (Alt + /)" accesskey="/"><span>Archives</span></a></li>
+      <li><a href="/categories/" title="Categories"><span>Categories</span></a></li>
+      <li><a href="/eyrie/" title="Eyrie"><span>Eyrie</span></a></li>
+      <li><a href="/about/" title="About"><span>About</span></a></li>
+    </ul>
+  </nav>
+</header>
+<main class="main">
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title entry-hint-parent">Stacked pull requests and squash merges don&#39;t mix</h1>
+    <div class="post-description">Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.</div>
+    <div class="post-meta"><span title="2026-10-23T09:00:00+05:30">October 23, 2026</span></div>
+  </header>
+  <div class="toc">
+    <details>
+      <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+      <div class="inner"><ul>
+  <li>
+    <a href="#the-setup" aria-label="The setup">The setup</a>
+  </li>
+  <li>
+    <a href="#what-went-wrong" aria-label="What went wrong">What went wrong</a>
+<ul>
+  <li>
+    <a href="#why-the-conflicts-land-in-files-b-never-touched" aria-label="Why the conflicts land in files B never touched">Why the conflicts land in files B never touched</a>
+  </li>
+</ul>  </li>
+  <li>
+    <a href="#how-i-recovered" aria-label="How I recovered">How I recovered</a>
+<ul>
+  <li>
+    <a href="#option-1-merge-main-into-b-no-force-push" aria-label="Option 1: merge main into B (no force push)">Option 1: merge main into B (no force push)</a>
+  </li>
+  <li>
+    <a href="#option-2-rebase-only-bs-own-commits-onto-main" aria-label="Option 2: rebase only B’s own commits onto main">Option 2: rebase only B’s own commits onto main</a>
+  </li>
+</ul>  </li>
+  <li>
+    <a href="#how-to-avoid-it" aria-label="How to avoid it">How to avoid it</a>
+  </li>
+  <li>
+    <a href="#the-trap-a-clean-merge-that-still-breaks" aria-label="The trap: a clean merge that still breaks">The trap: a clean merge that still breaks</a>
+  </li>
+  <li>
+    <a href="#lessons" aria-label="Lessons">Lessons</a>
+  </li>
+</ul></div>
+    </details>
+  </div>
+  <div class="post-content"><p>This week I had a few chains of stacked pull requests open on a side project. I squash-merged the first PR in one chain, opened the second, and GitHub said it had conflicts. In files that PR never changed.</p>
+<p>Then the same thing happened to the third PR, and the fourth. This post is what was going on, how I got out of it, and what I do differently now.</p>
+<h2 id="the-setup">The setup<a hidden class="anchor" aria-hidden="true" href="#the-setup">#</a></h2>
+<p>A stack is a chain of branches where each one starts from the one before it, so each PR stays small and reviewable:</p>
+<ul>
+<li><code>feature-a</code> branches from <code>main</code>. PR A targets <code>main</code>.</li>
+<li><code>feature-b</code> branches from <code>feature-a</code>. PR B targets <code>feature-a</code>.</li>
+<li><code>feature-c</code> branches from <code>feature-b</code>. PR C targets <code>feature-b</code>.</li>
+</ul>
+<p>B’s diff on GitHub shows only B’s changes, because its base is <code>feature-a</code>. That part works well.</p>
+<p>The repo was set to squash merges, which I like for normal PRs: one PR, one commit on <code>main</code>, a clean history.</p>
+<h2 id="what-went-wrong">What went wrong<a hidden class="anchor" aria-hidden="true" href="#what-went-wrong">#</a></h2>
+<p>Here’s a smaller version of what happened. A had two commits when I started B on top of it. Then A got a review fix, <code>a3</code>, which B never picked up. Then I squash-merged A.</p>
+
+
+<figure class="diagram"><img class="diagram-light" loading="lazy" src="/posts/stacked-prs-and-squash-merges/diagrams/_mermaid/53efed56e6a6bba6.light.svg" alt="feature-b still carries a1 and a2, while main has A as one new squash commit"><img class="diagram-dark" loading="lazy" src="/posts/stacked-prs-and-squash-merges/diagrams/_mermaid/53efed56e6a6bba6.dark.svg" alt="feature-b still carries a1 and a2, while main has A as one new squash commit"></figure>
+
+<p>After the squash, <code>main</code> has one new commit, <code>A</code>, with a new SHA. <code>feature-b</code> still has <code>a1</code> and <code>a2</code>, the original commits. Git doesn’t know that <code>A</code> contains the same work. To Git they’re unrelated commits that happen to touch the same files.</p>
+<p>You can see it straight away:</p>
+<pre tabindex="0"><code class="language-bash">git fetch origin
+git log --oneline origin/main..feature-b
+# 7c1e9d4 b2
+# 52b0f8a b1
+# 9a4d2e1 a2
+# 3f6b7c0 a1
+</code></pre>
+<p>B’s PR now targets <code>main</code> (GitHub retargets it when <code>feature-a</code> is deleted), and it shows four commits instead of two. <code>a1</code> and <code>a2</code> are back, and they no longer match what’s on <code>main</code>.</p>
+<h3 id="why-the-conflicts-land-in-files-b-never-touched">Why the conflicts land in files B never touched<a hidden class="anchor" aria-hidden="true" href="#why-the-conflicts-land-in-files-b-never-touched">#</a></h3>
+<p>When Git merges <code>main</code> into <code>feature-b</code>, it compares both sides against their merge base, which is <code>base</code>. Both sides changed A’s files:</p>
+<ul>
+<li><code>main</code> changed them to A’s final version, <code>a3</code> included.</li>
+<li><code>feature-b</code> changed them to A’s old version, without <code>a3</code>.</li>
+</ul>
+<p>Where <code>a3</code> touched the same lines as <code>a1</code> or <code>a2</code>, those are two different edits to the same lines, so Git stops and asks. If A had never changed after B branched, a merge would often go through cleanly. In a real stack, the bottom PR almost always changes during review.</p>
+<p><code>git rebase main</code> is worse. It replays <code>a1</code>, then <code>a2</code>, one at a time, on top of a <code>main</code> that already has the final version. Each replayed commit can conflict on its own, so you resolve A’s history again, commit by commit.</p>
+<p>And the chain makes it worse still. C carries <code>a1</code>, <code>a2</code>, <code>b1</code> and <code>b2</code>. Squash B, and C has two sets of stale commits.</p>
+<h2 id="how-i-recovered">How I recovered<a hidden class="anchor" aria-hidden="true" href="#how-i-recovered">#</a></h2>
+<p>Two ways, depending on whether you’re OK rewriting the branch.</p>
+<h3 id="option-1-merge-main-into-b-no-force-push">Option 1: merge main into B (no force push)<a hidden class="anchor" aria-hidden="true" href="#option-1-merge-main-into-b-no-force-push">#</a></h3>
+<p>This is the safer one. Nothing gets rewritten, and the PR keeps its review comments and commit history.</p>
+<pre tabindex="0"><code class="language-bash">git switch feature-b
+git fetch origin
+git merge origin/main
+</code></pre>
+<p>For each conflict in a file only A touched, take <code>main</code>’s side. That’s A’s final, reviewed version:</p>
+<pre tabindex="0"><code class="language-bash">git checkout --theirs path/to/file_from_a.py
+git add path/to/file_from_a.py
+</code></pre>
+<p>For files B actually changed, resolve by hand as usual. Then run the tests and push:</p>
+<pre tabindex="0"><code class="language-bash">git commit
+git push
+</code></pre>
+<p>After that, B’s PR diff on GitHub shows only B’s changes again. When B is squash-merged, the extra merge commit disappears into the squash anyway.</p>
+<h3 id="option-2-rebase-only-bs-own-commits-onto-main">Option 2: rebase only B’s own commits onto main<a hidden class="anchor" aria-hidden="true" href="#option-2-rebase-only-bs-own-commits-onto-main">#</a></h3>
+<p>If it’s your own branch and you’re fine with a force push, <code>git rebase --onto</code> drops A’s old commits and keeps only B’s:</p>
+<pre tabindex="0"><code class="language-bash">git switch feature-b
+git fetch origin
+# the last commit of A that B contains, here a2
+git log --oneline origin/main..feature-b
+git rebase --onto origin/main 9a4d2e1 feature-b
+git push --force-with-lease
+</code></pre>
+<p>This reads as: take the commits after <code>9a4d2e1</code> up to <code>feature-b</code>, and replay them on <code>origin/main</code>. Only <code>b1</code> and <code>b2</code> move. The SHA you pass has to be the old tip of A as B saw it (<code>a2</code>), not A’s final tip (<code>a3</code>). If you’re not sure, it’s the last A commit in B’s commit list on the PR.</p>
+<p>Use <code>--force-with-lease</code>, not <code>--force</code>, so you don’t overwrite something someone else pushed.</p>
+<p>Then do the same for C, with B’s old tip as the cut point.</p>
+<h2 id="how-to-avoid-it">How to avoid it<a hidden class="anchor" aria-hidden="true" href="#how-to-avoid-it">#</a></h2>
+<p>Any one of these works:</p>
+<ul>
+<li><strong>Use “Create a merge commit” for stacked PRs.</strong> The merge keeps A’s original commits on <code>main</code>, so the A commits inside B are already there and B merges cleanly. You can keep squash as the default for everything else; the merge button lets you pick per PR.</li>
+<li><strong>Rebase and retarget each child right after each squash.</strong> Squash A, then immediately <code>rebase --onto</code> B onto <code>main</code>, retarget B’s PR to <code>main</code>, push. Then move on to C. It works, but it’s a manual step every time, and it’s easy to skip.</li>
+<li><strong>Use a tool built for stacks.</strong> Graphite, ghstack and spr all track the stack for you and do the restacking after a merge. They each assume a slightly different workflow, so pick the one that fits how your team merges.</li>
+</ul>
+<p>What I’ve stopped doing is squash-merging the bottom of a stack and then opening the rest one by one.</p>
+<h2 id="the-trap-a-clean-merge-that-still-breaks">The trap: a clean merge that still breaks<a hidden class="anchor" aria-hidden="true" href="#the-trap-a-clean-merge-that-still-breaks">#</a></h2>
+<p>This one surprised me more than the conflicts.</p>
+<p>One PR in a stack was a lint cleanup. Among other things, the linter removed an <code>import json</code> that was unused at that point. Another PR higher up added new code in the same file that called <code>json.loads</code>.</p>
+<p>Git merged the two without a single conflict. The import removal was at the top of the file and the new code was further down, so the hunks didn’t overlap. The result:</p>
+<pre tabindex="0"><code class="language-python"># the import json line is gone, removed by the lint PR
+
+def parse_output(raw: str) -&gt; dict:
+    return json.loads(raw)  # added by the stacked PR
+</code></pre>
+<pre tabindex="0"><code class="language-text">NameError: name 'json' is not defined
+</code></pre>
+<p>Each change was fine on its own branch. The combination wasn’t. The linter caught it as an undefined name, and the tests caught the <code>NameError</code>, but only because they ran on the merged result.</p>
+<p>A clean merge only means the text didn’t overlap. It says nothing about whether the code still works. Run lint and tests on the merged branch, not just on each PR before the merge.</p>
+<h2 id="lessons">Lessons<a hidden class="anchor" aria-hidden="true" href="#lessons">#</a></h2>
+<ul>
+<li>A squash merge makes a new commit. Any branch built on the old commits will disagree with it.</li>
+<li>For a stack, use merge commits, or restack every child right after each squash.</li>
+<li>When a PR suddenly conflicts in files it never touched, check <code>git log origin/main..&lt;branch&gt;</code> first. Stale parent commits are the usual cause.</li>
+<li><code>git merge origin/main</code> is the safe fix. <code>git rebase --onto</code> is the clean one, if you’re allowed to force-push.</li>
+<li>After any merge, run lint and tests on the result. A conflict-free merge can still break the build.</li>
+</ul>
+<p>Stacks are worth it for keeping PRs small. They just need the merge strategy to match.</p>
+<p>Thank you for the read.</p>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/git/">Git</a></li>
+      <li><a href="/tags/github/">Github</a></li>
+      <li><a href="/tags/devops/">Devops</a></li>
+    </ul>
+  </footer>
+</article>
+</main>
+<footer class="footer">
+  <span>&copy; 2026 <a href="/">Alen Abraham</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+  <svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>
+  var menu = document.getElementById("menu");
+  if (menu) {
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () { localStorage.setItem("menu-scroll-position", menu.scrollLeft); };
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = this.getAttribute("href").substr(1);
+      var el = document.querySelector("[id='" + decodeURIComponent(id) + "']");
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView(reduce ? undefined : { behavior: "smooth" });
+      if (id === "top") history.replaceState(null, null, " ");
+      else history.pushState(null, null, "#" + id);
+    });
+  });
+  var topLink = document.getElementById("top-link");
+  if (topLink) window.onscroll = function () {
+    var on = document.body.scrollTop > 800 || document.documentElement.scrollTop > 800;
+    topLink.style.visibility = on ? "visible" : "hidden";
+    topLink.style.opacity = on ? "1" : "0";
+  };
+  var themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) themeToggle.addEventListener("click", function () {
+    var dark = document.body.classList.toggle("dark");
+    try { localStorage.setItem("pref-theme", dark ? "dark" : "light"); } catch (e) {}
+  });
+</script>
+</body>
+</html>

@@ -5,8 +5,15 @@
     <link>https://alenabraham.me/posts/</link>
     <description>Recent content in Posts on Alen Abraham</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 09:00:00 +0530</lastBuildDate>
     <atom:link href="https://alenabraham.me/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stacked pull requests and squash merges don&#39;t mix</title>
+      <link>https://alenabraham.me/posts/stacked-prs-and-squash-merges/</link>
+      <pubDate>Fri, 23 Oct 2026 09:00:00 +0530</pubDate>
+      <guid>https://alenabraham.me/posts/stacked-prs-and-squash-merges/</guid>
+      <description>Why squash-merging the first PR in a stack makes the next one conflict in files it never touched, how to recover, and how I avoid it now.</description>
+    </item>
     <item>
       <title>Using Mermaid Diagrams in Technical Documentation</title>
       <link>https://alenabraham.me/posts/introduction-to-mermaid/</link>
